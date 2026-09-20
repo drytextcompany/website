@@ -12,6 +12,15 @@
 <meta property="og:description" content="Don't go by the name, cuz we cheesy. A content-writing agency in Ahmedabad.">
 <meta property="og:image" content="https://thedrytextco.in/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GH7FLZX4QP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GH7FLZX4QP');
+</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FBFBF9'/%3E%3Cpath d='M8 23 16 9 24 23' fill='none' stroke='%23D2232A' stroke-width='4.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -818,6 +827,8 @@ html.cur :is(input,textarea){cursor:text!important}
     if (prev && !reduce) enter(next);
     const heading = next.querySelector('h1');
     if (!first && !target && heading) heading.focus({ preventScroll: true });
+    // Google only counts the first load on its own, so each page change is reported too
+    if (!first && window.gtag) gtag('event', 'page_view', { page_title: document.title, page_location: location.href });
     first = false;
   }
   function route() {
