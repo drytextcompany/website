@@ -1,0 +1,1545 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Dry Text Co. | Content, marketing, advertising, branding and websites from Ahmedabad</title>
+<meta name="description" content="A content, marketing, advertising, branding and website agency from Ahmedabad, for brands anywhere that would rather be read than skimmed.">
+<meta name="theme-color" content="#FBFBF9">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thedrytextco.in/">
+<meta property="og:title" content="The Dry Text Co.">
+<meta property="og:description" content="Don't go by the name, cuz we cheesy. Content, marketing, advertising, branding and websites from Ahmedabad.">
+<meta property="og:image" content="https://thedrytextco.in/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GH7FLZX4QP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GH7FLZX4QP');
+</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FBFBF9'/%3E%3Cpath d='M8 23 16 9 24 23' fill='none' stroke='%23D2232A' stroke-width='4.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Kalam:wght@400;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+Gujarati:wght@400;500&display=swap">
+<script>
+(function (d) {
+  var r = d.documentElement, mm = window.matchMedia, still = mm && mm('(prefers-reduced-motion: reduce)').matches, seen = false;
+  try { if (localStorage.getItem('dryMode') === '1') r.classList.add('is-dry'); } catch (e) {}
+  try { seen = sessionStorage.getItem('introSeen') === '1'; } catch (e) {}
+  if (/[?&]nointro\b/.test(location.search)) seen = true;
+  if (!still) {
+    r.classList.add('ink', 'hero-wait');
+    if (!seen && !r.classList.contains('is-dry')) r.classList.add('intro');
+    setTimeout(function () { if (!window.__inkReady) r.classList.remove('ink', 'hero-wait', 'intro'); }, 4000);
+  }
+  if (mm && mm('(hover: hover) and (pointer: fine)').matches) r.classList.add('cur');
+})(document);
+</script>
+<style>
+:root{
+  --paper:#FBFBF9;--ink:#16161A;--ink-2:#3A3A40;--red:#D2232A;--blue:#2F5BD3;--margin:#F2B8B8;--grey:#77767A;--hi:#FFE27A;--rule:#E6E4DE;--sheet:#FFFFFF;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --pen:"Kalam","Segoe Print","Bradley Hand",cursive;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --maxw:1240px;--pad:clamp(20px,5vw,64px);--mw:clamp(200px,22vw,280px);--gap:clamp(32px,4.5vw,64px);
+  --p-ceo:url(images/ceo.jpg);--p-kiwi:url(images/kiwi.jpg);--p-mihir:url(images/mihir.jpg);--p-aagam:url(images/aagam.jpg);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3{text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+::selection{background:var(--hi);color:var(--ink)}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+[tabindex="-1"]:focus{outline:none}
+[id]{scroll-margin-top:96px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--ink);color:var(--paper);padding:10px 14px;font-family:var(--mono);font-size:13px;text-decoration:none}
+.skip:focus{top:12px}
+html:not(.is-dry) .only-dry,html.is-dry .only-wet{display:none!important}
+.page[hidden]{display:none}
+
+/* opening animation: the name goes through two drafts, then files itself into the top bar */
+#intro{position:fixed;inset:0;z-index:100;background:var(--paper);display:grid;place-items:center}
+html:not(.intro) #intro{display:none}
+html.intro{overflow:hidden}
+html.intro .brand,html.intro main,html.intro .foot{opacity:0}
+.intro-name{position:relative;font-weight:500;font-size:clamp(30px,8.4vw,120px);letter-spacing:-.015em;line-height:1;white-space:nowrap;transform-origin:0 0;font-optical-sizing:none}
+.intro-lbl{position:absolute;left:0;bottom:calc(100% + .35em);font-family:var(--mono);font-size:max(12px,.13em);letter-spacing:.08em;color:var(--grey)}
+.intro-st{position:absolute;left:-3%;right:-3%;top:55%;height:max(3px,.055em);background:var(--red);border-radius:99px;transform-origin:left center;rotate:-3deg;scale:0 1}
+.intro-skip{position:absolute;right:max(16px,3vw);bottom:max(16px,3vw);font-family:var(--mono);font-size:12px;color:var(--grey);background:none;border:1px solid var(--rule);border-radius:99px;padding:8px 14px;cursor:pointer}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:40;background:rgba(251,251,249,.93);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.top-in{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad);height:72px;display:flex;align-items:center;gap:28px}
+.brand{font-size:22px;font-weight:500;letter-spacing:-.015em;line-height:1;text-decoration:none;white-space:nowrap;font-optical-sizing:none}
+.nav-wrap{display:flex;align-items:center;gap:30px;margin-left:auto}
+.nav{display:flex;gap:26px;font-family:var(--mono);font-size:13px;letter-spacing:.03em}
+.nav a{text-decoration:none;padding-block:6px}
+.nav a:hover,.nav a[aria-current="page"]{text-decoration:underline wavy var(--red) 1.5px;text-underline-offset:7px}
+.hire-link{position:relative;font-family:var(--pen);font-weight:700;font-size:20px;color:var(--red);text-decoration:none;padding:3px 14px;white-space:nowrap}
+.hire-link svg{position:absolute;left:-8px;top:-7px;width:calc(100% + 16px);height:calc(100% + 14px);overflow:visible;pointer-events:none}
+.hire-link path{fill:none;stroke:var(--red);stroke-width:2.2;stroke-linecap:round;vector-effect:non-scaling-stroke;transform-origin:center;transition:transform .3s}
+.hire-link:hover path{transform:rotate(-2deg) scale(1.03)}
+.dry-toggle{display:inline-flex;align-items:center;gap:9px;background:none;border:0;padding:6px 0;font-family:var(--mono);font-size:12px;color:var(--grey);cursor:pointer}
+.dry-toggle .sw{position:relative;width:36px;height:20px;border-radius:99px;background:#D9D7D0;transition:background .2s}
+.dry-toggle .sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .2s}
+.dry-toggle[aria-pressed="true"]{color:var(--ink)}
+.dry-toggle[aria-pressed="true"] .sw{background:var(--ink)}
+.dry-toggle[aria-pressed="true"] .sw::after{transform:translateX(16px)}
+.menu-btn{display:none;background:none;border:1px solid var(--ink);border-radius:99px;padding:7px 14px;font-family:var(--mono);font-size:12px;color:var(--ink);cursor:pointer}
+@media (max-width:860px){
+  .top-in{gap:16px;height:64px}
+  .brand{font-size:20px}
+  .dry-toggle{margin-left:auto}
+  .menu-btn{display:inline-flex}
+  .nav-wrap{position:absolute;left:0;right:0;top:100%;display:none;flex-direction:column;align-items:flex-start;gap:18px;margin:0;padding:18px var(--pad) 26px;background:var(--paper);border-bottom:1px solid var(--rule)}
+  .top.open .nav-wrap{display:flex}
+  .nav{flex-direction:column;gap:14px;font-size:15px}
+  .hire-link{margin-left:10px}
+}
+@media (max-width:420px){.dry-toggle .lbl-x{display:none}}
+
+/* the notebook */
+.book{position:relative;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+.book::before{content:"";position:absolute;top:0;bottom:0;right:calc(var(--pad) + var(--mw) + var(--gap) / 2);width:2px;background:var(--margin);pointer-events:none}
+.row{display:grid;grid-template-columns:minmax(0,1fr) var(--mw);column-gap:var(--gap);align-items:start}
+.row>.note,.note-stack{grid-column:2}
+.wide{grid-column:1/-1;position:relative;z-index:1;background:var(--paper)}
+.sec{padding-block:clamp(56px,7vw,96px);border-top:1px solid var(--rule)}
+.sec-head{margin-bottom:26px}
+.page-head{padding-block:clamp(56px,8vw,110px) clamp(40px,5vw,64px)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin-bottom:12px}
+.h1{font-size:clamp(46px,7vw,92px);font-weight:500;letter-spacing:-.03em;line-height:1;margin:0}
+.h2{font-size:clamp(32px,4.2vw,52px);font-weight:500;letter-spacing:-.02em;line-height:1.05;margin:0}
+[data-reveal]{position:relative;width:fit-content;max-width:100%}
+.pst{position:absolute;left:-2%;right:-2%;top:52%;height:max(3px,.06em);background:var(--red);border-radius:9px;transform-origin:left center;rotate:-2deg;pointer-events:none}
+.lede{font-size:clamp(22px,2.4vw,28px);line-height:1.35;max-width:34ch;margin-top:26px}
+.body{font-size:clamp(20px,2vw,23px);line-height:1.55;max-width:60ch}
+.small{font-size:15px;color:var(--grey);margin-top:16px}
+.note{font-family:var(--pen);font-weight:700;color:var(--red);font-size:21px;line-height:1.25;padding-top:.3em;transform:rotate(-1.5deg);transform-origin:left top}
+.note.pencil{color:var(--grey);font-weight:400}
+html.ink .note{opacity:0;translate:0 6px;transition:opacity .55s ease,translate .55s ease}
+html.ink .note.inked{opacity:1;translate:0 0}
+html.is-dry .note{display:none}
+
+/* buttons and links */
+.ctas{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;margin-top:32px}
+.btn{display:inline-flex;align-items:center;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:14px;letter-spacing:.02em;line-height:1;padding:17px 22px;border:0;border-radius:4px;text-decoration:none;cursor:pointer;transition:background .2s,transform .2s}
+.btn:hover{background:#2E2E35;transform:translateY(-1px)}
+.pen-link{font-family:var(--pen);font-weight:700;font-size:23px;color:var(--red);text-decoration:underline wavy var(--red) 1.5px;text-underline-offset:7px;background:none;border:0;padding:0;cursor:pointer}
+.pen-link:hover{text-decoration-thickness:2.5px}
+
+/* hero and the pen edits */
+.hero{padding-block:clamp(48px,8vw,110px) clamp(56px,8vw,96px)}
+.hero-txt{container-type:inline-size;position:relative}
+.hero .lede{margin-top:0}
+.hero-r2{margin-top:26px}
+.hero-r3{margin-top:30px}
+.hero-r3 .ctas{margin-top:0}
+.note-stack{display:grid;gap:12px;align-content:start}
+.name{font-size:clamp(34px,12.6cqi,104px);font-weight:500;letter-spacing:-.03em;line-height:1;margin:0;padding-top:.62em;white-space:nowrap}
+.edit{position:relative;display:inline-block}
+.strike{position:relative;color:var(--grey)}
+.strike::after{content:"";position:absolute;left:-5%;right:-5%;top:55%;height:max(3px,.06em);background:var(--red);border-radius:99px;transform:rotate(-4deg);transform-origin:left center}
+.ins{position:absolute;left:50%;bottom:78%;transform:translateX(-46%) rotate(-5deg);font-family:var(--pen);font-weight:700;color:var(--red);font-size:.56em;letter-spacing:0;line-height:1;white-space:nowrap}
+.co{position:relative;display:inline-block}
+.co svg{position:absolute;left:-14%;top:-10%;width:128%;height:122%;overflow:visible;pointer-events:none}
+.co path{fill:none;stroke:var(--red);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
+.hero .strike{transition:color .45s ease .2s}
+html.hero-wait .hero .strike{color:var(--ink)}
+html.hero-wait .hero .strike::after{transform:rotate(-4deg) scaleX(0)}
+html.hero-wait .hero .ins{opacity:0}
+html.hero-wait .co path{stroke-dashoffset:1}
+html.hero-go .hero .strike::after{animation:heroStrike .52s cubic-bezier(.65,0,.35,1) both}
+html.hero-go .hero .ins{animation:heroWrite .9s .6s cubic-bezier(.2,.7,.2,1) both}
+html.hero-go .co path{animation:coDraw .7s 1.55s cubic-bezier(.65,0,.35,1) both}
+@keyframes heroStrike{from{transform:rotate(-4deg) scaleX(0)}to{transform:rotate(-4deg) scaleX(1)}}
+@keyframes heroWrite{from{clip-path:inset(-40% 100% -40% 0);opacity:.4;translate:0 6%}to{clip-path:inset(-40% 0 -40% 0);opacity:1;translate:0 0}}
+@keyframes coDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.dry-line{position:absolute;top:.35em;left:0;margin:0;font-family:var(--mono);font-size:13px;color:var(--grey)}
+.edit.inline{display:inline}
+.edit.inline .ins{position:static;transform:none;display:inline;font-size:1.08em;margin-left:.2em}
+.edit.inline .strike::after{left:-2%;right:-2%;transform:rotate(-2deg)}
+.todo{list-style:none;margin:0;padding:.3em 0 0;font-size:19px}
+.todo li{position:relative;padding-left:1.6em;line-height:1.55}
+.todo li::before{content:"";position:absolute;left:0;top:.3em;width:.95em;height:.95em;border:2px solid var(--red);border-radius:3px}
+.todo li.done::after{content:"";position:absolute;left:.22em;top:.1em;width:.45em;height:.85em;border:solid var(--red);border-width:0 3px 3px 0;transform:rotate(40deg)}
+.todo li.done{text-decoration:line-through;text-decoration-color:rgba(210,35,42,.55);text-decoration-thickness:2px}
+.todo a{color:inherit;text-decoration:underline wavy var(--red) 1.5px;text-underline-offset:5px}
+html.is-dry .strike::after,html.is-dry .co svg{display:none}
+html.is-dry .edit:not([data-keep="new"]) .strike{color:inherit}
+html.is-dry .edit:not([data-keep="new"]) .ins{display:none}
+html.is-dry .edit[data-keep="new"] .strike{display:none}
+html.is-dry .edit[data-keep="new"] .ins{font-family:inherit;font-weight:inherit;font-size:inherit;color:inherit;margin:0}
+
+/* who we are, numbers, contents */
+.who-p{font-size:clamp(24px,2.9vw,36px);line-height:1.3;letter-spacing:-.01em;max-width:30ch}
+/* who we are: the five things we do, with the red pen circling one at a time */
+.does{position:relative;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;margin:0 -10px;padding-top:22px;font-size:clamp(26px,3.6vw,42px);letter-spacing:-.02em;line-height:1.3}
+/* each word has room for its circle, so the row sits 10px wider; the rule stays on the column */
+.does::before{content:"";position:absolute;top:0;left:10px;right:10px;border-top:1px solid var(--ink)}
+.does .w{position:relative;padding:0 10px}
+.does .dot{color:var(--grey)}
+.pen-ring{position:absolute;overflow:visible;pointer-events:none}
+.pen-ring path{fill:none;stroke:var(--red);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+html.is-dry .pen-ring{display:none}
+.does-foot{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 22px;margin-top:10px}
+.does-foot .note{font-size:19px}
+.does-link{font-family:var(--mono);font-size:12px;letter-spacing:.02em;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+.does-link:hover{color:var(--red)}
+.toc{list-style:none;margin:0;padding:0}
+.toc a{display:flex;align-items:baseline;gap:14px;padding:18px 0;border-top:1px solid var(--rule);text-decoration:none}
+.toc li:last-child a{border-bottom:1px solid var(--rule)}
+.toc-t b{display:block;font-weight:500;font-size:clamp(24px,2.8vw,32px);line-height:1.15}
+.toc-t span{display:block;font-size:16px;color:var(--ink-2);margin-top:2px}
+.toc-dots{flex:1;min-width:24px;border-bottom:2px dotted #C9C7C0;transform:translateY(-6px)}
+.toc-p{flex:none;font-family:var(--mono);font-size:13px;color:var(--grey);padding:5px 9px;border:1.5px solid transparent;border-radius:50%;transition:border-color .25s,color .25s}
+.toc a:hover .toc-p{border-color:var(--red);color:var(--red)}
+.toc a:hover b{text-decoration:underline wavy var(--red) 1.5px;text-underline-offset:6px}
+
+/* practice rewrites */
+.rw{padding-block:24px;border-top:1px solid var(--rule)}
+.rw-label{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-bottom:10px}
+.rw-before{width:fit-content;max-width:100%;max-height:5em;overflow:hidden;font-size:clamp(21px,2.4vw,28px);line-height:1.3;color:var(--grey);text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px;transition:opacity .45s,filter .45s,max-height .5s .2s,margin .5s .2s}
+.rw-before.gone{opacity:0!important;max-height:0;margin:0;pointer-events:none}
+.rw-after{font-size:clamp(28px,3.6vw,44px);font-weight:500;letter-spacing:-.015em;line-height:1.1;margin-top:10px}
+.rw.done .rw-after::after{content:" \2713";font-family:var(--pen);color:var(--red);font-size:.8em}
+.rw-time{font-family:var(--mono);font-size:12.5px;color:var(--grey);margin-top:12px}
+.rw-hint{font-family:var(--mono);font-size:12.5px;color:var(--grey);margin-top:18px}
+.h-touch{display:none}
+@media (hover:none){.h-mouse{display:none}.h-touch{display:inline}}
+
+/* services */
+.svc{padding-block:20px;border-top:1px solid var(--rule)}
+.svc h3{font-size:clamp(24px,2.6vw,31px);font-weight:500;letter-spacing:-.01em;margin:0}
+.svc h3+p{color:var(--ink-2);margin-top:4px}
+.svc .note{padding-top:.5em}
+.also{font-size:clamp(22px,2.4vw,28px);margin-top:30px}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{display:grid;grid-template-columns:52px minmax(0,1fr);column-gap:18px;padding-block:18px;border-top:1px solid var(--rule)}
+.steps li::before{counter-increment:s;content:counter(s);grid-row:span 2;width:40px;height:40px;border:2px solid var(--red);border-radius:50%;display:grid;place-items:center;font-family:var(--pen);font-weight:700;font-size:21px;color:var(--red);line-height:1}
+.steps b{font-weight:500;font-size:clamp(22px,2.4vw,27px);line-height:1.2}
+.steps span{color:var(--ink-2)}
+.fp-row{padding-block:14px;border-top:1px solid var(--rule)}
+.big{display:flex;gap:14px;align-items:flex-start;font-size:clamp(22px,2.6vw,30px);line-height:1.25}
+.tick{flex:none;width:.9em;height:.9em;margin-top:.14em}
+.tick path{fill:none;stroke:var(--red);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+html.ink .tick path{stroke-dashoffset:1;transition:stroke-dashoffset .6s ease .15s}
+html.ink .tick.inked path{stroke-dashoffset:0}
+
+/* meet the team: ID cards on lanyards */
+.badges{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:44px 26px;padding-top:4px;border-top:3px solid var(--ink)}
+.hang{position:relative;display:flex;flex-direction:column;align-items:center;transform-origin:50% 0;padding-top:var(--strap)}
+.hang::before{content:"";position:absolute;top:0;left:50%;width:12px;margin-left:-6px;height:calc(var(--strap) + 8px);background:var(--red)}
+.hang::after{content:"";position:absolute;top:calc(var(--strap) - 8px);left:50%;width:24px;margin-left:-12px;height:12px;border-radius:3px;background:#B9B7B0}
+.hang:hover{animation:swing 1.1s ease-in-out}
+@keyframes swing{0%{rotate:0deg}25%{rotate:3.5deg}55%{rotate:-2.5deg}80%{rotate:1deg}100%{rotate:0deg}}
+.badge{position:relative;width:100%;max-width:230px;background:var(--sheet);border:1px solid var(--rule);border-radius:12px;overflow:hidden;box-shadow:0 12px 26px rgba(22,22,26,.09)}
+.band{position:relative;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:10px;letter-spacing:.12em;padding:20px 10px 8px;text-align:center}
+.band::before{content:"";position:absolute;top:7px;left:50%;width:34px;margin-left:-17px;height:6px;border-radius:9px;background:var(--paper)}
+.ph{aspect-ratio:4/5;width:100%;background:#CFCDC6 var(--img) center/cover no-repeat;filter:grayscale(1) contrast(1.06);border:1px solid var(--ink)}
+.badge .ph{aspect-ratio:1/1;background-position:50% 30%;border:0}
+.b-body{padding:12px 14px 14px}
+.role{display:block;font-weight:500;font-size:18px;line-height:1.2}
+.who{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--grey);margin-top:2px}
+.was{display:block;font-size:13px;line-height:1.55;color:var(--grey);margin-top:5px}
+.was .strike{white-space:nowrap;margin-right:.35em}
+.was .strike::after{left:-2%;right:-2%;top:52%;height:2px;transform:rotate(-1.5deg)}
+.was b{font-weight:500;color:var(--ink);white-space:nowrap}
+/* the real job, kept apart from the jokes so clients can find it */
+.dept{display:inline-block;margin-top:9px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink);border-radius:4px;padding:3px 7px}
+.idl{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);margin-top:8px}
+.code{height:22px;margin-top:10px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px,var(--ink) 8px 11px,transparent 11px 13px)}
+.hang .note{max-width:230px;text-align:center;font-size:17px;padding-top:10px;transform-origin:center top}
+.reports{font-family:var(--mono);font-size:13px;color:var(--grey);margin-top:36px;text-align:center}
+/* the founder gets the first line to himself */
+.boss{grid-column:1/-1;position:relative;display:flex;justify-content:center}
+.boss .hang{width:230px}
+.boss .side{position:absolute;left:calc(50% + 140px);top:336px;max-width:min(220px,calc(50% - 150px));font-size:17px;line-height:1.3;transform-origin:left top}
+.solo{max-width:280px;margin:0}
+.solo figcaption{padding-top:10px}
+.crew{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 22px}
+.crew .solo{max-width:none}
+.crew .solo:first-child{grid-column:1/-1;width:calc((100% - 44px)/3)}
+@media (max-width:760px){
+  .badges{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 16px}
+  .boss{flex-direction:column;align-items:center}
+  .boss .hang{width:min(230px,100%)}
+  .boss .side{position:static;max-width:230px;text-align:center;padding-top:16px}
+  .badges>.hang:last-child{grid-column:1/-1}
+  .badges>.hang:last-child>.badge,.badges>.hang:last-child>.note{max-width:calc(50% - 8px)}
+  .crew{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px}
+  .crew .solo:first-child{width:calc(50% - 8px)}
+}
+
+/* client notes, drafts */
+.quote{margin:0}
+.quote p{font-size:clamp(32px,4.4vw,54px);line-height:1.1;letter-spacing:-.02em}
+.quote .u{text-decoration:underline var(--red) 3px;text-underline-offset:.12em;text-decoration-skip-ink:none}
+html.is-dry .quote .u{text-decoration:none}
+.quote footer{font-family:var(--mono);font-size:13px;color:var(--grey);margin-top:14px}
+.drafts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:720px}
+.draft{position:relative;aspect-ratio:3/4;background:var(--sheet);border:1px solid var(--rule);box-shadow:0 14px 30px rgba(22,22,26,.07)}
+.draft:nth-child(odd){rotate:-1.2deg}
+.draft:nth-child(even){rotate:1.4deg}
+.draft::before{content:"";position:absolute;inset:16% 13% 22%;background:repeating-linear-gradient(to bottom,#E4E2DB 0 6px,transparent 6px 20px);-webkit-mask-image:linear-gradient(90deg,#000 55%,rgba(0,0,0,.35));mask-image:linear-gradient(90deg,#000 55%,rgba(0,0,0,.35))}
+.stamp{position:absolute;left:50%;top:48%;translate:-50% -50%;rotate:-14deg;border:3px solid var(--red);color:var(--red);font-family:var(--mono);font-weight:500;font-size:clamp(14px,1.6vw,19px);letter-spacing:.24em;padding:5px 10px 5px 14px;background:rgba(251,251,249,.85)}
+@media (max-width:560px){.drafts{grid-template-columns:repeat(2,minmax(0,1fr))}.draft:nth-child(3){display:none}}
+
+/* fill-in-the-blanks form */
+.fill{font-size:clamp(26px,3.4vw,40px);line-height:1.75;letter-spacing:-.01em;max-width:30ch}
+.fill input{font-family:var(--pen);font-weight:700;font-size:.92em;color:var(--red);background:transparent;border:0;border-bottom:2px solid var(--ink);border-radius:0;padding:0 6px;margin:0 4px;width:8ch;min-width:4ch;max-width:100%;line-height:1.2}
+.fill input::placeholder{color:#B5B3AC;opacity:1}
+.fill input:focus{outline:none;border-bottom-color:var(--red);background:rgba(255,226,122,.45)}
+.fill input[aria-invalid="true"]{border-bottom-color:var(--red);background:rgba(210,35,42,.06)}
+.err{font-family:var(--mono);font-size:13px;color:var(--red);margin-top:12px;min-height:1.2em}
+@media (max-width:640px){.fill{line-height:1.5}.fill input{display:block;width:100%!important;margin:6px 0 14px;padding:4px 2px}}
+
+/* about, contact, 404 */
+.beliefs,.facts{list-style:none;margin:0;padding:0}
+.beliefs li,.facts li{font-size:clamp(22px,2.5vw,29px);line-height:1.3;padding-block:14px;border-top:1px solid var(--rule)}
+.redact{display:inline-block;width:5.2em;height:.82em;background:var(--ink);vertical-align:-.06em;margin-left:.15em}
+.alt{display:flex;flex-wrap:wrap;gap:10px 26px;font-family:var(--mono);font-size:14px;margin-top:8px}
+.bad-url{font-family:var(--mono);font-size:15px;color:var(--grey);margin-bottom:22px;overflow-wrap:anywhere}
+.bad-url span{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
+
+/* footer and toast */
+.foot{border-top:1px solid var(--rule)}
+.foot-in{max-width:var(--maxw);margin-inline:auto;padding:52px var(--pad) 60px;display:grid;gap:14px}
+.foot-tag{font-size:clamp(24px,2.8vw,32px);font-style:italic;letter-spacing:-.01em}
+.foot-joke{font-family:var(--mono);font-size:13px;color:var(--grey)}
+.foot-links{display:flex;flex-wrap:wrap;gap:10px 24px;font-family:var(--mono);font-size:13px;margin-top:10px}
+.foot-links a,.alt a{text-decoration:none}
+.foot-links a:hover,.alt a:hover{text-decoration:underline wavy var(--red) 1.5px;text-underline-offset:6px}
+.copy{font-family:var(--mono);font-size:12px;color:var(--grey);margin-top:6px}
+.toast{position:fixed;left:50%;bottom:24px;z-index:60;width:max-content;max-width:calc(100vw - 32px);translate:-50% 16px;opacity:0;pointer-events:none;font-family:var(--mono);font-size:13px;line-height:1.4;text-align:center;background:var(--ink);color:var(--paper);padding:12px 18px;border-radius:22px;transition:opacity .3s,translate .3s}
+.toast.show{opacity:1;translate:-50% 0}
+
+/* cursors: pencil, eraser, pen (computers only, off in Dry mode) */
+html.cur:not(.is-dry),html.cur:not(.is-dry) body{cursor:var(--c-pencil),auto}
+html.cur:not(.is-dry) :is(a,button,[role="button"],label){cursor:var(--c-pencil),pointer}
+html.cur:not(.is-dry) .rw-before{cursor:var(--c-eraser),pointer}
+html.cur:not(.is-dry) :is(.hire-link,a[href="#contact"],.pen-zone,.pen-zone *){cursor:var(--c-pen),pointer}
+html.cur :is(input,textarea){cursor:text!important}
+
+/* the tagline machine */
+.machine{max-width:640px;border:1.5px solid var(--ink);border-radius:12px;background:var(--sheet);padding:clamp(18px,3vw,28px);box-shadow:6px 6px 0 var(--ink)}
+.reels{display:grid;gap:10px}
+.reel{display:flex;align-items:center;min-height:2.3em;overflow:hidden;border:1px solid var(--rule);border-radius:6px;background:var(--paper);padding:10px 16px;font-size:clamp(22px,2.8vw,32px);font-weight:500;letter-spacing:-.01em;line-height:1.15;transition:filter .15s,color .15s}
+.reel.spinning{filter:blur(1.2px);color:var(--grey)}
+.machine .ctas{margin-top:22px}
+
+/* work: the outbox of cold mails */
+.ob-count{font-family:var(--mono);font-size:12px;color:var(--grey);margin-top:12px}
+.outbox{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--sheet)}
+.ob-list{position:relative;border-right:1px solid var(--rule);max-height:640px;overflow:auto;overscroll-behavior:contain}
+.ob-item{position:relative;display:block;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--sheet);border:0;border-bottom:1px solid var(--rule);padding:13px 16px 13px 20px;cursor:pointer;transition:background .2s}
+.ob-item::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);transform:scaleY(0);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.ob-item:hover{background:#F6F4EE}
+.ob-item[aria-current="true"]{background:#F2F0EA}
+.ob-item[aria-current="true"]::before{transform:scaleY(1)}
+.ob-no{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
+.ob-sub{display:block;font-weight:500;font-size:16.5px;line-height:1.3;margin-top:3px}
+.ob-read{padding:clamp(20px,3vw,34px);max-height:640px;overflow:auto;overscroll-behavior:contain}
+.ob-to{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--grey)}
+.ob-read h3{font-size:clamp(22px,2.6vw,30px);font-weight:500;letter-spacing:-.01em;line-height:1.15;margin:10px 0 18px}
+.ob-body{white-space:pre-line;font-size:17.5px;line-height:1.65;max-width:58ch}
+.ob-nav{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:26px;padding-top:16px;border-top:1px solid var(--rule)}
+.ob-nav span{font-family:var(--mono);font-size:12px;color:var(--grey);margin-right:auto}
+.ghost{font-family:var(--mono);font-size:13px;line-height:1;background:none;color:var(--ink);border:1px solid var(--ink);border-radius:4px;padding:15px 18px;cursor:pointer}
+.guj{font-family:"Noto Serif Gujarati","Shruti",var(--serif);line-height:1.6}
+/* work: the chapters of the page */
+.chap-toc{display:flex;flex-wrap:wrap;gap:9px 10px;margin-top:6px}
+.chap-toc a{display:inline-flex;align-items:baseline;gap:9px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--ink);border:1px solid var(--rule);border-radius:99px;padding:9px 15px;transition:border-color .2s ease}
+.chap-toc a:hover{border-color:var(--ink)}
+.chap-toc a span{font-size:10.5px;color:var(--grey)}
+.ob-alt{margin-top:22px;padding-top:14px;border-top:1px dashed var(--rule)}
+.ob-alt p{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--grey)}
+.ob-alt ul{margin:8px 0 0;padding-left:18px;display:grid;gap:5px}
+.ob-alt li{font-size:16.5px;line-height:1.35}
+/* the fortnightly sheet for Rajula: a concept, set like newsprint */
+.np{background:#F4F2EA;border:1px solid #E0DCCC;padding:clamp(20px,3.4vw,40px)}
+.np-rail{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);border-bottom:2px solid var(--ink);padding-bottom:9px}
+.np-h{font-size:clamp(26px,4vw,44px);font-weight:500;letter-spacing:-.025em;line-height:1.05;margin:20px 0 0;max-width:22ch}
+.np-strap{font-size:clamp(19px,2.2vw,24px);margin-top:16px}
+.np-en{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--grey);margin-top:6px}
+.np-cols{margin-top:22px;column-count:2;column-gap:36px;font-size:16px;line-height:1.6;color:var(--ink-2)}
+.np-cols p{break-inside:avoid;margin:0 0 12px}
+.np-block{margin-top:30px;padding-top:18px;border-top:1px solid #DFDBCB}
+.np-lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.np-list{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:18px}
+.np-list>li{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:4px 26px}
+.np-list b{font-weight:400;font-size:21px}
+.np-list .en{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--grey);margin-top:2px}
+.np-list p{font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.np-foot{margin-top:30px;padding-top:18px;border-top:2px solid var(--ink)}
+.np-line{font-size:clamp(20px,2.4vw,26px);margin-top:12px}
+.np-foot>p:last-child{font-size:15.5px;line-height:1.6;color:var(--ink-2);margin-top:14px;max-width:62ch}
+/* the short pieces */
+.sp{background:var(--sheet);border:1px solid var(--rule);border-radius:8px;padding:clamp(20px,3vw,32px)}
+.sp+.sp{margin-top:22px}
+.sp-lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.sp h3{font-size:clamp(20px,2.4vw,27px);font-weight:500;letter-spacing:-.015em;line-height:1.2;margin:8px 0 0;max-width:30ch}
+.sp-body{white-space:pre-line;font-size:16.5px;line-height:1.6;margin-top:14px;max-width:62ch;color:var(--ink-2)}
+.sp-alt{margin-top:18px;padding-top:14px;border-top:1px dashed var(--rule)}
+.bag{list-style:none;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px 28px}
+.bag li{border-left:2px solid var(--margin);padding-left:14px}
+.bag .guj{font-size:18px}
+.bag .en{font-size:14.5px;line-height:1.45;color:var(--grey);margin-top:6px}
+.sp-more{font-family:var(--mono);font-size:11px;color:var(--grey);margin-top:18px}
+@media (max-width:760px){.np-cols{column-count:1}.np-list>li{grid-template-columns:minmax(0,1fr)}}
+/* work: the brands we've worked with, on a line that runs left to right, in their own colours */
+.clients{position:relative;overflow:hidden;border-block:1px solid var(--ink);padding-block:28px;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.clients-track{display:flex;width:max-content;animation:clientsRoll 40s linear infinite}
+.clients:hover .clients-track{animation-play-state:paused}
+.clients-run{display:flex;align-items:center;gap:56px;padding-right:56px}
+.clients-run .note{white-space:nowrap;font-size:19px;padding-top:0}
+.clients-run .star{display:none;color:var(--grey);font-family:var(--mono);font-size:20px}
+html.is-dry .clients-run .star{display:inline}
+@keyframes clientsRoll{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.client{--h:46px;position:relative;display:inline-block;height:calc(var(--h) * var(--s,1));aspect-ratio:var(--a);flex:none;transition:transform .3s ease}
+.client i{position:absolute;inset:0;background:var(--tint);-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.client:hover{transform:translateY(-3px)}
+.c-agvelio{--m:url(images/clients/agvelio.png);--tint:#D4AF37;--a:3.36;--s:.98}
+.c-thekkedaar{--m:url(images/clients/thekkedaar.png);--tint:#153D99;--a:2.99;--s:1.04}
+.c-seleqt{--m:url(images/clients/seleqt.png);--tint:#D4B06D;--a:5.09;--s:.84}
+.c-lakhani{--a:2.67;--s:1.08}
+.c-lakhani i{-webkit-mask:none;mask:none;background:url(images/clients/lakhani.png) center/contain no-repeat}
+.client-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:22px 0 0}
+.client-facts dt{font-weight:500;font-size:17px}
+.client-facts dd{margin:2px 0 0;font-size:14.5px;color:var(--ink-2);line-height:1.45}
+@media (max-width:760px){.client-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.client{--h:38px}.clients-run{gap:40px;padding-right:40px}.client-facts{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){.clients{overflow-x:auto}}
+@media (max-width:760px){.outbox{grid-template-columns:minmax(0,1fr)}.ob-list{border-right:0;border-bottom:1px solid var(--rule);max-height:280px}.ob-read{max-height:none}}
+
+/* visitors' own margin notes, in blue */
+.slot{font-family:var(--pen);font-weight:700;font-size:19px;line-height:1.3;color:var(--blue)}
+.slot .add{display:block;width:100%;text-align:left;font:inherit;color:#9FACCB;background:none;border:0;border-bottom:1.5px dashed #C6CEE2;padding:2px 0 6px;cursor:pointer;opacity:.8;transition:opacity .2s,color .2s,border-color .2s}
+.slot .add:hover,.slot .add:focus-visible{opacity:1;color:var(--blue);border-bottom-color:var(--blue)}
+.slot textarea{display:block;width:100%;font:inherit;color:var(--blue);background:rgba(47,91,211,.06);border:0;border-bottom:1.5px solid var(--blue);border-radius:3px 3px 0 0;padding:4px 6px;resize:none;overflow:hidden;min-height:2.2em}
+.slot textarea:focus{outline:none;background:rgba(47,91,211,.1)}
+.mine{position:relative;margin:0;padding-right:20px;white-space:pre-line;transform:rotate(-1deg);transform-origin:left top;cursor:text}
+.mine .del{position:absolute;right:0;top:-2px;font-family:var(--mono);font-size:13px;color:#9FACCB;background:none;border:0;cursor:pointer;padding:2px 4px}
+.mine .del:hover{color:var(--red)}
+.dock{position:fixed;right:16px;bottom:16px;z-index:55;font-family:var(--mono);font-size:13px}
+.dock[hidden],.dock-menu[hidden]{display:none}
+.dock-btn{display:inline-flex;align-items:center;gap:8px;font:inherit;background:var(--blue);color:#fff;border:0;border-radius:99px;padding:11px 16px;cursor:pointer;box-shadow:0 8px 20px rgba(47,91,211,.28)}
+.dock-menu{position:absolute;right:0;bottom:calc(100% + 10px);width:min(270px,calc(100vw - 32px));display:grid;gap:8px;background:var(--sheet);border:1px solid var(--rule);border-radius:10px;padding:14px;box-shadow:0 16px 36px rgba(22,22,26,.14)}
+.dock-menu button,.dock-menu a{display:block;width:100%;text-align:left;font:inherit;color:var(--ink);background:none;border:1px solid var(--rule);border-radius:6px;padding:10px 12px;text-decoration:none;cursor:pointer}
+.dock-menu button:hover,.dock-menu a:hover{border-color:var(--ink)}
+.dock-menu p{margin:2px 0 0;font-size:11.5px;line-height:1.4;color:var(--grey)}
+
+/* one column on phones and small tablets */
+@media (max-width:860px){
+  .row{grid-template-columns:minmax(0,1fr)}
+  .row>.note,.note-stack{grid-column:1}
+  .row>.note,.note-stack .note{font-size:19px;padding-top:10px}
+  .row>.note:not(.todo)::before,.note-stack .note::before{content:"\21B3\00a0"}
+  .note-stack{gap:0;margin-top:6px}
+  .arr{display:none}
+  .book::before{right:auto;left:calc(var(--pad) / 2 - 1px)}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div id="intro">
+  <div class="intro-name" aria-hidden="true"><span class="intro-lbl">draft_1</span><span class="intro-tx">The Dry Text Company</span><span class="intro-st"></span></div>
+  <button class="intro-skip" type="button">Skip intro</button>
+</div>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#" data-nav="home">The Dry Text Co.</a>
+    <div class="nav-wrap" id="navWrap">
+      <nav class="nav" aria-label="Main">
+        <a href="#work" data-nav="work">Work</a>
+        <a href="#services" data-nav="services">Services</a>
+        <a href="#about" data-nav="about">About</a>
+      </nav>
+      <a class="hire-link" href="#contact" data-nav="contact"><svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M24 34C18 10 176 4 188 26C198 50 34 60 12 38C4 28 34 12 74 9"/></svg>Hire the pen</a>
+    </div>
+    <button class="dry-toggle" id="dryToggle" type="button" aria-pressed="false" aria-label="Dry mode" title="For clients here for business, not banter."><span class="sw" aria-hidden="true"></span><span class="lbl" aria-hidden="true">Dry<span class="lbl-x"> mode</span></span></button>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navWrap">Menu</button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HOME -->
+<div class="page" data-page="home">
+  <div class="book">
+
+    <header class="hero">
+      <div class="row">
+        <div class="hero-txt">
+          <h1 class="name" tabindex="-1" data-reveal>The <span class="edit"><span class="strike">Dry</span><span class="ins" aria-hidden="true">Cheesy</span></span> Text <span class="co">Co.<svg viewBox="0 0 120 70" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M64 5C100 3 117 20 115 38C113 58 86 67 57 65C25 63 5 51 6 34C7 16 31 5 60 6"/></svg></span></h1>
+          <p class="dry-line only-dry">Dry mode on. The name is accurate now.</p>
+        </div>
+        <div class="note-stack">
+          <p class="note pencil hn">edited 11:48 pm. it's always 11:48 pm.</p>
+          <p class="note hn">don't go by the name.</p>
+          <p class="note hn"><span class="arr">&larr; </span>co. as in company. and cold coffee.</p>
+        </div>
+      </div>
+      <div class="row hero-r2">
+        <p class="lede">A content-writing agency from Ahmedabad, for brands anywhere in the world that would rather be read than skimmed.</p>
+        <ul class="note hn todo" aria-label="To-do list"><li class="done">fix the name</li><li class="done">build the site</li><li><a href="#contact">hear from you</a></li></ul>
+      </div>
+      <div class="row hero-r3">
+        <div class="ctas"><a class="btn" href="#work">See the work</a><a class="pen-link" href="#contact">Hire the pen</a></div>
+        <p class="note hn">the pen is the founder. the founder is the pen.</p>
+      </div>
+    </header>
+
+    <section class="sec" id="who" aria-labelledby="who-title">
+      <div class="row sec-head"><div>
+        <p class="eyebrow" id="who-title">Who we are</p>
+        <p class="who-p">Written in Ahmedabad. Read anywhere. We write the words brands get judged by, and build the websites those words live on. For brands that want to sound like someone, not something.</p>
+      </div></div>
+      <div class="row"><div>
+        <p class="does" id="does"><span class="w">Content</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Marketing</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Advertising</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Websites</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Branding</span></p>
+        <div class="does-foot"><p class="note">pick one. or all five.</p><a class="does-link" href="#services">See what&rsquo;s included &rarr;</a></div>
+      </div></div>
+    </section>
+
+    <section class="sec" id="contents" aria-labelledby="toc-title">
+      <div class="row sec-head"><div>
+        <p class="eyebrow">Contents</p>
+        <h2 class="h2" id="toc-title">What's in this notebook</h2>
+      </div></div>
+      <div class="row"><ol class="toc">
+        <li><a href="#work"><span class="toc-t"><b>The work</b><span>Our clients, and 27 cold mails</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 02</span></a></li>
+        <li><a href="#services"><span class="toc-t"><b>Services</b><span>What we write, what we build, how it works</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 03</span></a></li>
+        <li><a href="#about"><span class="toc-t"><b>About</b><span>Four people. One red pen.</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 04</span></a></li>
+        <li><a href="#contact"><span class="toc-t"><b>Contact</b><span>Four blanks and you're done</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 05</span></a></li>
+      </ol></div>
+    </section>
+
+    <section class="sec" id="rewrites" aria-labelledby="rw-title">
+      <div class="row sec-head"><div>
+        <p class="eyebrow">Rough copy, fair copy</p>
+        <h2 class="h2" id="rw-title"><span class="only-wet">Rewritten while the chai was still hot.</span><span class="only-dry">Practice rewrites.</span></h2>
+      </div></div>
+      <div class="row rw">
+        <div>
+          <p class="rw-label">Practice rewrite &middot; a wedding card printer</p>
+          <p class="rw-before" role="button" tabindex="0" aria-label="Rub out the old line: Designer wedding cards at best rates.">Designer wedding cards at best rates.</p>
+          <p class="rw-after">The aunties will judge the food. Not the card.</p>
+          <p class="rw-time only-wet">Time taken: 1 cutting chai</p>
+        </div>
+        <p class="note">nobody paid for these. we couldn't help it.</p>
+      </div>
+      <div class="row rw">
+        <div>
+          <p class="rw-label">Practice rewrite &middot; a kite shop</p>
+          <p class="rw-before" role="button" tabindex="0" aria-label="Rub out the old line: All types of kites available.">All types of kites available.</p>
+          <p class="rw-after">Built for Uttarayan. Tested on the neighbours.</p>
+          <p class="rw-time only-wet">Time taken: 1 cutting chai, reheated</p>
+        </div>
+      </div>
+      <div class="row"><p class="rw-hint"><span class="h-mouse">Rub the old lines out with the eraser.</span><span class="h-touch">Tap an old line to rub it out.</span></p></div>
+    </section>
+
+    <section class="sec only-wet" id="tagline" aria-labelledby="tm-title">
+      <div class="row sec-head"><div>
+        <p class="eyebrow">A small game</p>
+        <h2 class="h2" id="tm-title">The tagline machine.</h2>
+        <p class="body" style="margin-top:12px">Spin it. Get a tagline. If one makes you laugh, send it our way.</p>
+      </div><p class="note">results not legally binding.</p></div>
+      <div class="row"><div class="machine">
+        <div class="reels" id="reels" aria-live="polite"><span class="reel"></span><span class="reel"></span><span class="reel"></span></div>
+        <div class="ctas"><button class="btn" type="button" id="spinBtn">Spin</button><a class="pen-link" id="tagSend" href="https://wa.me/917016227880" target="_blank" rel="noopener">Send this one to us</a></div>
+      </div></div>
+    </section>
+
+    <section class="sec" id="one-line" aria-labelledby="ol-title">
+      <div class="row">
+        <div>
+          <h2 class="h2" id="ol-title">One line, on the house.</h2>
+          <p class="body" style="margin-top:18px">Send us one line from your brand, like a tagline, a bio or a caption. We'll send it back better within a day. Free.</p>
+          <div class="ctas"><a class="btn" href="https://wa.me/917016227880?text=Hi!%20Here%27s%20my%20one%20line%3A%20" target="_blank" rel="noopener">Send us one line</a></div>
+          <p class="small">If we both like the result, we might ask to show it here.</p>
+        </div>
+        <p class="note">no catch. you might just want more.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="notes" aria-labelledby="notes-title">
+      <div class="row">
+        <div>
+          <p class="eyebrow" id="notes-title">Notes from clients</p>
+          <blockquote class="quote"><p>&ldquo;Very <span class="u">Gen Z</span> approach.&rdquo;</p><footer>An actual client</footer></blockquote>
+        </div>
+        <p class="note">we've decided it's a compliment.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="hire" aria-labelledby="hire-title">
+      <div class="row">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2 class="h2" id="hire-title">Hire the pen.</h2>
+          <div data-slot="form" style="margin-top:22px">
+            <form class="pen-zone" id="hireForm" novalidate>
+              <p class="fill">Hi, I'm <label class="sr" for="f-name">Your name</label><input id="f-name" name="name" data-blank placeholder="your name" autocomplete="name"> from <label class="sr" for="f-brand">Your brand</label><input id="f-brand" name="brand" data-blank placeholder="your brand" autocomplete="organization">. We need <label class="sr" for="f-need">What you need</label><input id="f-need" name="need" data-blank placeholder="captions, a website…" list="needs"> by <label class="sr" for="f-when">When you need it</label><input id="f-when" name="when" data-blank placeholder="next Friday">.</p>
+              <datalist id="needs"><option value="captions"><option value="a website"><option value="LinkedIn posts"><option value="a newsletter"><option value="ad scripts"><option value="a content plan"><option value="something else"></datalist>
+              <p class="err" id="formErr" role="alert"></p>
+              <div class="ctas" style="margin-top:14px"><button class="btn" type="submit">Send on WhatsApp</button><button class="pen-link" type="button" id="emailBtn">Send by email instead</button></div>
+              <p class="small"><span class="only-wet">Replies within a day. Never a dry one.</span><span class="only-dry">Replies within one working day.</span></p>
+            </form>
+          </div>
+        </div>
+        <p class="note">one minute. four blanks.</p>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- WORK -->
+<div class="page" data-page="work" hidden>
+  <div class="book">
+    <header class="page-head row">
+      <div><p class="eyebrow">Work</p><h1 class="h1" tabindex="-1" data-reveal>The work</h1><p class="lede">Posts, mails, newspaper concepts and the small stuff, written for clients. Plus 27 cold mails to brands we&rsquo;d like to write for.</p></div>
+      <p class="note">written for a reply, not for approval.</p>
+    </header>
+    <section class="sec" id="clients" aria-labelledby="cl-title">
+      <div class="row sec-head"><div><p class="eyebrow">Worked with</p><h2 class="h2" id="cl-title">Brands that said yes.</h2></div><p class="note">four so far. the pen&rsquo;s still writing.</p></div>
+      <div class="row"><div class="wide">
+        <div class="clients"><div class="clients-track">
+          <div class="clients-run"><span class="client c-agvelio" role="img" aria-label="Agvelio"><i></i></span><span class="note">&larr; finally, a stranger&rsquo;s house your mom approves of.</span><span class="star" aria-hidden="true">&#10033;</span><span class="client c-thekkedaar" role="img" aria-label="House of Thekkedaar"><i></i></span><span class="note">&larr; a thekedaar builds. so do they. we did the words.</span><span class="star" aria-hidden="true">&#10033;</span><span class="client c-seleqt" role="img" aria-label="SELEQT"><i></i></span><span class="note">&larr; very private. this is all we&rsquo;re allowed to say.</span><span class="star" aria-hidden="true">&#10033;</span><span class="client c-lakhani" role="img" aria-label="Lakhani Investment"><i></i></span><span class="note">&larr; the only graph on this site. it&rsquo;s going up.</span><span class="star" aria-hidden="true">&#10033;</span></div>
+          <div class="clients-run" aria-hidden="true"><span class="client c-agvelio"><i></i></span><span class="note">&larr; finally, a stranger&rsquo;s house your mom approves of.</span><span class="star" aria-hidden="true">&#10033;</span><span class="client c-thekkedaar"><i></i></span><span class="note">&larr; a thekedaar builds. so do they. we did the words.</span><span class="star" aria-hidden="true">&#10033;</span><span class="client c-seleqt"><i></i></span><span class="note">&larr; very private. this is all we&rsquo;re allowed to say.</span><span class="star" aria-hidden="true">&#10033;</span><span class="client c-lakhani"><i></i></span><span class="note">&larr; the only graph on this site. it&rsquo;s going up.</span><span class="star" aria-hidden="true">&#10033;</span></div>
+        </div></div>
+        <dl class="client-facts"><div><dt>Agvelio</dt><dd>Home food experiences: dine-in evenings at local cooks&rsquo; homes.</dd></div><div><dt>House of Thekkedaar</dt><dd>A new-gen conglomerate, building new ideas from scratch.</dd></div><div><dt>SELEQT</dt><dd>Private wealth.</dd></div><div><dt>Lakhani Investment</dt><dd>An investment company.</dd></div></dl>
+      </div></div>
+    </section>
+    <div class="row"><nav class="chap-toc" aria-label="What's on this page">
+      <a href="#linkedin">LinkedIn<span>6 posts</span></a>
+      <a href="#outreach">Mails for clients<span>12</span></a>
+      <a href="#newspaper">Newspaper<span>1 concept</span></a>
+      <a href="#small">Small pieces<span>3</span></a>
+      <a href="#cold-mails">Our cold mails<span>27</span></a>
+    </nav></div>
+    <section class="sec" id="linkedin" aria-labelledby="li-title">
+      <div class="row sec-head"><div><p class="eyebrow">LinkedIn</p><h2 class="h2" id="li-title">Posts that sound like the person.</h2><p class="ob-count">6 posts &middot; written for SELEQT Wealth</p></div><p class="note">ghostwritten. the credit is theirs.</p></div>
+      <div class="row"><div class="wide"><div class="outbox"><div class="ob-list" id="liList" aria-label="LinkedIn posts"></div><div class="ob-read" id="liRead" aria-live="polite"></div></div></div></div>
+    </section>
+    <section class="sec" id="outreach" aria-labelledby="or-title">
+      <div class="row sec-head"><div><p class="eyebrow">Mails for clients</p><h2 class="h2" id="or-title">One programme, twelve doors.</h2><p class="ob-count">12 mails &middot; SELEQT&rsquo;s Investment Awareness Programme 2026, written for hospitals in Ahmedabad and Surat</p></div><p class="note">same offer. different way in.</p></div>
+      <div class="row"><div class="wide"><div class="outbox"><div class="ob-list" id="orList" aria-label="Mails written for clients"></div><div class="ob-read" id="orRead" aria-live="polite"></div></div></div></div>
+    </section>
+    <section class="sec" id="newspaper" aria-labelledby="np-title">
+      <div class="row sec-head"><div><p class="eyebrow">Newspaper</p><h2 class="h2" id="np-title">A money paper for a town.</h2><p class="ob-count">1 concept &middot; Lakhani Investment &middot; Rajula and the towns around it &middot; in progress</p></div><p class="note">the drawing isn&rsquo;t done. the thinking is.</p></div>
+      <div class="row"><div class="wide"><article class="np">
+        <div class="np-rail"><span>Lakhani Investment &middot; Rajula</span><span>Concept &middot; fortnightly &middot; free with the paper</span></div>
+        <p class="np-h">A single sheet that goes out with the local paper, every fifteen days.</p>
+        <p class="np-strap guj">પંદર દિવસે એકવાર &middot; સૌના માટે &middot; મફત</p>
+        <p class="np-en">Pandar divase ekvaar &middot; Sau na mate &middot; Muft &mdash; once a fortnight, for everyone, free</p>
+        <div class="np-cols">
+          <p>Full colour, printed both sides, free with the local paper in Rajula and the towns around it.</p>
+          <p>It is about money, but it isn&rsquo;t a finance page in the way people expect one. No tips, no targets, no charts nobody understands. It is written the way people in Saurashtra actually talk: casually, plainly, with jokes in it.</p>
+          <p>The purpose is simple. We want money to become an ordinary thing to talk about in town. Not something you only discuss when you&rsquo;re worried, or only with the one relative who &ldquo;knows about these things&rdquo;. The goal is that a fortnight after each issue, somebody somewhere in Rajula is arguing about something they read in it.</p>
+          <p>It is for everyone. A farmer, a shopkeeper, a college student, a grandmother, a child. Nothing in it assumes you already know anything.</p>
+        </div>
+        <div class="np-block">
+          <p class="np-lbl">The name &mdash; three options</p>
+          <ol class="np-list">
+            <li><div><b class="guj">પૈસાની પરબ</b><p class="en">Paisa ni Parab &middot; the water-stall for money</p></div><p>A parab sits by the roadside and gives water to anyone who passes. No one asks who you are. No one expects anything back.</p></li>
+            <li><div><b class="guj">બે ઘડી પૈસાની</b><p class="en">Be Ghadi Paisa ni &middot; two moments on money</p></div><p>For the person who says they don&rsquo;t have time for this sort of thing. Two moments, that&rsquo;s all we&rsquo;re asking for.</p></li>
+            <li><div><b class="guj">પૈસાની પ્રસાદી</b><p class="en">Paisa ni Prasadi &middot; money&rsquo;s prasad</p></div><p>Something given freely, to everybody, without being asked for.</p></li>
+          </ol>
+        </div>
+        <div class="np-block">
+          <p class="np-lbl">What&rsquo;s inside &mdash; six sections</p>
+          <ol class="np-list">
+            <li><div><b class="guj">પંદર દિવસ, પાંચ વાત</b><p class="en">Fifteen days, five things</p></div><p>The money news of the fortnight, cut down to the few things that touch a household here: gold and silver, crop prices, bank and post office interest, schemes with deadlines. Each one followed by the only question that matters: so what does this mean for me?</p></li>
+            <li><div><b class="guj">ખિસ્સાની વાત</b><p class="en">Pocket talk</p></div><p>One subject per issue, explained properly from the beginning. Gold sitting idle in the cupboard. What an insurance policy really is, and isn&rsquo;t. Money lent to a relative at interest. Never to impress anybody: to leave the reader thinking, oh, is that all it was?</p></li>
+            <li><div><b class="guj">ચેતજો!</b><p class="en">Watch out!</p></div><p>One scam per issue, told as a story about a person, because that&rsquo;s how people remember things. The fake trading app. The group with the guaranteed tip. The society promising twenty-four percent. In towns like ours nobody warns anyone until after the money is gone.</p></li>
+            <li><div><b class="guj">પૈસાનો કોયડો</b><p class="en">The money puzzle</p></div><p>A small puzzle with the answer printed upside-down in the corner. Who saved better, the man who started small at twenty-five or the man who saved three times as much at forty? People solve it over tea and then argue about it. That&rsquo;s the point.</p></li>
+            <li><div><b class="guj">ઘર આખાનું પાનું</b><p class="en">The whole household&rsquo;s page</p></div><p>Small boxes, a few lines each: something for the children, the young ones, whoever runs the house, and the elders. Nobody in the family picks up the sheet and finds nothing addressed to them.</p></li>
+            <li><div><b class="guj">ચંદુ કાકા</b><p class="en">Chandukaka &middot; held back for now</p></div><p>A cartoon uncle along the bottom who makes every money decision wrong, with complete confidence, while his wife watches and is always right. A character like that only works if it&rsquo;s properly built, so he waits for a real illustrator.</p></li>
+          </ol>
+        </div>
+        <div class="np-block">
+          <p class="np-lbl">And one more thing</p>
+          <ol class="np-list"><li><div><b class="guj">તમે પૂછો</b><p class="en">Tame Puchho &middot; you ask</p></div><p>A box with a QR code that opens a chat. You don&rsquo;t type anything, you record a voice note with your question and send it. We answer in the next issue. The typing is the reason most people never ask; take the typing away and a lot more people will.</p></li></ol>
+        </div>
+        <div class="np-foot">
+          <p class="np-lbl">The only line of marketing on the sheet</p>
+          <p class="np-line guj">રાજુલાના ઘર ઘર સુધી &mdash; Lakhani Investment તરફથી</p>
+          <p class="np-en">To every home in Rajula &mdash; from Lakhani Investment</p>
+          <p>No offers, no photographs, no promises about returns, no &ldquo;call now&rdquo;. The sheet is the whole argument. The moment there&rsquo;s a sales box on the page, every other section starts reading like bait, and then it isn&rsquo;t a parab any more. It&rsquo;s an advertisement.</p>
+        </div>
+      </article></div></div>
+    </section>
+    <section class="sec" id="small" aria-labelledby="sp-title">
+      <div class="row sec-head"><div><p class="eyebrow">Small pieces</p><h2 class="h2" id="sp-title">The short stuff.</h2><p class="ob-count">3 pieces &middot; SELEQT Wealth and Lakhani Investment</p></div><p class="note">fewer words. more drafts.</p></div>
+      <div class="row"><div class="wide">
+        <article class="sp">
+          <p class="sp-lbl">Business page &middot; SELEQT Wealth</p>
+          <h3>Private wealth for Indian, NRI and globally connected families.</h3>
+          <p class="sp-body">Most families of means aren&rsquo;t underserved. They&rsquo;re over-advised: one relationship for investments, another for tax, a third for insurance, a fourth for the will. None accountable for the whole.
+
+We take that accountability. Investments, cross-border tax structuring, insurance, succession and estate planning, built as one architecture, owned by one team.
+
+100% relationship led. Protected, optimised, built to last generations.</p>
+          <div class="sp-alt">
+            <p class="sp-lbl">The other version</p>
+            <p class="sp-body">Wealth that crosses borders creates complexity: multiple jurisdictions, multiple tax regimes, multiple advisers, no one holding the full picture.
+
+We hold it. Investments, cross-border tax structuring, insurance and risk, estate and succession planning, delivered as one mandate, not four disconnected opinions.
+
+100% relationship led. You speak to the people who make the decisions and know your family, not just your file.</p>
+          </div>
+        </article>
+        <article class="sp">
+          <p class="sp-lbl">Bag copy &middot; Lakhani Investment &middot; Gujarati</p>
+          <h3>Two lines on a bag, in the language they&rsquo;re read in.</h3>
+          <ul class="bag">
+            <li><p class="guj">રોકાણ ફાફડા.<br>વીમો જલેબી.<br>દશેરાએ એકલું કોણ ખાય?</p><p class="en">Investment is fafda. Insurance is jalebi. Who eats one without the other on Dussehra?</p></li>
+            <li><p class="guj">રોકાણ ખીચડી.<br>વીમો કઢી.<br>ગુજરાતી ઘરમાં બંને સાથે જ પીરસાય.</p><p class="en">Investment is khichdi. Insurance is kadhi. In a Gujarati home they&rsquo;re served together.</p></li>
+            <li><p class="guj">રોકાણ લાંબી મુસાફરી છે.<br>વીમો સાથેનાં થેપલાં છે.<br>ગુજરાતી તૈયારી વગર નીકળે જ નહીં.</p><p class="en">Investing is a long journey. Insurance is the thepla you pack. No Gujarati leaves without preparing.</p></li>
+            <li><p class="guj">રોકાણ એક દાંડિયો.<br>વીમો બીજો.<br>એકલા દાંડિયે રાસ ન રમાય.</p><p class="en">Investment is one dandiya stick. Insurance is the other. You can&rsquo;t play raas with one.</p></li>
+            <li><p class="guj">રોકાણ એટલે લાભ.<br>વીમો એટલે શુભ.<br>શુભ-લાભ હવે બારણે જ નહીં, ખાતામાં પણ.</p><p class="en">Investment is laabh. Insurance is shubh. Shubh-laabh belongs in the account too, not just on the door.</p></li>
+            <li><p class="guj">રોકાણ સોનું વધારે.<br>વીમો તિજોરીનું તાળું.<br>સોનું હોય ને તાળું ન હોય તો?</p><p class="en">Investment grows the gold. Insurance is the lock on the safe. Gold with no lock, then what?</p></li>
+            <li><p class="guj">પૈસા કમાવા એ શરૂઆત છે.<br>સાચો સફર ત્યાર પછી શરૂ થાય છે.</p><p class="en">Earning money is the beginning. The real journey starts after that.</p></li>
+            <li><p class="guj">સંપત્તિ બનાવવી એક ભાગ છે.<br>તેને સુરક્ષિત રાખવી આખી વાત છે.</p><p class="en">Building wealth is one part. Keeping it safe is the whole thing.</p></li>
+          </ul>
+          <p class="sp-more">44 lines written for the bags. Eight of them here.</p>
+        </article>
+        <article class="sp">
+          <p class="sp-lbl">LinkedIn message &middot; sent from the founder&rsquo;s account, SELEQT Wealth</p>
+          <h3>Hi, this is just a 9-second read.</h3>
+          <p class="sp-body">I&rsquo;m Ishit, Founder of Seleqt Wealth.
+
+We&rsquo;re starting something called the Ahmedabad Financial Awareness Initiative 2026.
+
+The idea is very simple (simpler than taking a Dolo 650 when you&rsquo;re sick):
+
+We understand that doctors often face certain financial challenges that aren&rsquo;t talked about enough. So, as a financial services company that believes in community impact and social service, we want to conduct an Investment Awareness Program (IAP) specifically for doctors.
+
+And no &mdash; we don&rsquo;t want anything in return :)
+
+Would love to tell you more if this sounds interesting.</p>
+        </article>
+      </div></div>
+    </section>
+    <section class="sec" id="cold-mails" aria-labelledby="cm-title">
+      <div class="row sec-head"><div><p class="eyebrow">Our own cold mails</p><h2 class="h2" id="cm-title">Sent on purpose.</h2><p class="ob-count">27 sent &middot; pick any subject line, or use the arrow keys</p></div></div>
+      <div class="row"><div class="wide"><div class="outbox"><div class="ob-list" id="obList" aria-label="Cold mails"></div><div class="ob-read" id="obRead" aria-live="polite"></div></div></div></div>
+    </section>
+    <section class="sec" aria-labelledby="w-cta-title">
+      <div class="row"><div><h2 class="h2" id="w-cta-title">Want one written for you?</h2><div class="ctas"><a class="btn" href="#contact">Hire the pen</a><a class="pen-link" href="#rewrites">Read the practice rewrites</a></div></div></div>
+    </section>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="page" data-page="services" hidden>
+  <div class="book">
+    <header class="page-head row">
+      <div><p class="eyebrow">Services</p><h1 class="h1" tabindex="-1" data-reveal>What we write</h1><p class="lede">Planning what to say, saying it well, and building the website it lives on. Priced per project, once we understand it.</p></div>
+    </header>
+    <div class="row svc"><div><h3>Brand and web</h3><p>Website content, copywriting, SEO content.</p></div><p class="note">the words people read before they trust you.</p></div>
+    <div class="row svc"><div><h3>Social and marketing</h3><p>Captions, social media content, LinkedIn posts, campaign and launch content.</p></div><p class="note">written for fast thumbs.</p></div>
+    <div class="row svc"><div><h3>Advertising</h3><p>Ad scripts, headlines, taglines and campaign lines, for print, screens and everything in between.</p></div><p class="note">written to beat the skip button.</p></div>
+    <div class="row svc"><div><h3>Long-form</h3><p>Newsletters, ghostwriting.</p></div><p class="note">you get the credit. we keep the secret.</p></div>
+    <div class="row svc"><div><h3>Strategy</h3><p>Deciding what to say, where and when, before a word gets written.</p></div><p class="note">the quiet part. it matters most.</p></div>
+    <div class="row svc"><div><h3>Websites</h3><p>Written, designed and shipped. You're looking at one.</p></div><p class="note">yes, this one too.</p></div>
+    <div class="row"><p class="also">If it has words, we write it. If it needs a website, we build it. Anything else? Ask. The answer is usually yes.</p></div>
+
+    <section class="sec" style="margin-top:clamp(56px,7vw,96px)" id="how" aria-labelledby="how-title">
+      <div class="row sec-head"><div><p class="eyebrow">The whole ride</p><h2 class="h2" id="how-title">How it works</h2></div></div>
+      <div class="row"><ol class="steps">
+        <li><b>Brief</b><span>You tell us what you need. We ask our questions now, so there are fewer later.</span></li>
+        <li><b>Quote</b><span>Once the scope is clear, you get one project price.</span></li>
+        <li><b>Writing</b><span>We write it in-house, and you're never left wondering how it's going.</span></li>
+        <li><b>Red pen</b><span>Your turn to mark it up. We turn changes around fast.</span></li>
+        <li><b>Sign-off</b><span>You approve, you pay, it's yours.</span></li>
+      </ol></div>
+    </section>
+
+    <section class="sec" id="fine-print" aria-labelledby="fp-title">
+      <div class="row sec-head"><div><p class="eyebrow">Our terms</p><h2 class="h2" id="fp-title">The fine print, in big print</h2></div></div>
+      <div class="row fp-row"><p class="big"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M3 13 9 19 21 5"/></svg>Updates every two to three days.</p><p class="note">a call or a text. your choice.</p></div>
+      <div class="row fp-row"><p class="big"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M3 13 9 19 21 5"/></svg>Revisions back the same day, or the next.</p></div>
+      <div class="row fp-row"><p class="big"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M3 13 9 19 21 5"/></svg>No cap on revisions, as long as there's a real reason.</p></div>
+      <div class="row fp-row"><p class="big"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M3 13 9 19 21 5"/></svg>A full rewrite takes three to four days.</p></div>
+      <div class="row fp-row"><p class="big"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M3 13 9 19 21 5"/></svg>Three full rewrites, free. A fourth costs half the original price.</p><p class="note">fair's fair.</p></div>
+      <div class="row fp-row"><p class="big"><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M3 13 9 19 21 5"/></svg>You own every word once it's paid for.</p><p class="note">yes, even the commas.</p></div>
+    </section>
+
+    <section class="sec" aria-labelledby="s-cta-title">
+      <div class="row"><div><h2 class="h2" id="s-cta-title">Got a brief? Or half of one?</h2><div class="ctas"><a class="btn" href="#contact">Ask for a quote</a></div></div></div>
+    </section>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="page" data-page="about" hidden>
+  <div class="book">
+    <header class="page-head row">
+      <div><p class="eyebrow">About</p><h1 class="h1" tabindex="-1" data-reveal>Hi, I'm Granth.</h1></div>
+    </header>
+    <div class="row"><p class="body">I started The Dry Text Co. to <span class="edit inline" data-keep="new"><span class="strike">make money</span> <span class="ins">make words cool again</span></span>.</p><p class="note">ok. also money.</p></div>
+    <div class="row"><p class="body" style="margin-top:18px">I've been writing content for three years. I also study operations at Ahmedabad University, so deadlines are literally my major.</p></div>
+    <div class="row"><p class="body" style="margin-top:18px">I wanted a name with some irony in it. So: The Dry Text Co.<span class="only-wet"> Don't go by the name, cuz we cheesy.</span></p></div>
+
+    <section class="sec" style="margin-top:clamp(48px,6vw,80px)" aria-labelledby="b-title">
+      <div class="row sec-head"><div><h2 class="h2" id="b-title">Three things I believe about words</h2></div></div>
+      <div class="row"><ul class="beliefs"><li>If a sentence can lose a word, it will.</li><li>Funny is a tool, not a costume.</li><li>The brief is half the writing.</li></ul></div>
+    </section>
+
+    <section class="sec only-wet" aria-labelledby="f-title">
+      <div class="row sec-head"><div><h2 class="h2" id="f-title">Fun facts</h2></div></div>
+      <div class="row"><ul class="facts"><li>Favourite word: <span class="redact" role="img" aria-label="redacted"></span></li><li>Chai over coffee. Cold coffee over chai. Consistency is for fonts.</li><li>Aspiring DJ. Currently drops lines, not beats.</li></ul><p class="note">that word? it's a pun. and a curse word. ask me in person.</p></div>
+    </section>
+
+    <section class="sec" id="team" aria-labelledby="team-title">
+      <div class="row sec-head"><div><p class="eyebrow">The team</p><h2 class="h2" id="team-title">Meet the team.</h2></div><p class="note only-wet">it's a small team. slightly less small now.</p></div>
+      <div class="row only-wet"><div class="wide">
+        <div class="badges">
+          <div class="boss">
+            <div class="hang" style="--strap:40px"><div class="badge"><div class="band">THE DRY TEXT CO. &middot; STAFF</div><div class="ph" role="img" aria-label="Granth leaning back in a chair, grinning" style="--img:var(--p-ceo)"></div><div class="b-body"><span class="role">Founder and CEO</span><span class="was"><span class="strike">Ghostwriter</span> <span class="strike">Head of Strategy</span> <span class="strike">Head of Vibes</span> <span class="strike">Head of Revisions</span> <b>Chief Overthinker</b></span><span class="who">Granth Hirapara</span><span class="dept">Dept &middot; Strategy and brand</span><p class="idl">Employee No. 001 &middot; Access: all areas</p><div class="code"></div></div></div><p class="note">the shirt says 'ego'. accurate.</p></div>
+            <p class="note side"><span class="arr">&larr; </span>handed these out. kept Chief Overthinker.</p>
+          </div>
+          <div class="hang" style="--strap:68px"><div class="badge"><div class="band">THE DRY TEXT CO. &middot; STAFF</div><div class="ph" role="img" aria-label="Kiwi pulling a face, very close to the camera, in the mountains" style="--img:var(--p-kiwi)"></div><div class="b-body"><span class="role">Head of First Reactions</span><span class="who">Kiwi</span><span class="dept">Dept &middot; Long-form and editing</span><p class="idl">Employee No. 002 &middot; Access: every first draft</p><div class="code"></div></div></div><p class="note">his face when a draft isn't ready. you'll never see that draft.</p></div>
+          <div class="hang" style="--strap:46px"><div class="badge"><div class="band">THE DRY TEXT CO. &middot; STAFF</div><div class="ph" role="img" aria-label="Mihir in a cap and silver wraparound sunglasses, in the mountains" style="--img:var(--p-mihir)"></div><div class="b-body"><span class="role">Head of Deadpan</span><span class="who">Mihir Karia</span><span class="dept">Dept &middot; Social media</span><p class="idl">Employee No. 003 &middot; Access: the window seat</p><div class="code"></div></div></div><p class="note">knows what's trending. dresses like 2002 anyway.</p></div>
+          <div class="hang" style="--strap:78px"><div class="badge"><div class="band">THE DRY TEXT CO. &middot; STAFF</div><div class="ph" role="img" aria-label="Aagam in headphones, half out of the frame, waving" style="--img:var(--p-aagam)"></div><div class="b-body"><span class="role">Head of Deep Work</span><span class="who">Aagam Mehta</span><span class="dept">Dept &middot; Websites</span><p class="idl">Employee No. 004 &middot; Access: headphones on</p><div class="code"></div></div></div><p class="note">he'll wave. he won't take the headphones off.</p></div>
+        </div>
+        <p class="reports">Reports to: see above.</p>
+      </div></div>
+      <div class="row only-dry"><div class="crew">
+        <figure class="solo"><div class="ph" role="img" aria-label="Granth Hirapara" style="--img:var(--p-ceo)"></div><figcaption><span class="role">Granth Hirapara</span><span class="who">Founder and CEO</span></figcaption></figure>
+        <figure class="solo"><div class="ph" role="img" aria-label="Kiwi" style="--img:var(--p-kiwi)"></div><figcaption><span class="role">Kiwi</span><span class="who">Long-form and editing</span></figcaption></figure>
+        <figure class="solo"><div class="ph" role="img" aria-label="Mihir Karia" style="--img:var(--p-mihir)"></div><figcaption><span class="role">Mihir Karia</span><span class="who">Social media</span></figcaption></figure>
+        <figure class="solo"><div class="ph" role="img" aria-label="Aagam Mehta" style="--img:var(--p-aagam)"></div><figcaption><span class="role">Aagam Mehta</span><span class="who">Websites</span></figcaption></figure>
+      </div></div>
+      <div class="row"><p class="body" style="margin-top:34px"><span class="only-wet">Four people. One red pen. </span>You always talk to the person actually writing it.</p></div>
+    </section>
+
+    <section class="sec" aria-labelledby="a-cta-title">
+      <div class="row"><div><h2 class="h2" id="a-cta-title">Got something that needs words?</h2><div class="ctas"><a class="btn" href="#contact">Hire the pen</a></div></div></div>
+    </section>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="page" data-page="contact" hidden>
+  <div class="book">
+    <header class="page-head row">
+      <div><p class="eyebrow">Contact</p><h1 class="h1" tabindex="-1" data-reveal>Hire the pen.</h1><p class="lede">Fill in the blanks. It opens WhatsApp with your message ready to send.</p></div>
+      <p class="note">the pen is ready. are you?</p>
+    </header>
+    <div class="row"><div data-slot="form"></div></div>
+    <section class="sec" style="margin-top:clamp(48px,6vw,80px)" aria-labelledby="c-alt-title">
+      <div class="row"><div>
+        <p class="eyebrow" id="c-alt-title">Or find us here</p>
+        <div class="alt"><a href="mailto:info@thedrytextco.in">info@thedrytextco.in</a><a href="https://www.instagram.com/thedrytextco/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/company/the-dry-text-co/" target="_blank" rel="noopener">LinkedIn</a></div>
+      </div></div>
+    </section>
+  </div>
+</div>
+
+<!-- PAGE NOT FOUND -->
+<div class="page" data-page="missing" hidden>
+  <div class="book">
+    <header class="page-head row" style="padding-bottom:clamp(80px,12vw,160px)">
+      <div>
+        <p class="bad-url"><span id="badUrl">thedrytextco.in/#nothing-here</span></p>
+        <h1 class="h1" tabindex="-1" data-reveal>This page didn't survive the edit.</h1>
+        <div class="ctas"><a class="btn" href="#">Back to the homepage</a><a class="pen-link" href="#work">See the work</a></div>
+      </div>
+      <p class="note">we checked the bin. nothing.</p>
+    </header>
+  </div>
+</div>
+
+</main>
+
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-tag only-wet">Don't go by the name, cuz we cheesy.</p>
+    <p class="foot-joke only-wet">Proofread seven times. Typos found: probably one.</p>
+    <nav class="foot-links" aria-label="Elsewhere">
+      <a href="https://www.instagram.com/thedrytextco/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.linkedin.com/company/the-dry-text-co/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:info@thedrytextco.in">Email</a>
+      <a href="https://wa.me/917016227880" target="_blank" rel="noopener">WhatsApp</a>
+    </nav>
+    <p class="copy">&copy; <span id="yr">2026</span> The Dry Text Co., Ahmedabad</p>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="dock" id="dock" hidden>
+  <div class="dock-menu" id="dockMenu" hidden>
+    <button type="button" id="notesPdf">Download as PDF</button>
+    <a id="notesSend" href="https://wa.me/917016227880" target="_blank" rel="noopener">Send them to us</a>
+    <button type="button" id="notesClear">Clear all notes</button>
+    <p>Your notes stay in this browser. Nothing leaves it unless you send it.</p>
+  </div>
+  <button class="dock-btn" id="dockBtn" type="button" aria-expanded="false" aria-controls="dockMenu">&#9998; <span id="dockCount">0 notes</span></button>
+</div>
+<script type="application/json" id="mailData">__MAILS_JSON__</script>
+<script type="application/json" id="workData">__WORK_JSON__</script>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const INK = '#16161A', GREY = '#77767A';
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  // Runs a Web Animation and resolves when it ends (or gets cancelled)
+  const A = (el, keyframes, opts) => el.animate(keyframes, Object.assign({ fill: 'forwards', easing: 'cubic-bezier(.2,.7,.2,1)' }, opts)).finished.catch(() => {});
+  const onScreen = el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < innerHeight; };
+  const visible = el => !el.closest('[hidden]') && onScreen(el);
+
+  // Cursors: a pencil by default, its eraser end on old lines, a pen for hiring
+  function cursor(transform, shapes, hotspot) {
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="' + transform +
+      '" stroke="#16161A" stroke-width="1" stroke-linejoin="round">' + shapes + '</g></svg>';
+    return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '") ' + hotspot;
+  }
+  const pencil = '<polygon points="5,-2 10,-4.5 10,4.5 5,2" fill="#EACDA3"/><polygon points="0,0 5,-2 5,2" fill="#2B2B2B"/>' +
+    '<rect x="10" y="-4.5" width="20" height="9" fill="#F2C230"/><rect x="30" y="-4.5" width="3" height="9" fill="#BDBBB4"/>' +
+    '<rect x="33" y="-4.5" width="5" height="9" rx="1.5" fill="#F0A3A3"/>';
+  const pen = '<polygon points="0,0 8,-3.5 8,3.5" fill="#D8D6CF"/><line x1="1" y1="0" x2="6" y2="0"/>' +
+    '<rect x="8" y="-3.5" width="4" height="7" fill="#16161A"/><rect x="12" y="-4.5" width="19" height="9" rx="2" fill="#D2232A"/>' +
+    '<rect x="17" y="-6.5" width="12" height="2" fill="#BDBBB4"/><rect x="31" y="-4.5" width="5" height="9" rx="2.5" fill="#16161A"/>';
+  root.style.setProperty('--c-pencil', cursor('translate(1.5 1.5) rotate(45)', pencil, '1 1'));
+  root.style.setProperty('--c-eraser', cursor('translate(1.5 1.5) rotate(45) translate(38 0) scale(-1 1)', pencil, '2 2'));
+  root.style.setProperty('--c-pen', cursor('translate(1.5 1.5) rotate(45)', pen, '1 1'));
+
+  // Small message at the bottom of the screen
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+  }
+
+  // Dry mode: switching on makes the jokes evaporate; switching off inks them back in
+  const dryBtn = document.getElementById('dryToggle');
+  let dryOn = root.classList.contains('is-dry'), dryRun = 0, dryAnims = [];
+  const track = a => { dryAnims.push(a); return a; };
+  // When Dry mode adds or removes things, everything that moves glides to its new place instead of jumping,
+  // and the part of the page being read stays put
+  function flipLayout(change) {
+    const page = document.querySelector('.page:not([hidden])');
+    const outer = [...page.querySelectorAll(':scope > .book > *'), document.querySelector('.foot')];
+    const inner = [...page.querySelectorAll(':scope > .book > * > .row')];
+    const shown = el => el.getClientRects().length > 0;
+    const top = el => el.getBoundingClientRect().top;
+    const anchor = outer.find(el => shown(el) && el.getBoundingClientRect().bottom > 90);
+    const anchorTop = anchor ? top(anchor) : 0;
+    const before = new Map();
+    [...outer, ...inner].forEach(el => { if (shown(el)) before.set(el, top(el)); });
+    change();
+    if (anchor && shown(anchor)) {
+      const drift = top(anchor) - anchorTop;
+      if (Math.abs(drift) > 1) jumpTo(window.scrollY + drift);
+    }
+    if (reduce) return;
+    const moved = new Map();
+    const glide = (el, dy) => el.animate([{ transform: `translateY(${dy}px)` }, { transform: 'none' }], { duration: 460, easing: 'cubic-bezier(.2,.7,.2,1)' });
+    const appear = (el, delay) => el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 360, delay, easing: 'ease', fill: 'backwards' });
+    outer.forEach(el => {
+      if (!shown(el)) return;
+      if (!before.has(el)) { appear(el, 0); return; }
+      const dy = before.get(el) - top(el);
+      moved.set(el, dy);
+      if (Math.abs(dy) > 1) glide(el, dy);
+    });
+    inner.forEach(el => {
+      if (!shown(el)) return;
+      if (!before.has(el)) { appear(el, 120); return; }
+      const dy = before.get(el) - top(el) - (moved.get(el.parentElement) || 0);
+      if (Math.abs(dy) > 1) glide(el, dy);
+    });
+  }
+  async function setDry(on, animate) {
+    const run = ++dryRun;
+    dryAnims.forEach(a => a.cancel());
+    dryAnims = [];
+    dryBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    store.set('dryMode', on ? '1' : '0');
+    if (!animate || reduce) { root.classList.toggle('is-dry', on); return; }
+    if (on) {
+      const jokes = [...document.querySelectorAll('.note, .ins, .co svg, .only-wet')].filter(visible);
+      jokes.forEach((el, i) => track(el.animate(
+        [{ opacity: 1, filter: 'blur(0px)', translate: '0 0' }, { opacity: 0, filter: 'blur(6px)', translate: '0 -18px' }],
+        { duration: 760, delay: Math.min(i, 10) * 60, easing: 'cubic-bezier(.3,.1,.3,1)', fill: 'forwards' })));
+      document.querySelectorAll('.strike').forEach(s => {
+        if (!visible(s)) return;
+        track(s.animate([{ transform: 'rotate(-4deg) scaleX(1)', transformOrigin: 'right center' }, { transform: 'rotate(-4deg) scaleX(0)', transformOrigin: 'right center' }],
+          { duration: 380, delay: 300, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards', pseudoElement: '::after' }));
+        track(s.animate([{ color: GREY }, { color: INK }], { duration: 400, delay: 450, fill: 'forwards' }));
+      });
+      await wait(960);
+      if (run !== dryRun) return;
+      flipLayout(() => {
+        root.classList.add('is-dry');
+        dryAnims.forEach(a => a.cancel());
+        dryAnims = [];
+      });
+      toast('Dry mode on. The jokes have left the building.');
+    } else {
+      flipLayout(() => root.classList.remove('is-dry'));
+      // The hero's strike, "Cheesy" and circle redraw themselves through their own CSS animations
+      const jokes = [...document.querySelectorAll('.note, .only-wet, .edit[data-keep="new"] .strike')].filter(visible);
+      jokes.forEach((el, i) => track(el.animate([{ opacity: 0, translate: '0 10px' }, { opacity: 1, translate: '0 0' }],
+        { duration: 520, delay: 250 + Math.min(i, 10) * 90, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' })));
+      toast('Jokes are back. They missed you.');
+    }
+  }
+  setDry(dryOn, false);
+  dryBtn.addEventListener('click', () => { dryOn = !dryOn; setDry(dryOn, true); });
+
+  // Phone menu
+  const bar = document.querySelector('.top'), menuBtn = document.getElementById('menuBtn');
+  function closeMenu() { bar.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }
+  menuBtn.addEventListener('click', () => {
+    const open = bar.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // Rub out the old lines: move the eraser across them, or tap
+  document.querySelectorAll('.rw-before').forEach(line => {
+    const row = line.closest('.rw');
+    let travelled = 0, last = null;
+    function erase() {
+      if (row.classList.contains('done')) return;
+      row.classList.add('done');
+      line.classList.add('gone');
+      line.setAttribute('aria-hidden', 'true');
+      line.tabIndex = -1;
+    }
+    line.addEventListener('pointermove', e => {
+      if (e.pointerType !== 'mouse' || row.classList.contains('done')) return;
+      if (last) travelled += Math.hypot(e.clientX - last.x, e.clientY - last.y);
+      last = { x: e.clientX, y: e.clientY };
+      const p = Math.min(1, travelled / 700);
+      line.style.opacity = String(1 - p * 0.8);
+      line.style.filter = 'blur(' + (p * 1.5).toFixed(2) + 'px)';
+      if (p >= 1) erase();
+    });
+    line.addEventListener('pointerleave', () => { last = null; });
+    line.addEventListener('click', erase);
+    line.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); erase(); }
+    });
+  });
+
+  // Margin notes and ticks ink in as they scroll into view (the hero's notes wait for the hero edit)
+  const io = (!reduce && 'IntersectionObserver' in window) ? new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('inked'); io.unobserve(en.target); }
+    });
+  }, { rootMargin: '0px 0px -8% 0px' }) : null;
+  document.querySelectorAll('.note:not(.hn), .tick').forEach(el => {
+    if (io) io.observe(el); else el.classList.add('inked');
+  });
+
+  // Fill-in-the-blanks form: opens WhatsApp (or email) with the sentence ready to send
+  const form = document.getElementById('hireForm');
+  const blanks = [...form.querySelectorAll('input[data-blank]')];
+  const err = document.getElementById('formErr');
+  const fit = input => { input.style.width = (Math.max(input.placeholder.length, input.value.length) + 2) + 'ch'; };
+  blanks.forEach(input => {
+    fit(input);
+    input.addEventListener('input', () => {
+      fit(input);
+      input.removeAttribute('aria-invalid');
+      err.textContent = '';
+    });
+  });
+  function sentence() {
+    const v = blanks.map(i => i.value.trim());
+    return "Hi, I'm " + v[0] + ' from ' + v[1] + '. We need ' + v[2] + ' by ' + v[3] + '.';
+  }
+  function ready() {
+    const empty = blanks.filter(i => !i.value.trim());
+    blanks.forEach(i => { if (empty.includes(i)) i.setAttribute('aria-invalid', 'true'); else i.removeAttribute('aria-invalid'); });
+    if (!empty.length) { err.textContent = ''; return true; }
+    const label = form.querySelector('label[for="' + empty[0].id + '"]');
+    err.textContent = 'Fill in "' + (label ? label.textContent : 'every blank') + '" first.';
+    empty[0].focus();
+    return false;
+  }
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (ready()) window.open('https://wa.me/917016227880?text=' + encodeURIComponent(sentence()), '_blank', 'noopener');
+  });
+  document.getElementById('emailBtn').addEventListener('click', () => {
+    if (ready()) location.href = 'mailto:info@thedrytextco.in?subject=' + encodeURIComponent('Hiring the pen') + '&body=' + encodeURIComponent(sentence());
+  });
+
+  // Pages live in this one file (#work, #services, #about, #contact).
+  // Changing page: the title gets struck out, the page drops away, and the next one slides up like a fresh sheet.
+  const pages = [...document.querySelectorAll('.page')];
+  const titles = {
+    home: 'The Dry Text Co. | Content, marketing, advertising, branding and websites from Ahmedabad',
+    work: 'The work | The Dry Text Co.',
+    services: 'Services | The Dry Text Co.',
+    about: 'About | The Dry Text Co.',
+    contact: 'Hire the pen | The Dry Text Co.',
+    missing: 'Page not found | The Dry Text Co.'
+  };
+  let current = null, navRun = 0, first = true;
+  function jumpTo(y, el) {
+    const before = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    if (el) el.scrollIntoView(); else window.scrollTo(0, y);
+    root.style.scrollBehavior = before;
+  }
+  async function leave(page) {
+    const heading = page.querySelector('[data-reveal]');
+    const line = document.createElement('span');
+    line.className = 'pst';
+    // Each step also has a time limit, so a paused tab can't leave the page stuck halfway
+    if (heading && onScreen(heading)) {
+      heading.append(line);
+      await Promise.race([A(line, [{ scale: '0 1' }, { scale: '1 1' }], { duration: 280, easing: 'cubic-bezier(.65,0,.35,1)' }), wait(450)]);
+    }
+    await Promise.race([A(page, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(12px)' }], { duration: 240, easing: 'ease-in' }), wait(400)]);
+    line.remove();
+  }
+  function enter(page) {
+    page.animate([{ opacity: 0, transform: 'translateY(40px)' }, { opacity: 1, transform: 'none' }], { duration: 560, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    const heading = page.querySelector('[data-reveal]');
+    if (heading) heading.animate([{ clipPath: 'inset(-60% 100% -30% 0)' }, { clipPath: 'inset(-60% 0 -30% 0)' }], { duration: 560, delay: 180, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' });
+  }
+  async function show(name, anchorId) {
+    const run = ++navRun;
+    const next = pages.find(p => p.dataset.page === name);
+    const prev = current && current !== next ? current : null;
+    document.title = titles[name];
+    document.querySelectorAll('[data-nav]').forEach(a => {
+      if (name !== 'home' && a.dataset.nav === name) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+    closeMenu();
+    if (prev && !reduce) {
+      pages.forEach(p => p.getAnimations().forEach(a => a.cancel()));
+      await leave(prev);
+      if (run !== navRun) return;
+    }
+    pages.forEach(p => { p.hidden = p !== next; p.getAnimations().forEach(a => a.cancel()); });
+    const slot = next.querySelector('[data-slot="form"]');
+    if (slot && form.parentNode !== slot) slot.appendChild(form);
+    current = next;
+    const target = anchorId && document.getElementById(anchorId);
+    if (target && !prev && !first) target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+    else if (target) requestAnimationFrame(() => jumpTo(0, target));
+    else jumpTo(0);
+    if (prev && !reduce) enter(next);
+    const heading = next.querySelector('h1');
+    if (!first && !target && heading) heading.focus({ preventScroll: true });
+    // Google only counts the first load on its own, so each page change is reported too
+    if (!first && window.gtag) gtag('event', 'page_view', { page_title: document.title, page_location: location.href });
+    first = false;
+  }
+  function route() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return show('home');
+    if (titles[id] && id !== 'home' && id !== 'missing') return show(id);
+    const el = document.getElementById(id);
+    if (el) {
+      const page = el.closest('.page');
+      if (page) show(page.dataset.page, id);
+      return;
+    }
+    document.getElementById('badUrl').textContent = 'thedrytextco.in/#' + id;
+    show('missing');
+  }
+  window.addEventListener('hashchange', route);
+  route();
+
+  // The hero edit: the strike, then "Cheesy", then the circle around "Co.", then the margin notes one by one
+  function playHero() {
+    root.classList.remove('hero-wait');
+    root.classList.add('hero-go');
+    const delays = [1150, 1450, 2250, 2650, 3050];
+    document.querySelectorAll('.hn').forEach((n, i) => setTimeout(() => n.classList.add('inked'), reduce ? 0 : delays[i] || 3000));
+  }
+
+  // Opening (once per visit): two bad drafts of the name get struck out, the right one files itself into the top bar
+  async function runIntro() {
+    const intro = document.getElementById('intro');
+    const nameEl = intro.querySelector('.intro-name'), tx = intro.querySelector('.intro-tx');
+    const lbl = intro.querySelector('.intro-lbl'), st = intro.querySelector('.intro-st');
+    const brand = document.querySelector('.brand'), fading = [document.getElementById('main'), document.querySelector('.foot')];
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      root.classList.remove('intro');
+      [brand, ...fading].forEach(el => el.getAnimations().forEach(a => a.cancel()));
+      intro.remove();
+      setTimeout(playHero, 150);
+    };
+    try { sessionStorage.setItem('introSeen', '1'); } catch (e) {}
+    intro.addEventListener('click', finish);
+    setTimeout(finish, 8000); // never keep the page covered if the animation stalls
+    document.addEventListener('keydown', finish, { once: true });
+    await Promise.race([document.fonts ? document.fonts.ready : wait(0), wait(1200)]);
+    await wait(650);
+    for (const [text, label] of [['Dry Text &amp; Co.', 'draft_2'], ['The Dry Text Co.', 'final_final_v3 ✓']]) {
+      if (done) return;
+      await A(st, [{ scale: '0 1' }, { scale: '1 1' }], { duration: 320, easing: 'cubic-bezier(.65,0,.35,1)' });
+      await wait(160);
+      await A(nameEl, [{ opacity: 1 }, { opacity: 0 }], { duration: 160, easing: 'ease' });
+      tx.innerHTML = text;
+      lbl.textContent = label;
+      st.getAnimations().forEach(a => a.cancel());
+      await A(nameEl, [{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: 'ease' });
+      await wait(300);
+    }
+    if (done) return;
+    lbl.style.color = 'var(--red)';
+    await wait(420);
+    if (done) return;
+    nameEl.getAnimations().forEach(a => a.cancel());
+    lbl.remove();
+    st.remove();
+    // The name and the top-bar name share the same font settings, so scaling one onto the other lines up exactly
+    const a = nameEl.getBoundingClientRect(), b = brand.getBoundingClientRect();
+    intro.style.pointerEvents = 'none';
+    A(nameEl, [{ transform: 'none' }, { transform: `translate(${b.left - a.left}px, ${b.top - a.top}px) scale(${b.width / a.width})` }], { duration: 780, easing: 'cubic-bezier(.7,0,.2,1)' });
+    A(intro, [{ backgroundColor: 'rgba(251,251,249,1)' }, { backgroundColor: 'rgba(251,251,249,0)' }], { duration: 520, delay: 320, easing: 'ease', fill: 'both' });
+    fading.forEach(el => A(el, [{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { duration: 700, delay: 460, fill: 'both' }));
+    await wait(790);
+    if (done) return;
+    A(brand, [{ opacity: 0 }, { opacity: 1 }], { duration: 180, easing: 'linear' });
+    await A(nameEl, [{ opacity: 1 }, { opacity: 0 }], { duration: 180, easing: 'linear' });
+    await wait(400);
+    finish();
+  }
+  if (root.classList.contains('intro')) runIntro();
+  else setTimeout(playHero, reduce ? 0 : 300);
+
+  // The tagline machine
+  const REELS = [
+    ['Write bolder.', 'Say less.', 'Sell without shouting.', 'Cut the cliché.', 'Land the first line.', 'Skip the buzzwords.'],
+    ['Charge more.', 'Sound like someone.', 'Get read, not skimmed.', 'Win the inbox.', 'Make them screenshot it.', 'Outlive the scroll.'],
+    ['Then sleep.', 'Then send it.', 'Then do it again.', 'Then raise your rates.', 'Then thank the pen.', 'Then order chai.']
+  ];
+  const reels = [...document.querySelectorAll('#reels .reel')], spinBtn = document.getElementById('spinBtn'), tagSend = document.getElementById('tagSend');
+  const pick = list => list[Math.floor(Math.random() * list.length)];
+  const settleTag = () => { tagSend.href = 'https://wa.me/917016227880?text=' + encodeURIComponent('Your tagline machine gave me this: ' + reels.map(r => r.textContent).join(' ')); };
+  reels.forEach((r, i) => { r.textContent = REELS[i][i]; });
+  settleTag();
+  spinBtn.addEventListener('click', () => {
+    if (reduce) { reels.forEach((r, i) => { r.textContent = pick(REELS[i]); }); settleTag(); return; }
+    spinBtn.disabled = true;
+    reels.forEach((r, i) => {
+      let ticks = 0;
+      r.classList.add('spinning');
+      const t = setInterval(() => {
+        r.textContent = pick(REELS[i]);
+        if (++ticks <= 8 + i * 5) return;
+        clearInterval(t);
+        r.classList.remove('spinning');
+        r.animate([{ transform: 'translateY(-6px)' }, { transform: 'none' }], { duration: 260, easing: 'cubic-bezier(.3,1.5,.5,1)' });
+        if (i === reels.length - 1) { spinBtn.disabled = false; settleTag(); }
+      }, 70);
+    });
+  });
+
+  // Who we are: the red pen circles the five things we do, one at a time.
+  // Each circle is drawn to its own word's size, so the line stays even; the last one fades as the next is drawn.
+  (() => {
+    const words = [...document.querySelectorAll('#does .w')];
+    if (!words.length) return;
+    const NS = 'http://www.w3.org/2000/svg', PX = 6, PY = 4;
+    const ringPath = (w, h) => {
+      const X = x => (x * w / 100).toFixed(1), Y = y => (y * h / 40).toFixed(1);
+      return `M${X(58)} ${Y(3)}C${X(30)} ${Y(0)} ${X(3)} ${Y(6)} ${X(2)} ${Y(20)}C${X(1)} ${Y(33)} ${X(25)} ${Y(38)} ${X(51)} ${Y(37)}` +
+             `C${X(77)} ${Y(36)} ${X(98)} ${Y(30)} ${X(98)} ${Y(18)}C${X(98)} ${Y(6)} ${X(76)} ${Y(1)} ${X(46)} ${Y(3)}`;
+    };
+    // Sized when drawn: Home may have been hidden (and zero-sized) when a ring was last built
+    const ring = w => {
+      const W = w.offsetWidth + PX * 2, H = w.offsetHeight + PY * 2;
+      if (w._ring && w._ring.W === W && w._ring.H === H) return w._ring;
+      if (w._ring) w._ring.svg.remove();
+      const svg = document.createElementNS(NS, 'svg'), path = document.createElementNS(NS, 'path');
+      svg.setAttribute('class', 'pen-ring');
+      svg.setAttribute('aria-hidden', 'true');
+      svg.setAttribute('width', W);
+      svg.setAttribute('height', H);
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      svg.style.left = -PX + 'px';
+      svg.style.top = -PY + 'px';
+      path.setAttribute('d', ringPath(W, H));
+      svg.appendChild(path);
+      w.appendChild(svg);
+      const L = path.getTotalLength();
+      path.style.strokeDasharray = L;
+      path.style.strokeDashoffset = L;
+      return (w._ring = { svg, path, L, W, H });
+    };
+    let cur = -1;
+    function circle(i, animate) {
+      const next = words[i];
+      if (!next.offsetWidth) return;
+      const prev = words[cur];
+      if (prev && prev !== next && prev._ring) {
+        const r = prev._ring;
+        if (animate) {
+          const fade = r.svg.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 380, easing: 'ease-out', fill: 'forwards' });
+          fade.finished.then(() => { r.path.style.strokeDashoffset = r.L; fade.cancel(); }).catch(() => {});
+        } else r.path.style.strokeDashoffset = r.L;
+      }
+      const { path, L } = ring(next);
+      path.style.strokeDashoffset = 0;
+      if (animate) path.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: 700, easing: 'cubic-bezier(.65,0,.35,1)' });
+      cur = i;
+    }
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+      circle(0, !reduce);
+      if (!reduce) setInterval(() => {
+        if (document.hidden || root.classList.contains('is-dry')) return;
+        circle((cur + 1) % words.length, true);
+      }, 2000);
+      let t;
+      addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { if (cur >= 0) circle(cur, false); }, 150); });
+    });
+  })();
+
+  // Work: the long chapters are an index with the piece open beside it. Switching lifts the open one
+  // away, slides the next one in and writes its title in.
+  const two = n => String(n).padStart(2, '0');
+  const make = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; };
+  function deck(listId, readId, items, nextLabel) {
+    const list = document.getElementById(listId), read = document.getElementById(readId);
+    if (!list || !read || !items.length) return;
+    let at = -1, swap = null;
+    items.forEach((it, i) => {
+      const b = make('button', 'ob-item');
+      b.type = 'button';
+      b.tabIndex = i ? -1 : 0;
+      b.append(make('span', 'ob-no', it.label), make('span', 'ob-sub', it.title));
+      b.addEventListener('click', () => open(i));
+      list.append(b);
+    });
+    function fill(i) {
+      const it = items[i], h = make('h3', '', it.title), nav = make('div', 'ob-nav');
+      const prev = make('button', 'ghost', '\u2190 Previous'), next = make('button', 'btn', nextLabel);
+      prev.type = next.type = 'button';
+      prev.addEventListener('click', () => open(at - 1));
+      next.addEventListener('click', () => open(at + 1));
+      nav.append(make('span', '', two(i + 1) + ' / ' + items.length), prev, next);
+      read.textContent = '';
+      read.append(make('p', 'ob-to', it.meta), h, make('p', 'ob-body', it.body));
+      if (it.subs && it.subs.length) {
+        const alt = make('div', 'ob-alt'), ul = make('ul');
+        it.subs.forEach(t => ul.append(make('li', '', t)));
+        alt.append(make('p', '', 'Other subject lines written for this one'), ul);
+        read.append(alt);
+      }
+      read.append(nav);
+      read.scrollTop = 0;
+      return h;
+    }
+    async function open(i) {
+      i = (i + items.length) % items.length;
+      if (i === at) return;
+      const first = at < 0;
+      at = i;
+      [...list.children].forEach((b, j) => { b.setAttribute('aria-current', j === i ? 'true' : 'false'); b.tabIndex = j === i ? 0 : -1; });
+      const row = list.children[i];
+      list.scrollTo({ top: row.offsetTop - list.clientHeight / 2 + row.offsetHeight / 2, behavior: first || reduce ? 'auto' : 'smooth' });
+      if (first || reduce) { fill(i); return; }
+      const token = swap = {};
+      await Promise.race([A(read, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-10px)' }], { duration: 150, easing: 'ease-in' }), wait(300)]);
+      if (token !== swap) return;
+      read.getAnimations().forEach(a => a.cancel());
+      const h = fill(i);
+      read.animate([{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.2,.7,.2,1)' });
+      h.animate([{ clipPath: 'inset(-20% 100% -20% 0)' }, { clipPath: 'inset(-20% 0 -20% 0)' }], { duration: 560, delay: 90, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' });
+    }
+    list.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+      e.preventDefault();
+      open(at + (e.key === 'ArrowDown' ? 1 : -1));
+      list.children[at].focus();
+    });
+    open(0);
+  }
+  const WORK = JSON.parse(document.getElementById('workData').textContent);
+  const MAILS = JSON.parse(document.getElementById('mailData').textContent);
+  deck('liList', 'liRead', WORK.linkedin, 'Next post \u2192');
+  deck('orList', 'orRead', WORK.outreach, 'Next mail \u2192');
+  deck('obList', 'obRead', MAILS.map(m => ({
+    label: 'Dry Text #' + two(m.n) + ' \u00b7 ' + m.to,
+    meta: 'DRY TEXT #' + two(m.n) + '  \u00b7  TO ' + m.to.toUpperCase(),
+    title: m.subject,
+    body: m.body
+  })), 'Next mail \u2192');
+
+  // Visitors' own margin notes, in blue, between our red ones. They're kept in this browser only,
+  // and can be downloaded as a PDF or sent over WhatsApp.
+  const NOTES_KEY = 'dtc-notes';
+  let myNotes = (() => { try { return JSON.parse(localStorage.getItem(NOTES_KEY) || '{}'); } catch (e) { return {}; } })();
+  const saveNotes = () => { try { localStorage.setItem(NOTES_KEY, JSON.stringify(myNotes)); } catch (e) {} };
+  const PAGE_NAMES = { home: 'Home', work: 'Work', services: 'Services', about: 'About', contact: 'Contact' };
+  const slots = [];
+  pages.forEach(page => {
+    const name = page.dataset.page;
+    if (!PAGE_NAMES[name]) return;
+    page.querySelectorAll(':scope > .book > .page-head, :scope > .book > .hero > .row:last-child, :scope > .book > section.sec > .row:first-of-type').forEach((row, k) => {
+      let stack = row.querySelector(':scope > .note-stack');
+      if (!stack) {
+        stack = make('div', 'note-stack');
+        const note = row.querySelector(':scope > .note');
+        if (note) { note.before(stack); stack.append(note); } else row.append(stack);
+      }
+      const heading = row.closest('.hero') ? null : (row.querySelector('.eyebrow') || row.querySelector('h1, h2'));
+      const slot = make('div', 'slot');
+      slot.dataset.key = name + ':' + (row.closest('section[id]') ? row.closest('section[id]').id : k);
+      slot.dataset.label = PAGE_NAMES[name] + ' · ' + (heading ? heading.textContent.trim() : 'Top of the page');
+      stack.append(slot);
+      slots.push(slot);
+    });
+  });
+  const dock = document.getElementById('dock'), dockMenu = document.getElementById('dockMenu'), dockBtn = document.getElementById('dockBtn');
+  const writtenNotes = () => slots.map(sl => ({ where: sl.dataset.label, text: (myNotes[sl.dataset.key] || '').trim() })).filter(n => n.text);
+  function updateDock() {
+    const all = writtenNotes();
+    dock.hidden = !all.length;
+    if (!all.length) { dockMenu.hidden = true; dockBtn.setAttribute('aria-expanded', 'false'); }
+    document.getElementById('dockCount').textContent = all.length + (all.length === 1 ? ' note' : ' notes');
+    document.getElementById('notesSend').href = 'https://wa.me/917016227880?text=' + encodeURIComponent('My notes from your site:\n\n' + all.map(n => '• ' + n.where + ': ' + n.text).join('\n'));
+  }
+  function renderSlot(slot) {
+    const key = slot.dataset.key, text = (myNotes[key] || '').trim();
+    slot.textContent = '';
+    if (!text) {
+      const add = make('button', 'add', '✎ your note');
+      add.type = 'button';
+      add.setAttribute('aria-label', 'Add your own note: ' + slot.dataset.label);
+      add.addEventListener('click', () => editSlot(slot));
+      slot.append(add);
+      return;
+    }
+    const mine = make('p', 'mine', text);
+    mine.title = 'Click to edit';
+    mine.addEventListener('click', () => editSlot(slot));
+    const del = make('button', 'del', '×');
+    del.type = 'button';
+    del.setAttribute('aria-label', 'Delete this note');
+    del.addEventListener('click', e => { e.stopPropagation(); delete myNotes[key]; saveNotes(); renderSlot(slot); updateDock(); });
+    mine.append(del);
+    slot.append(mine);
+  }
+  function editSlot(slot) {
+    const key = slot.dataset.key, was = myNotes[key] || '';
+    slot.textContent = '';
+    const ta = make('textarea');
+    ta.value = was;
+    ta.rows = 1;
+    ta.setAttribute('aria-label', 'Your note: ' + slot.dataset.label);
+    const grow = () => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; };
+    // Saved as they type too, so closing the tab mid-note loses nothing
+    ta.addEventListener('input', () => {
+      grow();
+      const v = ta.value.trim();
+      if (v) myNotes[key] = v; else delete myNotes[key];
+      saveNotes();
+      updateDock();
+    });
+    ta.addEventListener('keydown', e => { if (e.key === 'Escape') { ta.value = was; ta.dispatchEvent(new Event('input')); ta.blur(); } });
+    ta.addEventListener('blur', () => {
+      const v = ta.value.trim();
+      if (v) myNotes[key] = v; else delete myNotes[key];
+      saveNotes();
+      renderSlot(slot);
+      updateDock();
+    });
+    slot.append(ta);
+    grow();
+    ta.focus();
+  }
+  function loadPdfMaker() {
+    if (window.jspdf) return Promise.resolve();
+    return new Promise((resolve, reject) => {
+      const tag = document.createElement('script');
+      tag.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+      tag.onload = resolve;
+      tag.onerror = reject;
+      document.head.append(tag);
+    });
+  }
+  async function downloadNotes() {
+    try { await loadPdfMaker(); } catch (e) { toast("Couldn't load the PDF maker. Check your connection and try again."); return; }
+    const doc = new window.jspdf.jsPDF({ unit: 'pt', format: 'a4' });
+    const W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight(), M = 56, textW = W - M - 170;
+    const marginLine = () => { doc.setDrawColor(242, 184, 184); doc.setLineWidth(1.2); doc.line(W - 140, 36, W - 140, H - 36); };
+    const small = () => { doc.setFont('courier', 'normal'); doc.setFontSize(9); doc.setTextColor(119, 118, 122); };
+    marginLine();
+    doc.setFont('times', 'normal');
+    doc.setFontSize(24);
+    doc.setTextColor(22, 22, 26);
+    doc.text('Notes from thedrytextco.in', M, 92);
+    small();
+    doc.text(new Date().toLocaleString(), M, 112);
+    let y = 152;
+    writtenNotes().forEach(n => {
+      if (y > H - 110) { doc.addPage(); marginLine(); y = 80; }
+      small();
+      doc.text(n.where.toUpperCase(), M, y);
+      y += 17;
+      doc.setFont('times', 'normal');
+      doc.setFontSize(14);
+      doc.setTextColor(47, 91, 211);
+      doc.splitTextToSize(n.text, textW).forEach(line => {
+        if (y > H - 70) { doc.addPage(); marginLine(); y = 80; }
+        doc.text(line, M, y);
+        y += 19;
+      });
+      y += 20;
+    });
+    small();
+    doc.text('Written by you. We just held the pen.', M, H - 48);
+    doc.save('my-notes-the-dry-text-co.pdf');
+  }
+  dockBtn.addEventListener('click', () => {
+    const open = dockMenu.hidden;
+    dockMenu.hidden = !open;
+    dockBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.getElementById('notesPdf').addEventListener('click', downloadNotes);
+  document.getElementById('notesClear').addEventListener('click', () => {
+    myNotes = {};
+    saveNotes();
+    slots.forEach(renderSlot);
+    updateDock();
+    toast('Notes cleared.');
+  });
+  slots.forEach(renderSlot);
+  updateDock();
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  window.__inkReady = true;
+})();
+</script>
+</body>
+</html>
