@@ -222,13 +222,35 @@
       { duration: 560, delay: 120, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' });
   }
 
+  // A heading can run to three lines, so the pen draws one stroke per line, all at once
+  function strikeLines(heading) {
+    const box = heading.getBoundingClientRect(), range = document.createRange(), rows = [];
+    range.selectNodeContents(heading);
+    [...range.getClientRects()].forEach(r => {
+      if (r.width < 6 || r.height < 6) return;
+      const row = rows.find(o => Math.abs(o.top - r.top) < r.height * .6);
+      if (row) { row.left = Math.min(row.left, r.left); row.right = Math.max(row.right, r.right); }
+      else rows.push({ top: r.top, left: r.left, right: r.right, height: r.height });
+    });
+    return rows.map(row => {
+      const line = document.createElement('span');
+      line.className = 'pst';
+      line.style.left = (row.left - box.left - 5) + 'px';
+      line.style.right = 'auto';
+      line.style.width = (row.right - row.left + 10) + 'px';
+      line.style.top = (row.top - box.top + row.height * .56) + 'px';
+      heading.append(line);
+      return line;
+    });
+  }
   async function strikeThenGo(href) {
     const heading = here && here.querySelector('[data-reveal]');
     if (heading && onScreen(heading) && !reduce) {
-      const line = document.createElement('span');
-      line.className = 'pst';
-      heading.append(line);
-      await Promise.race([A(line, [{ scale: '0 1' }, { scale: '1 1' }], { duration: 280, easing: 'cubic-bezier(.65,0,.35,1)' }), wait(400)]);
+      const lines = strikeLines(heading);
+      await Promise.race([
+        Promise.all(lines.map(l => A(l, [{ scale: '0 1' }, { scale: '1 1' }], { duration: 280, easing: 'cubic-bezier(.65,0,.35,1)' }))),
+        wait(400)
+      ]);
     }
     location.href = href;
   }

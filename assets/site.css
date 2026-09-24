@@ -74,7 +74,7 @@ html.intro .brand,html.intro main,html.intro .foot{opacity:0}
 .sec-head{margin-bottom:26px}
 .page-head{padding-block:clamp(56px,8vw,110px) clamp(40px,5vw,64px)}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin-bottom:12px}
-.h1{font-size:clamp(46px,7vw,92px);font-weight:500;letter-spacing:-.03em;line-height:1;margin:0}
+.h1{position:relative;font-size:clamp(46px,7vw,92px);font-weight:500;letter-spacing:-.03em;line-height:1;margin:0}
 .h2{font-size:clamp(32px,4.2vw,52px);font-weight:500;letter-spacing:-.02em;line-height:1.05;margin:0}
 [data-reveal]{position:relative;width:fit-content;max-width:100%}
 .pst{position:absolute;left:-2%;right:-2%;top:52%;height:max(3px,.06em);background:var(--red);border-radius:9px;transform-origin:left center;rotate:-2deg;pointer-events:none}
@@ -102,7 +102,7 @@ html.is-dry .note{display:none}
 .hero-r3{margin-top:30px}
 .hero-r3 .ctas{margin-top:0}
 .note-stack{display:grid;gap:12px;align-content:start}
-.name{font-size:clamp(34px,12.6cqi,104px);font-weight:500;letter-spacing:-.03em;line-height:1;margin:0;padding-top:.62em;white-space:nowrap}
+.name{position:relative;font-size:clamp(34px,12.6cqi,104px);font-weight:500;letter-spacing:-.03em;line-height:1;margin:0;padding-top:.62em;white-space:nowrap}
 .edit{position:relative;display:inline-block}
 .strike{position:relative;color:var(--grey)}
 .strike::after{content:"";position:absolute;left:-5%;right:-5%;top:55%;height:max(3px,.06em);background:var(--red);border-radius:99px;transform:rotate(-4deg);transform-origin:left center}
@@ -324,6 +324,9 @@ html.cur :is(input,textarea){cursor:text!important}
 .price dd{margin:0;font-family:var(--mono);font-size:15px;white-space:nowrap;font-variant-numeric:tabular-nums}
 .price dd b{font-weight:500}
 .price-note{font-size:16px;color:var(--ink-2);margin-top:16px;max-width:62ch}
+.svc-more{font-family:var(--mono);font-size:12.5px;margin-top:9px}
+.svc-more a{text-decoration:underline;text-decoration-color:var(--margin);text-decoration-thickness:1.5px;text-underline-offset:4px}
+.svc-more a:hover{text-decoration-color:var(--red)}
 .faq{margin:16px 0 0;border-top:1px solid var(--ink)}
 .faq dt{font-weight:500;font-size:18.5px;padding-top:16px;letter-spacing:-.01em}
 .faq dd{margin:7px 0 0;padding-bottom:16px;border-bottom:1px solid var(--rule);color:var(--ink-2);font-size:16.5px;max-width:64ch;line-height:1.6}
