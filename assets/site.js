@@ -478,7 +478,7 @@
   const slots = [];
   document.querySelectorAll('.page').forEach(page => {
     const name = page.dataset.page;
-    if (!PAGE_NAMES[name]) return;
+    if (name === 'missing') return;
     page.querySelectorAll(':scope > .book > .page-head, :scope > .book > .hero > .row:last-child, :scope > .book > section.sec > .row:first-of-type').forEach((row, k) => {
       let stack = row.querySelector(':scope > .note-stack');
       if (!stack) {
@@ -489,7 +489,8 @@
       const heading = row.closest('.hero') ? null : (row.querySelector('.eyebrow') || row.querySelector('h1, h2'));
       const slot = make('div', 'slot');
       slot.dataset.key = name + ':' + (row.closest('section[id]') ? row.closest('section[id]').id : k);
-      slot.dataset.label = PAGE_NAMES[name] + ' · ' + (heading ? heading.textContent.trim() : 'Top of the page');
+      const pageLabel = PAGE_NAMES[name] || (page.querySelector('.page-head .eyebrow') || page.querySelector('h1') || {}).textContent || 'Page';
+      slot.dataset.label = pageLabel.trim() + ' · ' + (heading ? heading.textContent.trim() : 'Top of the page');
       stack.append(slot);
       slots.push(slot);
     });

@@ -103,8 +103,35 @@ for token, name, block_id in (("__MAILS_JSON__", "mails.json", "mailData"), ("__
     data_blocks += '<script type="application/json" id="%s">%s</script>\n' % (block_id, payload)
 
 
-def schema(name, page):
+# --- the extra pages: services, notes, case studies. One file each in source/pages/ ------
+EXTRA = []
+for f in sorted((HERE / "pages").glob("*.html")):
+    raw = f.read_text(encoding="utf-8")
+    meta_raw, _, markup = raw.partition("-->")
+    meta = json.loads(meta_raw.replace("<!--", "", 1).strip())
+    meta["markup"] = markup.strip()
+    meta["name"] = meta["path"].strip("/").replace("/", "-")
+    meta["file"] = meta["path"].lstrip("/") + ".html"
+    EXTRA.append(meta)
+
+notes = sorted([p for p in EXTRA if p.get("kind") == "note"], key=lambda p: p["date"], reverse=True)
+note_list = "\n".join(
+    '<li><a href="%s"><span class="nt-d">%s</span><span class="nt-t">%s</span><span class="nt-b">%s</span></a></li>'
+    % (n["path"], datetime.date.fromisoformat(n["date"]).strftime("%d %b %Y"), n["title_short"], n["blurb"])
+    for n in notes)
+for p in EXTRA:
+    # the questions are written once, in the page's header, so the page and the search result agree
+    faq = "".join("<dt>%s</dt><dd>%s</dd>" % (q, a) for q, a in p.get("faq", []))
+    p["markup"] = (p["markup"]
+                   .replace("__NOTE_LIST__", note_list or '<li class="nt-soon">The first one is being written.</li>')
+                   .replace("__FAQ__", '<dl class="faq">%s</dl>' % faq))
+
+ALL = [dict(PAGES[n], name=n, markup=pages[n], data=(n == "work")) for n in PAGES] + EXTRA
+
+
+def schema(page):
     """What the page is, in the form search engines read."""
+    name, path = page["name"], page["path"]
     org = {
         "@type": "ProfessionalService",
         "@id": SITE + "/#org",
@@ -125,11 +152,14 @@ def schema(name, page):
     graph = [org] if name == "home" else [{"@type": "Organization", "@id": SITE + "/#org", "name": "The Dry Text Co."}]
     if name == "home":
         graph.append({"@type": "WebSite", "@id": SITE + "/#site", "url": SITE + "/", "name": "The Dry Text Co.", "publisher": {"@id": SITE + "/#org"}})
-    elif page["path"]:
-        graph.append({"@type": "BreadcrumbList", "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/"},
-            {"@type": "ListItem", "position": 2, "name": page.get("crumb", page["title"]), "item": SITE + page["path"]},
-        ]})
+    elif path:
+        crumbs = [{"@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/"}]
+        if page.get("parent"):
+            parent = next((p for p in ALL if p["path"] == page["parent"]), None)
+            if parent:
+                crumbs.append({"@type": "ListItem", "position": 2, "name": parent.get("crumb", parent["title"]), "item": SITE + parent["path"]})
+        crumbs.append({"@type": "ListItem", "position": len(crumbs) + 1, "name": page.get("crumb", page["title"]), "item": SITE + path})
+        graph.append({"@type": "BreadcrumbList", "itemListElement": crumbs})
     if name == "services":
         graph.append({"@type": "ItemList", "name": "What we write and build", "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "item": {"@type": "Service", "name": s, "provider": {"@id": SITE + "/#org"}, "areaServed": "Worldwide"}}
@@ -137,14 +167,35 @@ def schema(name, page):
         ]})
     if name == "contact":
         graph.append({"@type": "ContactPage", "url": SITE + "/contact", "about": {"@id": SITE + "/#org"}})
+    if page.get("kind") == "service":
+        graph.append({
+            "@type": "Service", "name": page["service"], "serviceType": page["service"],
+            "provider": {"@id": SITE + "/#org"}, "url": SITE + path,
+            "areaServed": [{"@type": "City", "name": "Ahmedabad"}, {"@type": "Country", "name": "India"}, "Worldwide"],
+            "offers": {"@type": "Offer", "priceCurrency": "INR", "price": str(page["from"]),
+                       "description": "Priced per project. From INR %s." % page["from"]},
+        })
+    if page.get("faq"):
+        graph.append({"@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in page["faq"]]})
+    if page.get("kind") == "note":
+        graph.append({
+            "@type": "BlogPosting", "headline": page["title_short"], "description": page["desc"],
+            "url": SITE + path, "datePublished": page["date"], "dateModified": page.get("updated", page["date"]),
+            "author": {"@type": "Person", "name": page.get("author", "Granth Hirapara")},
+            "publisher": {"@id": SITE + "/#org"}, "image": SITE + "/og-image.png",
+            "inLanguage": "en-IN", "isPartOf": {"@type": "Blog", "@id": SITE + "/notes"},
+        })
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, separators=(",", ":"))
 
 
-def build_page(name, page):
-    url = SITE + (page["path"] or "/")
+def build_page(page):
+    name, path = page["name"], page["path"]
+    url = SITE + (path or "/")
     nav = header
-    if page["path"] and page["path"] != "/":
-        nav = nav.replace('href="%s"' % page["path"], 'href="%s" aria-current="page"' % page["path"], 1)
+    top = page.get("parent") or path
+    if top and top != "/":
+        nav = nav.replace('href="%s"' % top, 'href="%s" aria-current="page"' % top, 1)
     head = [
         '<meta charset="utf-8">',
         '<meta name="viewport" content="width=device-width, initial-scale=1">',
@@ -157,7 +208,7 @@ def build_page(name, page):
     else:
         head += [
             '<link rel="canonical" href="%s">' % url,
-            '<meta property="og:type" content="website">',
+            '<meta property="og:type" content="%s">' % ("article" if page.get("kind") == "note" else "website"),
             '<meta property="og:url" content="%s">' % url,
             '<meta property="og:site_name" content="The Dry Text Co.">',
             '<meta property="og:title" content="%s">' % page["title"],
@@ -171,12 +222,12 @@ def build_page(name, page):
         nav,
         '<main id="main">',
         '<div class="page" data-page="%s">' % name,
-        pages[name],
+        page["markup"],
         "</div>",
         "</main>",
         footer,
         after_footer.strip(),
-        data_blocks if name == "work" else "",
+        data_blocks if page.get("data") else "",
         '<script src="/assets/site.js" defer></script>',
     ]
     return "\n".join([
@@ -188,7 +239,7 @@ def build_page(name, page):
         '<link rel="stylesheet" href="/assets/site.css">',
         prepaint.replace("(function (d) {", "(function (d) {\n  var isHome = %s;" % ("true" if name == "home" else "false"))
                 .replace("if (!seen && !r.classList.contains('is-dry'))", "if (isHome && !seen && !r.classList.contains('is-dry'))"),
-        '<script type="application/ld+json">%s</script>' % schema(name, page),
+        '<script type="application/ld+json">%s</script>' % schema(page),
         "</head>",
         "<body>",
         "\n".join(p for p in body if p),
@@ -198,16 +249,19 @@ def build_page(name, page):
     ])
 
 
-for name, page in PAGES.items():
-    (OUT / page["file"]).write_text(build_page(name, page), encoding="utf-8")
+for page in ALL:
+    out = OUT / page["file"]
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(build_page(page), encoding="utf-8")
 
 # --- the files that tell search engines what exists ------------------------------------
 (OUT / "robots.txt").write_text("User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % SITE, encoding="utf-8")
 today = datetime.date.today().isoformat()
+listed = [dict(PAGES[n], name=n) for n in ORDER] + EXTRA
 urls = "".join(
     "  <url><loc>%s%s</loc><lastmod>%s</lastmod><priority>%s</priority></url>\n"
-    % (SITE, PAGES[n]["path"] if PAGES[n]["path"] != "/" else "/", today, "1.0" if n == "home" else "0.8")
-    for n in ORDER)
+    % (SITE, p["path"], p.get("updated") or p.get("date") or today, "1.0" if p["name"] == "home" else "0.8")
+    for p in listed if p.get("path") and not p.get("noindex"))
 (OUT / "sitemap.xml").write_text(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s</urlset>\n' % urls,
     encoding="utf-8")
@@ -217,8 +271,7 @@ urls = "".join(
     "redirects": [{"source": "/index", "destination": "/", "permanent": True}],
 }, indent=2) + "\n", encoding="utf-8")
 
-sizes = ", ".join("%s %d KB" % (PAGES[n]["file"], (OUT / PAGES[n]["file"]).stat().st_size // 1024) for n in ORDER)
-print("Built:", sizes)
+print("Built %d pages:" % len(ALL), ", ".join(p["file"] for p in ALL))
 print("Shared: assets/site.css %d KB, assets/site.js %d KB, %d images" % (
     (assets / "site.css").stat().st_size // 1024,
     (assets / "site.js").stat().st_size // 1024,

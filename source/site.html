@@ -355,6 +355,42 @@ html.cur :is(input,textarea){cursor:text!important}
 .ob-nav span{font-family:var(--mono);font-size:12px;color:var(--grey);margin-right:auto}
 .ghost{font-family:var(--mono);font-size:13px;line-height:1;background:none;color:var(--ink);border:1px solid var(--ink);border-radius:4px;padding:15px 18px;cursor:pointer}
 .guj{font-family:"Noto Serif Gujarati","Shruti",var(--serif);line-height:1.6}
+/* links inside body copy */
+.prose a,.also a,.ticks a,.price-note a,.faq dd a{text-decoration:underline;text-decoration-color:var(--margin);text-decoration-thickness:1.5px;text-underline-offset:3px}
+.prose a:hover,.also a:hover,.ticks a:hover,.price-note a:hover,.faq dd a:hover{text-decoration-color:var(--red)}
+/* service pages: what it costs, and the questions people ask first */
+.price{margin:18px 0 0;border-top:1px solid var(--ink)}
+.price div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 24px;padding:13px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.price dt{font-size:17.5px}
+.price dt small{display:block;font-family:var(--mono);font-size:11.5px;color:var(--grey);margin-top:3px;letter-spacing:.02em}
+.price dd{margin:0;font-family:var(--mono);font-size:15px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.price dd b{font-weight:500}
+.price-note{font-size:16px;color:var(--ink-2);margin-top:16px;max-width:62ch}
+.faq{margin:16px 0 0;border-top:1px solid var(--ink)}
+.faq dt{font-weight:500;font-size:18.5px;padding-top:16px;letter-spacing:-.01em}
+.faq dd{margin:7px 0 0;padding-bottom:16px;border-bottom:1px solid var(--rule);color:var(--ink-2);font-size:16.5px;max-width:64ch;line-height:1.6}
+.ticks{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px;max-width:64ch}
+.ticks li{position:relative;padding-left:26px;font-size:17px;color:var(--ink-2)}
+.ticks li::before{content:"";position:absolute;left:3px;top:.5em;width:11px;height:6px;border-left:2px solid var(--red);border-bottom:2px solid var(--red);transform:rotate(-45deg)}
+.ticks b{font-weight:500;color:var(--ink)}
+/* notes: the index and the pieces */
+.nt-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.nt-list a{display:grid;grid-template-columns:120px minmax(0,1fr);gap:4px 26px;padding:18px 0;border-bottom:1px solid var(--rule);text-decoration:none;color:inherit;align-items:baseline}
+.nt-list a:hover .nt-t{text-decoration:underline wavy var(--red) 1.5px;text-underline-offset:6px}
+.nt-d{font-family:var(--mono);font-size:11.5px;color:var(--grey);padding-top:5px}
+.nt-t{font-size:clamp(20px,2.3vw,26px);font-weight:500;letter-spacing:-.015em;line-height:1.2}
+.nt-b{grid-column:2;color:var(--ink-2);font-size:16.5px;margin-top:4px;max-width:62ch}
+.nt-soon{font-family:var(--mono);font-size:13px;color:var(--grey);padding:18px 0;border-bottom:1px solid var(--rule)}
+.nt-meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
+.prose{max-width:64ch;font-size:18px;line-height:1.65}
+.prose h2{font-size:clamp(22px,2.6vw,29px);font-weight:500;letter-spacing:-.015em;line-height:1.2;margin:38px 0 0}
+.prose h3{font-size:20px;font-weight:500;margin:26px 0 0}
+.prose p{margin-top:14px}
+.prose ul,.prose ol{margin:14px 0 0;padding-left:22px;display:grid;gap:8px}
+.prose li{padding-left:2px}
+.prose b{font-weight:500}
+.prose .pull{font-size:clamp(21px,2.4vw,27px);line-height:1.35;letter-spacing:-.015em;margin:30px 0;padding-left:20px;border-left:3px solid var(--red)}
+@media (max-width:640px){.nt-list a{grid-template-columns:minmax(0,1fr)}.nt-b{grid-column:1}}
 /* work: the chapters of the page */
 .chap-toc{display:flex;flex-wrap:wrap;gap:9px 10px;margin-top:6px}
 .chap-toc a{display:inline-flex;align-items:baseline;gap:9px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--ink);border:1px solid var(--rule);border-radius:99px;padding:9px 15px;transition:border-color .2s ease}
@@ -477,6 +513,7 @@ html.is-dry .clients-run .star{display:inline}
         <a href="/work" data-nav="work">Work</a>
         <a href="/services" data-nav="services">Services</a>
         <a href="/about" data-nav="about">About</a>
+        <a href="/notes" data-nav="notes">Notes</a>
       </nav>
       <a class="hire-link" href="/contact" data-nav="contact"><svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M24 34C18 10 176 4 188 26C198 50 34 60 12 38C4 28 34 12 74 9"/></svg>Hire the pen</a>
     </div>
@@ -762,6 +799,11 @@ Would love to tell you more if this sounds interesting.</p>
     <header class="page-head row">
       <div><p class="eyebrow">Services</p><h1 class="h1" tabindex="-1" data-reveal>What we write</h1><p class="lede">Planning what to say, saying it well, and building the website it lives on. Priced per project, once we understand it.</p></div>
     </header>
+    <div class="row"><ul class="ticks">
+      <li><b><a href="/services/content-writing-ahmedabad">Content writing in Ahmedabad</a></b>, the whole offering with prices on the page.</li>
+      <li><b><a href="/services/website-content">Website content</a></b>, pages that say what you do before people scroll away.</li>
+      <li><b><a href="/services/social-media-content">Social media content</a></b>, captions, carousels, reels and ad scripts.</li>
+    </ul></div>
     <div class="row svc"><div><h3>Brand and web</h3><p>Website content, copywriting, SEO content.</p></div><p class="note">the words people read before they trust you.</p></div>
     <div class="row svc"><div><h3>Social and marketing</h3><p>Captions, social media content, LinkedIn posts, campaign and launch content.</p></div><p class="note">written for fast thumbs.</p></div>
     <div class="row svc"><div><h3>Advertising</h3><p>Ad scripts, headlines, taglines and campaign lines, for print, screens and everything in between.</p></div><p class="note">written to beat the skip button.</p></div>
@@ -1386,7 +1428,7 @@ Would love to tell you more if this sounds interesting.</p>
   const slots = [];
   document.querySelectorAll('.page').forEach(page => {
     const name = page.dataset.page;
-    if (!PAGE_NAMES[name]) return;
+    if (name === 'missing') return;
     page.querySelectorAll(':scope > .book > .page-head, :scope > .book > .hero > .row:last-child, :scope > .book > section.sec > .row:first-of-type').forEach((row, k) => {
       let stack = row.querySelector(':scope > .note-stack');
       if (!stack) {
@@ -1397,7 +1439,8 @@ Would love to tell you more if this sounds interesting.</p>
       const heading = row.closest('.hero') ? null : (row.querySelector('.eyebrow') || row.querySelector('h1, h2'));
       const slot = make('div', 'slot');
       slot.dataset.key = name + ':' + (row.closest('section[id]') ? row.closest('section[id]').id : k);
-      slot.dataset.label = PAGE_NAMES[name] + ' · ' + (heading ? heading.textContent.trim() : 'Top of the page');
+      const pageLabel = PAGE_NAMES[name] || (page.querySelector('.page-head .eyebrow') || page.querySelector('h1') || {}).textContent || 'Page';
+      slot.dataset.label = pageLabel.trim() + ' · ' + (heading ? heading.textContent.trim() : 'Top of the page');
       stack.append(slot);
       slots.push(slot);
     });
