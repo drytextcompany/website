@@ -243,9 +243,22 @@
       return line;
     });
   }
+  // Strike whichever heading you're looking at, not only the one at the top of the page
+  function strikeTarget() {
+    if (!here) return null;
+    const heads = [...here.querySelectorAll('h1, h2')];
+    let best = null, bestGap = Infinity;
+    heads.forEach(h => {
+      const r = h.getBoundingClientRect();
+      if (r.width < 1 || r.bottom < 8 || r.top > innerHeight - 40) return;
+      const gap = Math.abs(r.top - innerHeight * 0.18);
+      if (gap < bestGap) { bestGap = gap; best = h; }
+    });
+    return best;
+  }
   async function strikeThenGo(href) {
-    const heading = here && here.querySelector('[data-reveal]');
-    if (heading && onScreen(heading) && !reduce) {
+    const heading = strikeTarget();
+    if (heading && !reduce) {
       const lines = strikeLines(heading);
       await Promise.race([
         Promise.all(lines.map(l => A(l, [{ scale: '0 1' }, { scale: '1 1' }], { duration: 280, easing: 'cubic-bezier(.65,0,.35,1)' }))),
@@ -260,7 +273,7 @@
     const url = new URL(a.href, location.href);
     if (url.origin !== location.origin) return;
     if (url.pathname === location.pathname) { closeMenu(); return; }
-    if (!PATHS.includes(url.pathname)) return;
+    if (/\.[a-z0-9]{2,4}$/i.test(url.pathname)) return;
     e.preventDefault();
     closeMenu();
     strikeThenGo(url.href);
@@ -491,7 +504,7 @@
     body: m.body
   })), 'Next mail \u2192');
 
-  // Visitors' own margin notes, in blue, between our red ones. They're kept in this browser only,
+  // Visitors' own comments, in blue, between our red notes. They're kept in this browser only,
   // and can be downloaded as a PDF or sent over WhatsApp.
   const NOTES_KEY = 'dtc-notes';
   let myNotes = (() => { try { return JSON.parse(localStorage.getItem(NOTES_KEY) || '{}'); } catch (e) { return {}; } })();
@@ -523,14 +536,14 @@
     const all = writtenNotes();
     dock.hidden = !all.length;
     if (!all.length) { dockMenu.hidden = true; dockBtn.setAttribute('aria-expanded', 'false'); }
-    document.getElementById('dockCount').textContent = all.length + (all.length === 1 ? ' note' : ' notes');
-    document.getElementById('notesSend').href = 'https://wa.me/917016227880?text=' + encodeURIComponent('My notes from your site:\n\n' + all.map(n => '• ' + n.where + ': ' + n.text).join('\n'));
+    document.getElementById('dockCount').textContent = all.length + (all.length === 1 ? ' comment' : ' comments');
+    document.getElementById('notesSend').href = 'https://wa.me/917016227880?text=' + encodeURIComponent('My comments on your site:\n\n' + all.map(n => '• ' + n.where + ': ' + n.text).join('\n'));
   }
   function renderSlot(slot) {
     const key = slot.dataset.key, text = (myNotes[key] || '').trim();
     slot.textContent = '';
     if (!text) {
-      const add = make('button', 'add', '✎ your note');
+      const add = make('button', 'add', '✎ add a comment');
       add.type = 'button';
       add.setAttribute('aria-label', 'Add your own note: ' + slot.dataset.label);
       add.addEventListener('click', () => editSlot(slot));
@@ -553,7 +566,7 @@
     const ta = make('textarea');
     ta.value = was;
     ta.rows = 1;
-    ta.setAttribute('aria-label', 'Your note: ' + slot.dataset.label);
+    ta.setAttribute('aria-label', 'Your comment: ' + slot.dataset.label);
     const grow = () => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; };
     // Saved as they type too, so closing the tab mid-note loses nothing
     ta.addEventListener('input', () => {
@@ -595,7 +608,7 @@
     doc.setFont('times', 'normal');
     doc.setFontSize(24);
     doc.setTextColor(22, 22, 26);
-    doc.text('Notes from thedrytextco.in', M, 92);
+    doc.text('Comments on thedrytextco.in', M, 92);
     small();
     doc.text(new Date().toLocaleString(), M, 112);
     let y = 152;
@@ -616,7 +629,7 @@
     });
     small();
     doc.text('Written by you. We just held the pen.', M, H - 48);
-    doc.save('my-notes-the-dry-text-co.pdf');
+    doc.save('my-comments-the-dry-text-co.pdf');
   }
   dockBtn.addEventListener('click', () => {
     const open = dockMenu.hidden;
@@ -629,7 +642,7 @@
     saveNotes();
     slots.forEach(renderSlot);
     updateDock();
-    toast('Notes cleared.');
+    toast('Comments cleared.');
   });
   slots.forEach(renderSlot);
   updateDock();
