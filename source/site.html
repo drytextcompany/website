@@ -116,7 +116,7 @@ html.intro .brand,html.intro main,html.intro .foot{opacity:0}
 .sec-head{margin-bottom:26px}
 .page-head{padding-block:clamp(56px,8vw,110px) clamp(40px,5vw,64px)}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin-bottom:12px}
-.h1{font-size:clamp(46px,7vw,92px);font-weight:500;letter-spacing:-.03em;line-height:1;margin:0}
+.h1{position:relative;font-size:clamp(46px,7vw,92px);font-weight:500;letter-spacing:-.03em;line-height:1;margin:0}
 .h2{font-size:clamp(32px,4.2vw,52px);font-weight:500;letter-spacing:-.02em;line-height:1.05;margin:0}
 [data-reveal]{position:relative;width:fit-content;max-width:100%}
 .pst{position:absolute;left:-2%;right:-2%;top:52%;height:max(3px,.06em);background:var(--red);border-radius:9px;transform-origin:left center;rotate:-2deg;pointer-events:none}
@@ -144,7 +144,7 @@ html.is-dry .note{display:none}
 .hero-r3{margin-top:30px}
 .hero-r3 .ctas{margin-top:0}
 .note-stack{display:grid;gap:12px;align-content:start}
-.name{font-size:clamp(34px,12.6cqi,104px);font-weight:500;letter-spacing:-.03em;line-height:1;margin:0;padding-top:.62em;white-space:nowrap}
+.name{position:relative;font-size:clamp(34px,12.6cqi,104px);font-weight:500;letter-spacing:-.03em;line-height:1;margin:0;padding-top:.62em;white-space:nowrap}
 .edit{position:relative;display:inline-block}
 .strike{position:relative;color:var(--grey)}
 .strike::after{content:"";position:absolute;left:-5%;right:-5%;top:55%;height:max(3px,.06em);background:var(--red);border-radius:99px;transform:rotate(-4deg);transform-origin:left center}
@@ -326,7 +326,7 @@ html.is-dry .quote .u{text-decoration:none}
 html.cur:not(.is-dry),html.cur:not(.is-dry) body{cursor:var(--c-pencil),auto}
 html.cur:not(.is-dry) :is(a,button,[role="button"],label){cursor:var(--c-pencil),pointer}
 html.cur:not(.is-dry) .rw-before{cursor:var(--c-eraser),pointer}
-html.cur:not(.is-dry) :is(.hire-link,a[href="#contact"],.pen-zone,.pen-zone *){cursor:var(--c-pen),pointer}
+html.cur:not(.is-dry) :is(.hire-link,a[href="/contact"],.pen-zone,.pen-zone *){cursor:var(--c-pen),pointer}
 html.cur :is(input,textarea){cursor:text!important}
 
 /* the tagline machine */
@@ -355,6 +355,70 @@ html.cur :is(input,textarea){cursor:text!important}
 .ob-nav span{font-family:var(--mono);font-size:12px;color:var(--grey);margin-right:auto}
 .ghost{font-family:var(--mono);font-size:13px;line-height:1;background:none;color:var(--ink);border:1px solid var(--ink);border-radius:4px;padding:15px 18px;cursor:pointer}
 .guj{font-family:"Noto Serif Gujarati","Shruti",var(--serif);line-height:1.6}
+/* the brand kit page */
+.bk-show{background:var(--sheet);border:1px solid var(--rule);border-radius:8px;padding:clamp(18px,3vw,40px);display:grid;place-items:center}
+.bk-show img{width:100%;height:auto;max-width:760px}
+.bk-show.tall img{max-width:300px}
+.bk-cap{font-size:15.5px;color:var(--ink-2);margin-top:12px;max-width:62ch}
+.bk-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px;margin-top:26px;align-items:start}
+.bk-links{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:20px}
+.bk-links a{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-decoration:none;border:1px solid var(--rule);border-radius:99px;padding:8px 14px;transition:border-color .2s ease}
+.bk-links a:hover{border-color:var(--ink)}
+.bk-marks{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px}
+.bk-marks figure{margin:0;background:var(--sheet);border:1px solid var(--rule);border-radius:8px;padding:22px;text-align:center}
+.bk-marks img{width:100%;max-width:120px;height:auto}
+.bk-marks figcaption{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);margin-top:12px}
+.bk-swatches{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
+.bk-swatches li{display:grid;gap:4px}
+.bk-swatches span{display:block;height:74px;border-radius:6px}
+.bk-swatches b{font-weight:500;font-size:16px}
+.bk-swatches code{font-family:var(--mono);font-size:11.5px;color:var(--grey)}
+.bk-chapters{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.bk-chapters a{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:4px 26px;padding:15px 0;border-bottom:1px solid var(--rule);text-decoration:none;align-items:baseline}
+.bk-chapters b{font-weight:500;font-size:18px}
+.bk-chapters span{color:var(--ink-2);font-size:15.5px}
+.bk-chapters a:hover b{text-decoration:underline wavy var(--red) 1.5px;text-underline-offset:5px}
+.bk-note-small{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin-top:14px}
+@media (max-width:640px){.bk-chapters a{grid-template-columns:minmax(0,1fr)}}
+/* links inside body copy */
+.prose a,.also a,.ticks a,.price-note a,.faq dd a{text-decoration:underline;text-decoration-color:var(--margin);text-decoration-thickness:1.5px;text-underline-offset:3px}
+.prose a:hover,.also a:hover,.ticks a:hover,.price-note a:hover,.faq dd a:hover{text-decoration-color:var(--red)}
+/* service pages: what it costs, and the questions people ask first */
+.price{margin:18px 0 0;border-top:1px solid var(--ink)}
+.price div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 24px;padding:13px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.price dt{font-size:17.5px}
+.price dt small{display:block;font-family:var(--mono);font-size:11.5px;color:var(--grey);margin-top:3px;letter-spacing:.02em}
+.price dd{margin:0;font-family:var(--mono);font-size:15px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.price dd b{font-weight:500}
+.price-note{font-size:16px;color:var(--ink-2);margin-top:16px;max-width:62ch}
+.svc-more{font-family:var(--mono);font-size:12.5px;margin-top:9px}
+.svc-more a{text-decoration:underline;text-decoration-color:var(--margin);text-decoration-thickness:1.5px;text-underline-offset:4px}
+.svc-more a:hover{text-decoration-color:var(--red)}
+.faq{margin:16px 0 0;border-top:1px solid var(--ink)}
+.faq dt{font-weight:500;font-size:18.5px;padding-top:16px;letter-spacing:-.01em}
+.faq dd{margin:7px 0 0;padding-bottom:16px;border-bottom:1px solid var(--rule);color:var(--ink-2);font-size:16.5px;max-width:64ch;line-height:1.6}
+.ticks{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px;max-width:64ch}
+.ticks li{position:relative;padding-left:26px;font-size:17px;color:var(--ink-2)}
+.ticks li::before{content:"";position:absolute;left:3px;top:.5em;width:11px;height:6px;border-left:2px solid var(--red);border-bottom:2px solid var(--red);transform:rotate(-45deg)}
+.ticks b{font-weight:500;color:var(--ink)}
+/* notes: the index and the pieces */
+.nt-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.nt-list a{display:grid;grid-template-columns:120px minmax(0,1fr);gap:4px 26px;padding:18px 0;border-bottom:1px solid var(--rule);text-decoration:none;color:inherit;align-items:baseline}
+.nt-list a:hover .nt-t{text-decoration:underline wavy var(--red) 1.5px;text-underline-offset:6px}
+.nt-d{font-family:var(--mono);font-size:11.5px;color:var(--grey);padding-top:5px}
+.nt-t{font-size:clamp(20px,2.3vw,26px);font-weight:500;letter-spacing:-.015em;line-height:1.2}
+.nt-b{grid-column:2;color:var(--ink-2);font-size:16.5px;margin-top:4px;max-width:62ch}
+.nt-soon{font-family:var(--mono);font-size:13px;color:var(--grey);padding:18px 0;border-bottom:1px solid var(--rule)}
+.nt-meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
+.prose{max-width:64ch;font-size:18px;line-height:1.65}
+.prose h2{font-size:clamp(22px,2.6vw,29px);font-weight:500;letter-spacing:-.015em;line-height:1.2;margin:38px 0 0}
+.prose h3{font-size:20px;font-weight:500;margin:26px 0 0}
+.prose p{margin-top:14px}
+.prose ul,.prose ol{margin:14px 0 0;padding-left:22px;display:grid;gap:8px}
+.prose li{padding-left:2px}
+.prose b{font-weight:500}
+.prose .pull{font-size:clamp(21px,2.4vw,27px);line-height:1.35;letter-spacing:-.015em;margin:30px 0;padding-left:20px;border-left:3px solid var(--red)}
+@media (max-width:640px){.nt-list a{grid-template-columns:minmax(0,1fr)}.nt-b{grid-column:1}}
 /* work: the chapters of the page */
 .chap-toc{display:flex;flex-wrap:wrap;gap:9px 10px;margin-top:6px}
 .chap-toc a{display:inline-flex;align-items:baseline;gap:9px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--ink);border:1px solid var(--rule);border-radius:99px;padding:9px 15px;transition:border-color .2s ease}
@@ -421,7 +485,7 @@ html.is-dry .clients-run .star{display:inline}
 @media (prefers-reduced-motion:reduce){.clients{overflow-x:auto}}
 @media (max-width:760px){.outbox{grid-template-columns:minmax(0,1fr)}.ob-list{border-right:0;border-bottom:1px solid var(--rule);max-height:280px}.ob-read{max-height:none}}
 
-/* visitors' own margin notes, in blue */
+/* visitors' own comments, written in the margin in blue */
 .slot{font-family:var(--pen);font-weight:700;font-size:19px;line-height:1.3;color:var(--blue)}
 .slot .add{display:block;width:100%;text-align:left;font:inherit;color:#9FACCB;background:none;border:0;border-bottom:1.5px dashed #C6CEE2;padding:2px 0 6px;cursor:pointer;opacity:.8;transition:opacity .2s,color .2s,border-color .2s}
 .slot .add:hover,.slot .add:focus-visible{opacity:1;color:var(--blue);border-bottom-color:var(--blue)}
@@ -449,6 +513,16 @@ html.is-dry .clients-run .star{display:inline}
   .book::before{right:auto;left:calc(var(--pad) / 2 - 1px)}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+/* every page has its own address; the browser slides from one to the next */
+@media (prefers-reduced-motion:no-preference){
+  @view-transition{navigation:auto}
+  ::view-transition-old(root){animation:pgOut .24s ease-in both}
+  ::view-transition-new(root){animation:pgIn .52s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes pgOut{to{opacity:0;transform:translateY(12px)}}
+  @keyframes pgIn{from{opacity:0;transform:translateY(40px)}}
+  .top{view-transition-name:topbar}
+  .dock{view-transition-name:dock}
+}
 </style>
 </head>
 <body>
@@ -461,14 +535,15 @@ html.is-dry .clients-run .star{display:inline}
 
 <header class="top">
   <div class="top-in">
-    <a class="brand" href="#" data-nav="home">The Dry Text Co.</a>
+    <a class="brand" href="/" data-nav="home">The Dry Text Co.</a>
     <div class="nav-wrap" id="navWrap">
       <nav class="nav" aria-label="Main">
-        <a href="#work" data-nav="work">Work</a>
-        <a href="#services" data-nav="services">Services</a>
-        <a href="#about" data-nav="about">About</a>
+        <a href="/work" data-nav="work">Work</a>
+        <a href="/services" data-nav="services">Services</a>
+        <a href="/about" data-nav="about">About</a>
+        <a href="/longhand" data-nav="longhand">Longhand</a>
       </nav>
-      <a class="hire-link" href="#contact" data-nav="contact"><svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M24 34C18 10 176 4 188 26C198 50 34 60 12 38C4 28 34 12 74 9"/></svg>Hire the pen</a>
+      <a class="hire-link" href="/contact" data-nav="contact"><svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M24 34C18 10 176 4 188 26C198 50 34 60 12 38C4 28 34 12 74 9"/></svg>Hire the pen</a>
     </div>
     <button class="dry-toggle" id="dryToggle" type="button" aria-pressed="false" aria-label="Dry mode" title="For clients here for business, not banter."><span class="sw" aria-hidden="true"></span><span class="lbl" aria-hidden="true">Dry<span class="lbl-x"> mode</span></span></button>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navWrap">Menu</button>
@@ -495,10 +570,10 @@ html.is-dry .clients-run .star{display:inline}
       </div>
       <div class="row hero-r2">
         <p class="lede">A content-writing agency from Ahmedabad, for brands anywhere in the world that would rather be read than skimmed.</p>
-        <ul class="note hn todo" aria-label="To-do list"><li class="done">fix the name</li><li class="done">build the site</li><li><a href="#contact">hear from you</a></li></ul>
+        <ul class="note hn todo" aria-label="To-do list"><li class="done">fix the name</li><li class="done">build the site</li><li><a href="/contact">hear from you</a></li></ul>
       </div>
       <div class="row hero-r3">
-        <div class="ctas"><a class="btn" href="#work">See the work</a><a class="pen-link" href="#contact">Hire the pen</a></div>
+        <div class="ctas"><a class="btn" href="/work">See the work</a><a class="pen-link" href="/contact">Hire the pen</a></div>
         <p class="note hn">the pen is the founder. the founder is the pen.</p>
       </div>
     </header>
@@ -510,7 +585,7 @@ html.is-dry .clients-run .star{display:inline}
       </div></div>
       <div class="row"><div>
         <p class="does" id="does"><span class="w">Content</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Marketing</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Advertising</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Websites</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Branding</span></p>
-        <div class="does-foot"><p class="note">pick one. or all five.</p><a class="does-link" href="#services">See what&rsquo;s included &rarr;</a></div>
+        <div class="does-foot"><p class="note">pick one. or all five.</p><a class="does-link" href="/services">See what&rsquo;s included &rarr;</a></div>
       </div></div>
     </section>
 
@@ -520,10 +595,10 @@ html.is-dry .clients-run .star{display:inline}
         <h2 class="h2" id="toc-title">What's in this notebook</h2>
       </div></div>
       <div class="row"><ol class="toc">
-        <li><a href="#work"><span class="toc-t"><b>The work</b><span>Our clients, and 27 cold mails</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 02</span></a></li>
-        <li><a href="#services"><span class="toc-t"><b>Services</b><span>What we write, what we build, how it works</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 03</span></a></li>
-        <li><a href="#about"><span class="toc-t"><b>About</b><span>Four people. One red pen.</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 04</span></a></li>
-        <li><a href="#contact"><span class="toc-t"><b>Contact</b><span>Four blanks and you're done</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 05</span></a></li>
+        <li><a href="/work"><span class="toc-t"><b>The work</b><span>Our clients, and 27 cold mails</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 02</span></a></li>
+        <li><a href="/services"><span class="toc-t"><b>Services</b><span>What we write, what we build, how it works</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 03</span></a></li>
+        <li><a href="/about"><span class="toc-t"><b>About</b><span>Four people. One red pen.</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 04</span></a></li>
+        <li><a href="/contact"><span class="toc-t"><b>Contact</b><span>Four blanks and you're done</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 05</span></a></li>
       </ol></div>
     </section>
 
@@ -741,7 +816,7 @@ Would love to tell you more if this sounds interesting.</p>
       <div class="row"><div class="wide"><div class="outbox"><div class="ob-list" id="obList" aria-label="Cold mails"></div><div class="ob-read" id="obRead" aria-live="polite"></div></div></div></div>
     </section>
     <section class="sec" aria-labelledby="w-cta-title">
-      <div class="row"><div><h2 class="h2" id="w-cta-title">Want one written for you?</h2><div class="ctas"><a class="btn" href="#contact">Hire the pen</a><a class="pen-link" href="#rewrites">Read the practice rewrites</a></div></div></div>
+      <div class="row"><div><h2 class="h2" id="w-cta-title">Want one written for you?</h2><div class="ctas"><a class="btn" href="/contact">Hire the pen</a><a class="pen-link" href="/#rewrites">Read the practice rewrites</a></div></div></div>
     </section>
   </div>
 </div>
@@ -752,13 +827,13 @@ Would love to tell you more if this sounds interesting.</p>
     <header class="page-head row">
       <div><p class="eyebrow">Services</p><h1 class="h1" tabindex="-1" data-reveal>What we write</h1><p class="lede">Planning what to say, saying it well, and building the website it lives on. Priced per project, once we understand it.</p></div>
     </header>
-    <div class="row svc"><div><h3>Brand and web</h3><p>Website content, copywriting, SEO content.</p></div><p class="note">the words people read before they trust you.</p></div>
-    <div class="row svc"><div><h3>Social and marketing</h3><p>Captions, social media content, LinkedIn posts, campaign and launch content.</p></div><p class="note">written for fast thumbs.</p></div>
+    <div class="row svc"><div><h3>Brand and web</h3><p>Website content, copywriting, SEO content.</p><p class="svc-more"><a href="/services/website-content">Website content writing &rarr;</a></p></div><p class="note">the words people read before they trust you.</p></div>
+    <div class="row svc"><div><h3>Social and marketing</h3><p>Captions, social media content, LinkedIn posts, campaign and launch content.</p><p class="svc-more"><a href="/services/social-media-content">Social media content writing &rarr;</a></p></div><p class="note">written for fast thumbs.</p></div>
     <div class="row svc"><div><h3>Advertising</h3><p>Ad scripts, headlines, taglines and campaign lines, for print, screens and everything in between.</p></div><p class="note">written to beat the skip button.</p></div>
     <div class="row svc"><div><h3>Long-form</h3><p>Newsletters, ghostwriting.</p></div><p class="note">you get the credit. we keep the secret.</p></div>
     <div class="row svc"><div><h3>Strategy</h3><p>Deciding what to say, where and when, before a word gets written.</p></div><p class="note">the quiet part. it matters most.</p></div>
     <div class="row svc"><div><h3>Websites</h3><p>Written, designed and shipped. You're looking at one.</p></div><p class="note">yes, this one too.</p></div>
-    <div class="row"><p class="also">If it has words, we write it. If it needs a website, we build it. Anything else? Ask. The answer is usually yes.</p></div>
+    <div class="row"><p class="also">If it has words, we write it. If it needs a website, we build it. Anything else? Ask. The answer is usually yes.</p><p class="svc-more" style="margin-top:14px">Starting prices for the usual pieces are on the <a href="/services/content-writing-ahmedabad">content writing page</a>.</p></div>
 
     <section class="sec" style="margin-top:clamp(56px,7vw,96px)" id="how" aria-labelledby="how-title">
       <div class="row sec-head"><div><p class="eyebrow">The whole ride</p><h2 class="h2" id="how-title">How it works</h2></div></div>
@@ -782,7 +857,7 @@ Would love to tell you more if this sounds interesting.</p>
     </section>
 
     <section class="sec" aria-labelledby="s-cta-title">
-      <div class="row"><div><h2 class="h2" id="s-cta-title">Got a brief? Or half of one?</h2><div class="ctas"><a class="btn" href="#contact">Ask for a quote</a></div></div></div>
+      <div class="row"><div><h2 class="h2" id="s-cta-title">Got a brief? Or half of one?</h2><div class="ctas"><a class="btn" href="/contact">Ask for a quote</a></div></div></div>
     </section>
   </div>
 </div>
@@ -831,7 +906,7 @@ Would love to tell you more if this sounds interesting.</p>
     </section>
 
     <section class="sec" aria-labelledby="a-cta-title">
-      <div class="row"><div><h2 class="h2" id="a-cta-title">Got something that needs words?</h2><div class="ctas"><a class="btn" href="#contact">Hire the pen</a></div></div></div>
+      <div class="row"><div><h2 class="h2" id="a-cta-title">Got something that needs words?</h2><div class="ctas"><a class="btn" href="/contact">Hire the pen</a></div></div></div>
     </section>
   </div>
 </div>
@@ -860,7 +935,7 @@ Would love to tell you more if this sounds interesting.</p>
       <div>
         <p class="bad-url"><span id="badUrl">thedrytextco.in/#nothing-here</span></p>
         <h1 class="h1" tabindex="-1" data-reveal>This page didn't survive the edit.</h1>
-        <div class="ctas"><a class="btn" href="#">Back to the homepage</a><a class="pen-link" href="#work">See the work</a></div>
+        <div class="ctas"><a class="btn" href="/">Back to the homepage</a><a class="pen-link" href="/work">See the work</a></div>
       </div>
       <p class="note">we checked the bin. nothing.</p>
     </header>
@@ -874,6 +949,7 @@ Would love to tell you more if this sounds interesting.</p>
     <p class="foot-tag only-wet">Don't go by the name, cuz we cheesy.</p>
     <p class="foot-joke only-wet">Proofread seven times. Typos found: probably one.</p>
     <nav class="foot-links" aria-label="Elsewhere">
+      <a href="/brand">Brand kit</a>
       <a href="https://www.instagram.com/thedrytextco/" target="_blank" rel="noopener">Instagram</a>
       <a href="https://www.linkedin.com/company/the-dry-text-co/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="mailto:info@thedrytextco.in">Email</a>
@@ -887,10 +963,10 @@ Would love to tell you more if this sounds interesting.</p>
   <div class="dock-menu" id="dockMenu" hidden>
     <button type="button" id="notesPdf">Download as PDF</button>
     <a id="notesSend" href="https://wa.me/917016227880" target="_blank" rel="noopener">Send them to us</a>
-    <button type="button" id="notesClear">Clear all notes</button>
-    <p>Your notes stay in this browser. Nothing leaves it unless you send it.</p>
+    <button type="button" id="notesClear">Clear all comments</button>
+    <p>Your comments stay in this browser. Nothing leaves it unless you send it.</p>
   </div>
-  <button class="dock-btn" id="dockBtn" type="button" aria-expanded="false" aria-controls="dockMenu">&#9998; <span id="dockCount">0 notes</span></button>
+  <button class="dock-btn" id="dockBtn" type="button" aria-expanded="false" aria-controls="dockMenu">&#9998; <span id="dockCount">0 comments</span></button>
 </div>
 <script type="application/json" id="mailData">__MAILS_JSON__</script>
 <script type="application/json" id="workData">__WORK_JSON__</script>
@@ -1060,7 +1136,8 @@ Would love to tell you more if this sounds interesting.</p>
 
   // Fill-in-the-blanks form: opens WhatsApp (or email) with the sentence ready to send
   const form = document.getElementById('hireForm');
-  const blanks = [...form.querySelectorAll('input[data-blank]')];
+  const blanks = form ? [...form.querySelectorAll('input[data-blank]')] : [];
+  if (form) {
   const err = document.getElementById('formErr');
   const fit = input => { input.style.width = (Math.max(input.placeholder.length, input.value.length) + 2) + 'ch'; };
   blanks.forEach(input => {
@@ -1092,86 +1169,89 @@ Would love to tell you more if this sounds interesting.</p>
     if (ready()) location.href = 'mailto:info@thedrytextco.in?subject=' + encodeURIComponent('Hiring the pen') + '&body=' + encodeURIComponent(sentence());
   });
 
-  // Pages live in this one file (#work, #services, #about, #contact).
-  // Changing page: the title gets struck out, the page drops away, and the next one slides up like a fresh sheet.
-  const pages = [...document.querySelectorAll('.page')];
-  const titles = {
-    home: 'The Dry Text Co. | Content, marketing, advertising, branding and websites from Ahmedabad',
-    work: 'The work | The Dry Text Co.',
-    services: 'Services | The Dry Text Co.',
-    about: 'About | The Dry Text Co.',
-    contact: 'Hire the pen | The Dry Text Co.',
-    missing: 'Page not found | The Dry Text Co.'
-  };
-  let current = null, navRun = 0, first = true;
+  }
+
+  // Every page has its own address (/work, /services...). A click strikes the heading out
+  // first, the way it always did, then the browser loads the next page and slides it up.
+  const PATHS = ['/', '/work', '/services', '/about', '/contact'];
   function jumpTo(y, el) {
     const before = root.style.scrollBehavior;
     root.style.scrollBehavior = 'auto';
     if (el) el.scrollIntoView(); else window.scrollTo(0, y);
     root.style.scrollBehavior = before;
   }
-  async function leave(page) {
-    const heading = page.querySelector('[data-reveal]');
-    const line = document.createElement('span');
-    line.className = 'pst';
-    // Each step also has a time limit, so a paused tab can't leave the page stuck halfway
-    if (heading && onScreen(heading)) {
-      heading.append(line);
-      await Promise.race([A(line, [{ scale: '0 1' }, { scale: '1 1' }], { duration: 280, easing: 'cubic-bezier(.65,0,.35,1)' }), wait(450)]);
-    }
-    await Promise.race([A(page, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(12px)' }], { duration: 240, easing: 'ease-in' }), wait(400)]);
-    line.remove();
+  const here = document.querySelector('.page');
+
+  // Old links, like thedrytextco.in/#work, still land in the right place
+  const oldHash = '/' + decodeURIComponent(location.hash.slice(1));
+  if (location.pathname === '/' && PATHS.includes(oldHash) && oldHash !== '/') location.replace(oldHash);
+
+  const badUrl = document.getElementById('badUrl');
+  if (badUrl) badUrl.textContent = 'thedrytextco.in' + location.pathname;
+
+  // Arriving: the heading writes itself in
+  const arrived = here && here.querySelector('[data-reveal]');
+  if (arrived && !reduce && here.dataset.page !== 'home') {
+    arrived.animate([{ clipPath: 'inset(-60% 100% -30% 0)' }, { clipPath: 'inset(-60% 0 -30% 0)' }],
+      { duration: 560, delay: 120, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' });
   }
-  function enter(page) {
-    page.animate([{ opacity: 0, transform: 'translateY(40px)' }, { opacity: 1, transform: 'none' }], { duration: 560, easing: 'cubic-bezier(.2,.8,.2,1)' });
-    const heading = page.querySelector('[data-reveal]');
-    if (heading) heading.animate([{ clipPath: 'inset(-60% 100% -30% 0)' }, { clipPath: 'inset(-60% 0 -30% 0)' }], { duration: 560, delay: 180, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' });
-  }
-  async function show(name, anchorId) {
-    const run = ++navRun;
-    const next = pages.find(p => p.dataset.page === name);
-    const prev = current && current !== next ? current : null;
-    document.title = titles[name];
-    document.querySelectorAll('[data-nav]').forEach(a => {
-      if (name !== 'home' && a.dataset.nav === name) a.setAttribute('aria-current', 'page');
-      else a.removeAttribute('aria-current');
+
+  // A heading can run to three lines, so the pen draws one stroke per line, all at once
+  function strikeLines(heading) {
+    const box = heading.getBoundingClientRect(), range = document.createRange(), rows = [];
+    range.selectNodeContents(heading);
+    [...range.getClientRects()].forEach(r => {
+      if (r.width < 6 || r.height < 6) return;
+      const row = rows.find(o => Math.abs(o.top - r.top) < r.height * .6);
+      if (row) { row.left = Math.min(row.left, r.left); row.right = Math.max(row.right, r.right); }
+      else rows.push({ top: r.top, left: r.left, right: r.right, height: r.height });
     });
+    return rows.map(row => {
+      const line = document.createElement('span');
+      line.className = 'pst';
+      line.style.left = (row.left - box.left - 5) + 'px';
+      line.style.right = 'auto';
+      line.style.width = (row.right - row.left + 10) + 'px';
+      line.style.top = (row.top - box.top + row.height * .56) + 'px';
+      heading.append(line);
+      return line;
+    });
+  }
+  // Strike whichever heading you're looking at, not only the one at the top of the page
+  function strikeTarget() {
+    if (!here) return null;
+    const heads = [...here.querySelectorAll('h1, h2')];
+    let best = null, bestGap = Infinity;
+    heads.forEach(h => {
+      const r = h.getBoundingClientRect();
+      if (r.width < 1 || r.bottom < 8 || r.top > innerHeight - 40) return;
+      const gap = Math.abs(r.top - innerHeight * 0.18);
+      if (gap < bestGap) { bestGap = gap; best = h; }
+    });
+    return best;
+  }
+  async function strikeThenGo(href) {
+    const heading = strikeTarget();
+    if (heading && !reduce) {
+      const lines = strikeLines(heading);
+      await Promise.race([
+        Promise.all(lines.map(l => A(l, [{ scale: '0 1' }, { scale: '1 1' }], { duration: 280, easing: 'cubic-bezier(.65,0,.35,1)' }))),
+        wait(400)
+      ]);
+    }
+    location.href = href;
+  }
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href]');
+    if (!a || a.target || a.hasAttribute('download') || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin) return;
+    if (url.pathname === location.pathname) { closeMenu(); return; }
+    if (/\.[a-z0-9]{2,4}$/i.test(url.pathname)) return;
+    e.preventDefault();
     closeMenu();
-    if (prev && !reduce) {
-      pages.forEach(p => p.getAnimations().forEach(a => a.cancel()));
-      await leave(prev);
-      if (run !== navRun) return;
-    }
-    pages.forEach(p => { p.hidden = p !== next; p.getAnimations().forEach(a => a.cancel()); });
-    const slot = next.querySelector('[data-slot="form"]');
-    if (slot && form.parentNode !== slot) slot.appendChild(form);
-    current = next;
-    const target = anchorId && document.getElementById(anchorId);
-    if (target && !prev && !first) target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
-    else if (target) requestAnimationFrame(() => jumpTo(0, target));
-    else jumpTo(0);
-    if (prev && !reduce) enter(next);
-    const heading = next.querySelector('h1');
-    if (!first && !target && heading) heading.focus({ preventScroll: true });
-    // Google only counts the first load on its own, so each page change is reported too
-    if (!first && window.gtag) gtag('event', 'page_view', { page_title: document.title, page_location: location.href });
-    first = false;
-  }
-  function route() {
-    const id = decodeURIComponent(location.hash.slice(1));
-    if (!id) return show('home');
-    if (titles[id] && id !== 'home' && id !== 'missing') return show(id);
-    const el = document.getElementById(id);
-    if (el) {
-      const page = el.closest('.page');
-      if (page) show(page.dataset.page, id);
-      return;
-    }
-    document.getElementById('badUrl').textContent = 'thedrytextco.in/#' + id;
-    show('missing');
-  }
-  window.addEventListener('hashchange', route);
-  route();
+    strikeThenGo(url.href);
+  });
 
   // The hero edit: the strike, then "Cheesy", then the circle around "Co.", then the margin notes one by one
   function playHero() {
@@ -1233,8 +1313,9 @@ Would love to tell you more if this sounds interesting.</p>
     await wait(400);
     finish();
   }
-  if (root.classList.contains('intro')) runIntro();
-  else setTimeout(playHero, reduce ? 0 : 300);
+  if (document.getElementById('intro') && root.classList.contains('intro')) runIntro();
+  else if (document.querySelector('.hero')) setTimeout(playHero, reduce ? 0 : 300);
+  else root.classList.remove('hero-wait');
 
   // The tagline machine
   const REELS = [
@@ -1244,6 +1325,7 @@ Would love to tell you more if this sounds interesting.</p>
   ];
   const reels = [...document.querySelectorAll('#reels .reel')], spinBtn = document.getElementById('spinBtn'), tagSend = document.getElementById('tagSend');
   const pick = list => list[Math.floor(Math.random() * list.length)];
+  if (spinBtn && tagSend) {
   const settleTag = () => { tagSend.href = 'https://wa.me/917016227880?text=' + encodeURIComponent('Your tagline machine gave me this: ' + reels.map(r => r.textContent).join(' ')); };
   reels.forEach((r, i) => { r.textContent = REELS[i][i]; });
   settleTag();
@@ -1263,6 +1345,7 @@ Would love to tell you more if this sounds interesting.</p>
       }, 70);
     });
   });
+  }
 
   // Who we are: the red pen circles the five things we do, one at a time.
   // Each circle is drawn to its own word's size, so the line stays even; the last one fades as the next is drawn.
@@ -1384,10 +1467,10 @@ Would love to tell you more if this sounds interesting.</p>
     });
     open(0);
   }
-  const WORK = JSON.parse(document.getElementById('workData').textContent);
-  const MAILS = JSON.parse(document.getElementById('mailData').textContent);
-  deck('liList', 'liRead', WORK.linkedin, 'Next post \u2192');
-  deck('orList', 'orRead', WORK.outreach, 'Next mail \u2192');
+  const readData = id => { const el = document.getElementById(id); return el ? JSON.parse(el.textContent) : null; };
+  const WORK = readData('workData') || {}, MAILS = readData('mailData') || [];
+  deck('liList', 'liRead', WORK.linkedin || [], 'Next post \u2192');
+  deck('orList', 'orRead', WORK.outreach || [], 'Next mail \u2192');
   deck('obList', 'obRead', MAILS.map(m => ({
     label: 'Dry Text #' + two(m.n) + ' \u00b7 ' + m.to,
     meta: 'DRY TEXT #' + two(m.n) + '  \u00b7  TO ' + m.to.toUpperCase(),
@@ -1395,16 +1478,16 @@ Would love to tell you more if this sounds interesting.</p>
     body: m.body
   })), 'Next mail \u2192');
 
-  // Visitors' own margin notes, in blue, between our red ones. They're kept in this browser only,
+  // Visitors' own comments, in blue, between our red notes. They're kept in this browser only,
   // and can be downloaded as a PDF or sent over WhatsApp.
   const NOTES_KEY = 'dtc-notes';
   let myNotes = (() => { try { return JSON.parse(localStorage.getItem(NOTES_KEY) || '{}'); } catch (e) { return {}; } })();
   const saveNotes = () => { try { localStorage.setItem(NOTES_KEY, JSON.stringify(myNotes)); } catch (e) {} };
   const PAGE_NAMES = { home: 'Home', work: 'Work', services: 'Services', about: 'About', contact: 'Contact' };
   const slots = [];
-  pages.forEach(page => {
+  document.querySelectorAll('.page').forEach(page => {
     const name = page.dataset.page;
-    if (!PAGE_NAMES[name]) return;
+    if (name === 'missing') return;
     page.querySelectorAll(':scope > .book > .page-head, :scope > .book > .hero > .row:last-child, :scope > .book > section.sec > .row:first-of-type').forEach((row, k) => {
       let stack = row.querySelector(':scope > .note-stack');
       if (!stack) {
@@ -1415,7 +1498,8 @@ Would love to tell you more if this sounds interesting.</p>
       const heading = row.closest('.hero') ? null : (row.querySelector('.eyebrow') || row.querySelector('h1, h2'));
       const slot = make('div', 'slot');
       slot.dataset.key = name + ':' + (row.closest('section[id]') ? row.closest('section[id]').id : k);
-      slot.dataset.label = PAGE_NAMES[name] + ' · ' + (heading ? heading.textContent.trim() : 'Top of the page');
+      const pageLabel = PAGE_NAMES[name] || (page.querySelector('.page-head .eyebrow') || page.querySelector('h1') || {}).textContent || 'Page';
+      slot.dataset.label = pageLabel.trim() + ' · ' + (heading ? heading.textContent.trim() : 'Top of the page');
       stack.append(slot);
       slots.push(slot);
     });
@@ -1426,14 +1510,14 @@ Would love to tell you more if this sounds interesting.</p>
     const all = writtenNotes();
     dock.hidden = !all.length;
     if (!all.length) { dockMenu.hidden = true; dockBtn.setAttribute('aria-expanded', 'false'); }
-    document.getElementById('dockCount').textContent = all.length + (all.length === 1 ? ' note' : ' notes');
-    document.getElementById('notesSend').href = 'https://wa.me/917016227880?text=' + encodeURIComponent('My notes from your site:\n\n' + all.map(n => '• ' + n.where + ': ' + n.text).join('\n'));
+    document.getElementById('dockCount').textContent = all.length + (all.length === 1 ? ' comment' : ' comments');
+    document.getElementById('notesSend').href = 'https://wa.me/917016227880?text=' + encodeURIComponent('My comments on your site:\n\n' + all.map(n => '• ' + n.where + ': ' + n.text).join('\n'));
   }
   function renderSlot(slot) {
     const key = slot.dataset.key, text = (myNotes[key] || '').trim();
     slot.textContent = '';
     if (!text) {
-      const add = make('button', 'add', '✎ your note');
+      const add = make('button', 'add', '✎ add a comment');
       add.type = 'button';
       add.setAttribute('aria-label', 'Add your own note: ' + slot.dataset.label);
       add.addEventListener('click', () => editSlot(slot));
@@ -1456,7 +1540,7 @@ Would love to tell you more if this sounds interesting.</p>
     const ta = make('textarea');
     ta.value = was;
     ta.rows = 1;
-    ta.setAttribute('aria-label', 'Your note: ' + slot.dataset.label);
+    ta.setAttribute('aria-label', 'Your comment: ' + slot.dataset.label);
     const grow = () => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; };
     // Saved as they type too, so closing the tab mid-note loses nothing
     ta.addEventListener('input', () => {
@@ -1498,7 +1582,7 @@ Would love to tell you more if this sounds interesting.</p>
     doc.setFont('times', 'normal');
     doc.setFontSize(24);
     doc.setTextColor(22, 22, 26);
-    doc.text('Notes from thedrytextco.in', M, 92);
+    doc.text('Comments on thedrytextco.in', M, 92);
     small();
     doc.text(new Date().toLocaleString(), M, 112);
     let y = 152;
@@ -1519,7 +1603,7 @@ Would love to tell you more if this sounds interesting.</p>
     });
     small();
     doc.text('Written by you. We just held the pen.', M, H - 48);
-    doc.save('my-notes-the-dry-text-co.pdf');
+    doc.save('my-comments-the-dry-text-co.pdf');
   }
   dockBtn.addEventListener('click', () => {
     const open = dockMenu.hidden;
@@ -1532,7 +1616,7 @@ Would love to tell you more if this sounds interesting.</p>
     saveNotes();
     slots.forEach(renderSlot);
     updateDock();
-    toast('Notes cleared.');
+    toast('Comments cleared.');
   });
   slots.forEach(renderSlot);
   updateDock();

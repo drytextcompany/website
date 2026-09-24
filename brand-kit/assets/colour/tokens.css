@@ -1,0 +1,19 @@
+/* The Dry Text Co. — colour tokens. Same values as the website. */
+:root{
+  --paper: #FBFBF9;  /* The ground */
+  --ink: #16161A;  /* All type, the rules, the buttons, the ID card bands */
+  --red: #D2232A;  /* The edit */
+  --sheet: #FFFFFF;  /* A sheet laid on the paper: cards, the outbox, the badges */
+  --ink-2: #3A3A40;  /* Second-rank body text, captions inside cards */
+  --grey: #77767A;  /* Labels, meta lines, struck-out words, anything the eye should pass over */
+  --rule: #E6E4DE;  /* Hairlines and borders */
+  --margin: #F2B8B8;  /* The ruled margin line down the page, and the left rule on quoted lines */
+  --hi: #FFE27A;  /* Text selection and the occasional wash behind a note */
+  --blue: #2F5BD3;  /* Only for what the visitor writes themselves: their own margin notes, and focus rings on forms */
+  --news: #F4F2EA;  /* The newspaper-concept panel on the Work page */
+  --news-rule: #E0DCCC;  /* Hairlines inside the newsprint panel */
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --pen: "Kalam", "Segoe Print", "Bradley Hand", cursive;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --guj: "Noto Serif Gujarati", "Shruti", serif;
+}
