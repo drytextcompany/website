@@ -15,6 +15,7 @@ import json
 import pathlib
 import re
 import shutil
+import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
 OUT = HERE.parent
@@ -104,7 +105,12 @@ for token, name, block_id in (("__MAILS_JSON__", "mails.json", "mailData"), ("__
 
 
 # --- the extra pages: services, notes, case studies. One file each in source/pages/ ------
-EXTRA = []
+# A piece with a date in the future is written but not published yet: the build leaves it
+# out until its day arrives. Run "python3 build.py --all" to see the queue on a preview.
+SHOW_ALL = "--all" in sys.argv
+TODAY = datetime.date.today().isoformat()
+
+EXTRA, QUEUED = [], []
 for f in sorted((HERE / "pages").glob("*.html")):
     raw = f.read_text(encoding="utf-8")
     meta_raw, _, markup = raw.partition("-->")
@@ -112,6 +118,9 @@ for f in sorted((HERE / "pages").glob("*.html")):
     meta["markup"] = markup.strip()
     meta["name"] = meta["path"].strip("/").replace("/", "-")
     meta["file"] = meta["path"].lstrip("/") + ".html"
+    if meta.get("date", "") > TODAY and not SHOW_ALL:
+        QUEUED.append(meta)
+        continue
     EXTRA.append(meta)
 
 notes = sorted([p for p in EXTRA if p.get("kind") == "note"], key=lambda p: p["date"], reverse=True)
@@ -284,6 +293,8 @@ urls = "".join(
 }, indent=2) + "\n", encoding="utf-8")
 
 print("Built %d pages:" % len(ALL), ", ".join(p["file"] for p in ALL))
+if QUEUED:
+    print("Waiting for its day:", ", ".join("%s (%s)" % (p["path"], p["date"]) for p in QUEUED))
 print("Shared: assets/site.css %d KB, assets/site.js %d KB, %d images" % (
     (assets / "site.css").stat().st_size // 1024,
     (assets / "site.js").stat().st_size // 1024,
