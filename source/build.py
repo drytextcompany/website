@@ -270,10 +270,27 @@ def build_page(page):
     ])
 
 
+written = []
 for page in ALL:
     out = OUT / page["file"]
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(build_page(page), encoding="utf-8")
+    written.append(page["file"])
+
+# Anything this build made last time but not this time is taken down: a piece whose day
+# has not come yet, or a page that was renamed.
+manifest = OUT / ".pages.json"
+if manifest.exists() and not SHOW_ALL:
+    for old_file in json.loads(manifest.read_text(encoding="utf-8")):
+        if old_file not in written:
+            stale = OUT / old_file
+            if stale.exists():
+                stale.unlink()
+                print("took down", old_file)
+            if stale.parent != OUT and not any(stale.parent.iterdir()):
+                stale.parent.rmdir()
+if not SHOW_ALL:
+    manifest.write_text(json.dumps(sorted(written), indent=1), encoding="utf-8")
 
 # --- the files that tell search engines what exists ------------------------------------
 (OUT / "robots.txt").write_text("User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % SITE, encoding="utf-8")
