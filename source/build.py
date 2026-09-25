@@ -27,7 +27,7 @@ SOCIAL = ["https://www.instagram.com/thedrytextco/", "https://www.linkedin.com/c
 # One entry per address. The blurb is what Google shows under the blue link.
 PAGES = {
     "home": dict(
-        file="index.html", path="/",
+        file="index.html", path="/", alt="/gu",
         title="The Dry Text Co. | Content, marketing, advertising, branding and websites from Ahmedabad",
         desc="A content, marketing, advertising, branding and website agency from Ahmedabad, for brands anywhere that would rather be read than skimmed.",
     ),
@@ -37,17 +37,17 @@ PAGES = {
         desc="LinkedIn posts, outreach mails, a newspaper concept and 27 cold mails: the words we have written for brands, and the ones we wrote to get in the door.",
     ),
     "services": dict(
-        file="services.html", path="/services", crumb="Services",
+        file="services.html", path="/services", alt="/gu/services", crumb="Services",
         title="Content writing, advertising, branding and websites | The Dry Text Co.",
         desc="What we write and build: website content, social and marketing, long-form, advertising, strategy and websites. Priced per project, once we understand it.",
     ),
     "about": dict(
-        file="about.html", path="/about", crumb="About",
+        file="about.html", path="/about", alt="/gu/about", crumb="About",
         title="About | The Dry Text Co., a content agency in Ahmedabad",
         desc="Four people in Ahmedabad who write the words brands get judged by, and build the websites those words live on. Meet the team and see how we work.",
     ),
     "contact": dict(
-        file="contact.html", path="/contact", crumb="Hire the pen",
+        file="contact.html", path="/contact", alt="/gu/contact", crumb="Hire the pen",
         title="Hire the pen | The Dry Text Co., Ahmedabad",
         desc="Tell us what you need in one line and we will reply. Content, advertising, branding and websites, from Ahmedabad for brands anywhere. WhatsApp or email us.",
     ),
@@ -209,6 +209,7 @@ def schema(page):
 def build_page(page):
     name, path = page["name"], page["path"]
     url = SITE + (path or "/")
+    lang = page.get("lang", "en")
     nav = header
     top = page.get("parent") or path
     if top and top != "/":
@@ -220,6 +221,12 @@ def build_page(page):
         '<meta name="description" content="%s">' % page["desc"],
         '<meta name="theme-color" content="#FBFBF9">',
     ]
+    twin = page.get("alt")
+    if twin and not page.get("noindex"):
+        pair = [("en", twin if lang == "gu" else path), ("gu", path if lang == "gu" else twin)]
+        for code, href in pair:
+            head.append('<link rel="alternate" hreflang="%s" href="%s%s">' % (code, SITE, href))
+        head.append('<link rel="alternate" hreflang="x-default" href="%s%s">' % (SITE, pair[0][1]))
     if page.get("noindex"):
         head.append('<meta name="robots" content="noindex">')
     else:
@@ -233,6 +240,9 @@ def build_page(page):
             '<meta property="og:image" content="%s/og-image.png">' % SITE,
             '<meta name="twitter:card" content="summary_large_image">',
         ]
+    swap = page.get("alt") or ("/" if lang == "gu" else "/gu")
+    nav = nav.replace('href="__LANG__"', 'href="%s"' % swap)
+    nav = nav.replace('data-lang-label', 'data-lang-label lang="%s"' % ("en" if lang == "gu" else "gu"))
     body = [
         '<a class="skip" href="#main">Skip to content</a>',
         intro if name == "home" else "",
@@ -249,7 +259,7 @@ def build_page(page):
     ]
     return "\n".join([
         "<!doctype html>",
-        '<html lang="en-IN">',
+        '<html lang="%s">' % ("gu-IN" if lang == "gu" else "en-IN"),
         "<head>",
         "\n".join(head),
         head_scripts,

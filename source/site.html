@@ -24,7 +24,7 @@
 <!-- icons come from real files, added by build.py -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Kalam:wght@400;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+Gujarati:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Kalam:wght@400;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+Gujarati:wght@400;500&family=Baloo+Bhai+2:wght@500;700&display=swap">
 <script>
 (function (d) {
   var r = d.documentElement, mm = window.matchMedia, still = mm && mm('(prefers-reduced-motion: reduce)').matches, seen = false;
@@ -355,6 +355,35 @@ html.cur :is(input,textarea){cursor:text!important}
 .ob-nav span{font-family:var(--mono);font-size:12px;color:var(--grey);margin-right:auto}
 .ghost{font-family:var(--mono);font-size:13px;line-height:1;background:none;color:var(--ink);border:1px solid var(--ink);border-radius:4px;padding:15px 18px;cursor:pointer}
 .guj{font-family:"Noto Serif Gujarati","Shruti",var(--serif);line-height:1.6}
+/* the Gujarati side of the site: a face that has the letters, and a warmer hand */
+html[lang^="gu"]{--serif:"Noto Serif Gujarati",Georgia,serif;--pen:"Baloo Bhai 2","Kalam",cursive}
+html[lang^="gu"] body{line-height:1.7}
+html[lang^="gu"] .h1,html[lang^="gu"] .h2,html[lang^="gu"] .who-p{letter-spacing:0;line-height:1.35}
+html[lang^="gu"] .note{font-weight:500;font-size:18px;line-height:1.5;transform:rotate(-1deg)}
+html[lang^="gu"] .eyebrow,html[lang^="gu"] .label{letter-spacing:.06em}
+/* the language switch in the top bar */
+.lang-switch{display:inline-flex;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-decoration:none;border:1px solid var(--rule);border-radius:99px;padding:7px 12px;margin-left:4px;white-space:nowrap;transition:border-color .2s ease}
+.lang-switch:hover{border-color:var(--ink)}
+.lang-switch .to-en,.lang-switch .to-gu{display:none}
+html[lang^="en"] .lang-switch .to-gu{display:inline}
+html[lang^="gu"] .lang-switch .to-en{display:inline}
+html[lang^="gu"] .lang-switch{font-family:"Baloo Bhai 2",var(--mono);font-size:14px}
+/* the last edit of the intro: which language you read in */
+.intro-pick{margin-top:clamp(28px,5vh,56px);display:flex;flex-direction:column;align-items:center;gap:14px}
+.intro-pick[hidden]{display:none}
+.intro-ask{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.intro-opts{display:flex;flex-wrap:wrap;gap:clamp(18px,4vw,44px);align-items:center;justify-content:center}
+.intro-opt{position:relative;background:none;border:0;padding:6px 10px;cursor:pointer;font-family:var(--serif);font-size:clamp(24px,4.4vw,44px);font-weight:500;letter-spacing:-.02em;color:var(--ink);line-height:1.2}
+.intro-opt[data-lang="gu"]{font-family:"Noto Serif Gujarati",var(--serif);letter-spacing:0}
+.intro-opt:focus-visible{outline:2px solid var(--blue);outline-offset:6px;border-radius:6px}
+.intro-opt svg{position:absolute;left:-12%;top:-14%;width:124%;height:128%;overflow:visible;pointer-events:none}
+.intro-opt path{fill:none;stroke:var(--red);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+.intro-opt.picked path{animation:coDraw .62s cubic-bezier(.65,0,.35,1) forwards}
+.intro-opt .cut{position:absolute;left:-4%;right:-4%;top:52%;height:max(3px,.06em);background:var(--red);border-radius:99px;transform-origin:left center;rotate:-3deg;scale:0 1}
+.intro-opt.dropped{color:var(--grey)}
+.intro-opt.dropped .cut{animation:introCut .3s cubic-bezier(.65,0,.35,1) forwards}
+@keyframes introCut{to{scale:1 1}}
+@media (max-width:560px){.intro-opts{gap:16px}}
 /* the brand kit page */
 .bk-show{background:var(--sheet);border:1px solid var(--rule);border-radius:8px;padding:clamp(18px,3vw,40px);display:grid;place-items:center}
 .bk-show img{width:100%;height:auto;max-width:760px}
@@ -530,6 +559,13 @@ html.is-dry .clients-run .star{display:inline}
 
 <div id="intro">
   <div class="intro-name" aria-hidden="true"><span class="intro-lbl">draft_1</span><span class="intro-tx">The Dry Text Company</span><span class="intro-st"></span></div>
+  <div class="intro-pick" id="introPick" hidden>
+    <p class="intro-ask">read it in</p>
+    <div class="intro-opts">
+      <button class="intro-opt" type="button" data-lang="en">English<svg viewBox="0 0 120 70" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M64 5C100 3 117 20 115 38C113 58 86 67 57 65C25 63 5 51 6 34C7 16 31 5 60 6"/></svg><span class="cut" aria-hidden="true"></span></button>
+      <button class="intro-opt" type="button" data-lang="gu" lang="gu">ગુજરાતી<svg viewBox="0 0 120 70" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M64 5C100 3 117 20 115 38C113 58 86 67 57 65C25 63 5 51 6 34C7 16 31 5 60 6"/></svg><span class="cut" aria-hidden="true"></span></button>
+    </div>
+  </div>
   <button class="intro-skip" type="button">Skip intro</button>
 </div>
 
@@ -545,6 +581,7 @@ html.is-dry .clients-run .star{display:inline}
       </nav>
       <a class="hire-link" href="/contact" data-nav="contact"><svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M24 34C18 10 176 4 188 26C198 50 34 60 12 38C4 28 34 12 74 9"/></svg>Hire the pen</a>
     </div>
+    <a class="lang-switch" href="__LANG__"><span class="to-gu">ગુજરાતી</span><span class="to-en">English</span></a>
     <button class="dry-toggle" id="dryToggle" type="button" aria-pressed="false" aria-label="Dry mode" title="For clients here for business, not banter."><span class="sw" aria-hidden="true"></span><span class="lbl" aria-hidden="true">Dry<span class="lbl-x"> mode</span></span></button>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navWrap">Menu</button>
   </div>
@@ -1187,6 +1224,12 @@ Would love to tell you more if this sounds interesting.</p>
   const oldHash = '/' + decodeURIComponent(location.hash.slice(1));
   if (location.pathname === '/' && PATHS.includes(oldHash) && oldHash !== '/') location.replace(oldHash);
 
+  document.querySelectorAll('.lang-switch').forEach(a => a.addEventListener('click', () => {
+    store.set('lang', root.lang.startsWith('gu') ? 'en' : 'gu');
+  }));
+  // Chose Gujarati last time? The English home hands you over. ?en gets you back.
+  if (location.pathname === '/' && store.get('lang') === 'gu' && !/[?&]en\b/.test(location.search)) location.replace('/gu');
+
   const badUrl = document.getElementById('badUrl');
   if (badUrl) badUrl.textContent = 'thedrytextco.in' + location.pathname;
 
@@ -1298,6 +1341,27 @@ Would love to tell you more if this sounds interesting.</p>
     lbl.style.color = 'var(--red)';
     await wait(420);
     if (done) return;
+
+    // One more edit before the name goes up: which language you read it in.
+    // Nobody chooses? English, quietly, and the intro carries on.
+    const pick = document.getElementById('introPick');
+    if (pick) {
+      pick.hidden = false;
+      await A(pick, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: 'ease-out' });
+      const lang = await new Promise(resolve => {
+        const t = setTimeout(() => resolve('en'), 4200);
+        pick.querySelectorAll('.intro-opt').forEach(b => b.addEventListener('click', () => { clearTimeout(t); resolve(b.dataset.lang); }, { once: true }));
+      });
+      if (done) return;
+      pick.querySelector('.intro-opt[data-lang="' + lang + '"]').classList.add('picked');
+      pick.querySelector('.intro-opt:not([data-lang="' + lang + '"])').classList.add('dropped');
+      store.set('lang', lang);
+      await wait(lang === 'gu' ? 700 : 560);
+      if (lang === 'gu') { location.href = '/gu'; return; }
+      await A(pick, [{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: 'ease' });
+      pick.remove();
+      if (done) return;
+    }
     nameEl.getAnimations().forEach(a => a.cancel());
     lbl.remove();
     st.remove();

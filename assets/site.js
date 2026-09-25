@@ -212,6 +212,12 @@
   const oldHash = '/' + decodeURIComponent(location.hash.slice(1));
   if (location.pathname === '/' && PATHS.includes(oldHash) && oldHash !== '/') location.replace(oldHash);
 
+  document.querySelectorAll('.lang-switch').forEach(a => a.addEventListener('click', () => {
+    store.set('lang', root.lang.startsWith('gu') ? 'en' : 'gu');
+  }));
+  // Chose Gujarati last time? The English home hands you over. ?en gets you back.
+  if (location.pathname === '/' && store.get('lang') === 'gu' && !/[?&]en\b/.test(location.search)) location.replace('/gu');
+
   const badUrl = document.getElementById('badUrl');
   if (badUrl) badUrl.textContent = 'thedrytextco.in' + location.pathname;
 
@@ -323,6 +329,27 @@
     lbl.style.color = 'var(--red)';
     await wait(420);
     if (done) return;
+
+    // One more edit before the name goes up: which language you read it in.
+    // Nobody chooses? English, quietly, and the intro carries on.
+    const pick = document.getElementById('introPick');
+    if (pick) {
+      pick.hidden = false;
+      await A(pick, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: 'ease-out' });
+      const lang = await new Promise(resolve => {
+        const t = setTimeout(() => resolve('en'), 4200);
+        pick.querySelectorAll('.intro-opt').forEach(b => b.addEventListener('click', () => { clearTimeout(t); resolve(b.dataset.lang); }, { once: true }));
+      });
+      if (done) return;
+      pick.querySelector('.intro-opt[data-lang="' + lang + '"]').classList.add('picked');
+      pick.querySelector('.intro-opt:not([data-lang="' + lang + '"])').classList.add('dropped');
+      store.set('lang', lang);
+      await wait(lang === 'gu' ? 700 : 560);
+      if (lang === 'gu') { location.href = '/gu'; return; }
+      await A(pick, [{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: 'ease' });
+      pick.remove();
+      if (done) return;
+    }
     nameEl.getAnimations().forEach(a => a.cancel());
     lbl.remove();
     st.remove();
