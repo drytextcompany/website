@@ -283,7 +283,7 @@
   function playHero() {
     root.classList.remove('hero-wait');
     root.classList.add('hero-go');
-    const delays = [1150, 1450, 2250, 2650, 3050];
+    const delays = [640, 780, 920, 1060, 1200];
     document.querySelectorAll('.hn').forEach((n, i) => setTimeout(() => n.classList.add('inked'), reduce ? 0 : delays[i] || 3000));
   }
 

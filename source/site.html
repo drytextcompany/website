@@ -21,7 +21,7 @@
 
   gtag('config', 'G-GH7FLZX4QP');
 </script>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FBFBF9'/%3E%3Cpath d='M8 23 16 9 24 23' fill='none' stroke='%23D2232A' stroke-width='4.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<!-- icons come from real files, added by build.py -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Kalam:wght@400;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+Gujarati:wght@400;500&display=swap">
@@ -1257,7 +1257,7 @@ Would love to tell you more if this sounds interesting.</p>
   function playHero() {
     root.classList.remove('hero-wait');
     root.classList.add('hero-go');
-    const delays = [1150, 1450, 2250, 2650, 3050];
+    const delays = [640, 780, 920, 1060, 1200];
     document.querySelectorAll('.hn').forEach((n, i) => setTimeout(() => n.classList.add('inked'), reduce ? 0 : delays[i] || 3000));
   }
 

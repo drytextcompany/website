@@ -65,7 +65,7 @@ def cut(pattern, flags=re.S):
 
 
 # --- take the file apart -------------------------------------------------------------
-head_scripts = cut(r"(<!-- Google tag.*?</script>\s*<link rel=\"icon\".*?display=swap\">)")
+head_scripts = cut(r"(<!-- Google tag.*?display=swap\">)")
 prepaint = cut(r"(<script>\n\(function \(d\).*?</script>)")
 css = cut(r"<style>(.*?)</style>")
 js = cut(r"<script>\n(\(\(\) => \{.*?\n\}\)\(\);)\n</script>")
@@ -236,6 +236,10 @@ def build_page(page):
         "<head>",
         "\n".join(head),
         head_scripts,
+        '<link rel="icon" href="/favicon.ico" sizes="any">',
+        '<link rel="icon" type="image/png" href="/favicon.png" sizes="96x96">',
+        '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',
+        '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',
         '<link rel="stylesheet" href="/assets/site.css">',
         prepaint.replace("(function (d) {", "(function (d) {\n  var isHome = %s;" % ("true" if name == "home" else "false"))
                 .replace("if (!seen && !r.classList.contains('is-dry'))", "if (isHome && !seen && !r.classList.contains('is-dry'))"),
