@@ -178,6 +178,14 @@ def schema(page):
     if page.get("faq"):
         graph.append({"@type": "FAQPage", "mainEntity": [
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in page["faq"]]})
+    if page.get("kind") == "case":
+        graph.append({
+            "@type": "Article", "headline": page["title_short"], "description": page["desc"],
+            "url": SITE + path, "datePublished": page["date"], "dateModified": page.get("updated", page["date"]),
+            "author": {"@type": "Person", "name": page.get("author", "Granth Hirapara")},
+            "publisher": {"@id": SITE + "/#org"}, "image": SITE + "/og-image.png", "inLanguage": "en-IN",
+            "about": {"@type": "Organization", "name": page["client"]},
+        })
     if page.get("kind") == "note":
         graph.append({
             "@type": "BlogPosting", "headline": page["title_short"], "description": page["desc"],
