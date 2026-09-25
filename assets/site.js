@@ -7,6 +7,8 @@
     set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   };
   const wait = ms => new Promise(r => setTimeout(r, ms));
+  // The handful of lines the script writes itself, in the page's language
+  const say = (en, gu) => (root.lang.startsWith('gu') ? gu : en);
   // Runs a Web Animation and resolves when it ends (or gets cancelled)
   const A = (el, keyframes, opts) => el.animate(keyframes, Object.assign({ fill: 'forwards', easing: 'cubic-bezier(.2,.7,.2,1)' }, opts)).finished.catch(() => {});
   const onScreen = el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < innerHeight; };
@@ -102,14 +104,14 @@
         dryAnims.forEach(a => a.cancel());
         dryAnims = [];
       });
-      toast('Dry mode on. The jokes have left the building.');
+      toast(say('Dry mode on. The jokes have left the building.', 'સાદો મોડ ચાલુ. મજાક બંધ.'));
     } else {
       flipLayout(() => root.classList.remove('is-dry'));
       // The hero's strike, "Cheesy" and circle redraw themselves through their own CSS animations
       const jokes = [...document.querySelectorAll('.note, .only-wet, .edit[data-keep="new"] .strike')].filter(visible);
       jokes.forEach((el, i) => track(el.animate([{ opacity: 0, translate: '0 10px' }, { opacity: 1, translate: '0 0' }],
         { duration: 520, delay: 250 + Math.min(i, 10) * 90, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' })));
-      toast('Jokes are back. They missed you.');
+      toast(say('Jokes are back. They missed you.', 'મજાક પાછી આવી ગઈ.'));
     }
   }
   setDry(dryOn, false);
@@ -310,7 +312,7 @@
     };
     try { sessionStorage.setItem('introSeen', '1'); } catch (e) {}
     intro.addEventListener('click', finish);
-    setTimeout(finish, 8000); // never keep the page covered if the animation stalls
+    setTimeout(finish, 12000); // never keep the page covered if the animation stalls
     document.addEventListener('keydown', finish, { once: true });
     await Promise.race([document.fonts ? document.fonts.ready : wait(0), wait(1200)]);
     await wait(650);
@@ -337,7 +339,7 @@
       pick.hidden = false;
       await A(pick, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: 'ease-out' });
       const lang = await new Promise(resolve => {
-        const t = setTimeout(() => resolve('en'), 4200);
+        const t = setTimeout(() => resolve('en'), 2800);   // nobody chose: English, and the intro moves on
         pick.querySelectorAll('.intro-opt').forEach(b => b.addEventListener('click', () => { clearTimeout(t); resolve(b.dataset.lang); }, { once: true }));
       });
       if (done) return;
@@ -563,14 +565,14 @@
     const all = writtenNotes();
     dock.hidden = !all.length;
     if (!all.length) { dockMenu.hidden = true; dockBtn.setAttribute('aria-expanded', 'false'); }
-    document.getElementById('dockCount').textContent = all.length + (all.length === 1 ? ' comment' : ' comments');
-    document.getElementById('notesSend').href = 'https://wa.me/917016227880?text=' + encodeURIComponent('My comments on your site:\n\n' + all.map(n => '• ' + n.where + ': ' + n.text).join('\n'));
+    document.getElementById('dockCount').textContent = all.length + say(all.length === 1 ? ' comment' : ' comments', all.length === 1 ? ' ટિપ્પણી' : ' ટિપ્પણીઓ');
+    document.getElementById('notesSend').href = 'https://wa.me/917016227880?text=' + encodeURIComponent(say('My comments on your site:', 'તમારી સાઇટ પર મારી ટિપ્પણીઓ:') + '\n\n' + all.map(n => '• ' + n.where + ': ' + n.text).join('\n'));
   }
   function renderSlot(slot) {
     const key = slot.dataset.key, text = (myNotes[key] || '').trim();
     slot.textContent = '';
     if (!text) {
-      const add = make('button', 'add', '✎ add a comment');
+      const add = make('button', 'add', say('✎ add a comment', '✎ ટિપ્પણી લખો'));
       add.type = 'button';
       add.setAttribute('aria-label', 'Add your own note: ' + slot.dataset.label);
       add.addEventListener('click', () => editSlot(slot));
@@ -593,7 +595,7 @@
     const ta = make('textarea');
     ta.value = was;
     ta.rows = 1;
-    ta.setAttribute('aria-label', 'Your comment: ' + slot.dataset.label);
+    ta.setAttribute('aria-label', say('Your comment: ', 'તમારી ટિપ્પણી: ') + slot.dataset.label);
     const grow = () => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; };
     // Saved as they type too, so closing the tab mid-note loses nothing
     ta.addEventListener('input', () => {
@@ -663,13 +665,13 @@
     dockMenu.hidden = !open;
     dockBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
-  document.getElementById('notesPdf').addEventListener('click', downloadNotes);
+  document.getElementById('notesPdf')?.addEventListener('click', downloadNotes);
   document.getElementById('notesClear').addEventListener('click', () => {
     myNotes = {};
     saveNotes();
     slots.forEach(renderSlot);
     updateDock();
-    toast('Comments cleared.');
+    toast(say('Comments cleared.', 'ટિપ્પણીઓ ભૂંસાઈ ગઈ.'));
   });
   slots.forEach(renderSlot);
   updateDock();

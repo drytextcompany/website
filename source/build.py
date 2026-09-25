@@ -70,7 +70,7 @@ head_scripts = cut(r"(<!-- Google tag.*?display=swap\">)")
 prepaint = cut(r"(<script>\n\(function \(d\).*?</script>)")
 css = cut(r"<style>(.*?)</style>")
 js = cut(r"<script>\n(\(\(\) => \{.*?\n\}\)\(\);)\n</script>")
-intro = cut(r"(<div id=\"intro\">.*?</button>\s*</div>)")  # ends at the skip button, not the first nested div
+intro = cut(r"(<div id=\"intro\">.*?<button class=\"intro-skip\".*?</button>\s*</div>)")  # ends at the skip button
 header = cut(r"(<header class=\"top\">.*?</header>)")
 footer = cut(r"(<footer class=\"foot\">.*?</footer>)")
 after_footer = cut(r"</footer>\s*(<div class=\"toast\".*?)<script type=\"application/json\"")
@@ -206,6 +206,20 @@ def schema(page):
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, separators=(",", ":"))
 
 
+def gu_dock(block):
+    """The comments dock in Gujarati. The PDF button goes: its typeface has no Gujarati."""
+    for old_bit, new_bit in [
+        ('<button type="button" id="notesPdf">Download as PDF</button>', ""),
+        (">Send them to us<", ">અમને મોકલો<"),
+        (">Clear all comments<", ">બધી ટિપ્પણી ભૂંસો<"),
+        ("<p>Your comments stay in this browser. Nothing leaves it unless you send it.</p>",
+         "<p>તમારી ટિપ્પણી આ બ્રાઉઝરમાં જ રહે છે. તમે મોકલો નહીં ત્યાં સુધી ક્યાંય જતી નથી.</p>"),
+        ('<span id="dockCount">0 comments</span>', '<span id="dockCount">0 ટિપ્પણી</span>'),
+    ]:
+        block = block.replace(old_bit, new_bit)
+    return block
+
+
 def build_page(page):
     name, path = page["name"], page["path"]
     url = SITE + (path or "/")
@@ -242,9 +256,24 @@ def build_page(page):
         ]
     swap = page.get("alt") or ("/" if lang == "gu" else "/gu")
     nav = nav.replace('href="__LANG__"', 'href="%s"' % swap)
-    nav = nav.replace('data-lang-label', 'data-lang-label lang="%s"' % ("en" if lang == "gu" else "gu"))
+    chrome_foot = footer
+    skip = '<a class="skip" href="#main">Skip to content</a>'
+    if lang == "gu":
+        # the bar, the menu and the footer speak Gujarati too
+        for old_bit, new_bit in [
+            ('<a class="brand" href="/"', '<a class="brand" href="/gu"'),
+            ('<a href="/work" data-nav="work">Work</a>', '<a href="/work" data-nav="work">કામ</a>'),
+            ('<a href="/services" data-nav="services">Services</a>', '<a href="/gu/services" data-nav="services">સેવાઓ</a>'),
+            ('<a href="/about" data-nav="about">About</a>', '<a href="/gu/about" data-nav="about">અમારા વિશે</a>'),
+            ('href="/contact" data-nav="contact"', 'href="/gu/contact" data-nav="contact"'),
+            ('>Hire the pen</a>', '>કામ સોંપો</a>'),
+            (">Menu</button>", ">મેનુ</button>"),
+        ]:
+            nav = nav.replace(old_bit, new_bit)
+        chrome_foot = chrome_foot.replace("The Dry Text Co., Ahmedabad", "The Dry Text Co., અમદાવાદ")
+        skip = '<a class="skip" href="#main">સામગ્રી પર જાઓ</a>'
     body = [
-        '<a class="skip" href="#main">Skip to content</a>',
+        skip,
         intro if name == "home" else "",
         nav,
         '<main id="main">',
@@ -252,8 +281,8 @@ def build_page(page):
         page["markup"],
         "</div>",
         "</main>",
-        footer,
-        after_footer.strip(),
+        chrome_foot,
+        gu_dock(after_footer.strip()) if lang == "gu" else after_footer.strip(),
         data_blocks if page.get("data") else "",
         '<script src="/assets/site.js" defer></script>',
     ]
