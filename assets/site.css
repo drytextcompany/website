@@ -107,6 +107,7 @@ html.is-dry .note{display:none}
 .strike{position:relative;color:var(--grey)}
 .strike::after{content:"";position:absolute;left:-5%;right:-5%;top:55%;height:max(3px,.06em);background:var(--red);border-radius:99px;transform:rotate(-4deg);transform-origin:left center}
 .ins{position:absolute;left:50%;bottom:78%;transform:translateX(-46%) rotate(-5deg);font-family:var(--pen);font-weight:700;color:var(--red);font-size:.56em;letter-spacing:0;line-height:1;white-space:nowrap}
+.ins-hero::after{content:"Cheesy"}
 .co{position:relative;display:inline-block}
 .co svg{position:absolute;left:-14%;top:-10%;width:128%;height:122%;overflow:visible;pointer-events:none}
 .co path{fill:none;stroke:var(--red);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}

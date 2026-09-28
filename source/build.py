@@ -138,6 +138,10 @@ for p in EXTRA:
 ALL = [dict(PAGES[n], name=n, markup=pages[n], data=(n == "work")) for n in PAGES] + EXTRA
 
 
+# The ways people type our name into a search box
+ALT_NAMES = ["Dry Text Co.", "The Dry Text Company", "Dry Text", "DryText", "thedrytextco"]
+
+
 def schema(page):
     """What the page is, in the form search engines read."""
     name, path = page["name"], page["path"]
@@ -145,6 +149,7 @@ def schema(page):
         "@type": "ProfessionalService",
         "@id": SITE + "/#org",
         "name": "The Dry Text Co.",
+        "alternateName": ALT_NAMES,
         "url": SITE + "/",
         "image": SITE + "/og-image.png",
         "logo": SITE + "/og-image.png",
@@ -158,9 +163,9 @@ def schema(page):
         "knowsLanguage": ["en", "gu", "hi"],
         "sameAs": SOCIAL,
     }
-    graph = [org] if name == "home" else [{"@type": "Organization", "@id": SITE + "/#org", "name": "The Dry Text Co."}]
+    graph = [org] if name == "home" else [{"@type": "Organization", "@id": SITE + "/#org", "name": "The Dry Text Co.", "alternateName": ALT_NAMES}]
     if name == "home":
-        graph.append({"@type": "WebSite", "@id": SITE + "/#site", "url": SITE + "/", "name": "The Dry Text Co.", "publisher": {"@id": SITE + "/#org"}})
+        graph.append({"@type": "WebSite", "@id": SITE + "/#site", "url": SITE + "/", "name": "The Dry Text Co.", "alternateName": ALT_NAMES, "publisher": {"@id": SITE + "/#org"}})
     elif path:
         crumbs = [{"@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/"}]
         if page.get("parent"):

@@ -149,6 +149,7 @@ html.is-dry .note{display:none}
 .strike{position:relative;color:var(--grey)}
 .strike::after{content:"";position:absolute;left:-5%;right:-5%;top:55%;height:max(3px,.06em);background:var(--red);border-radius:99px;transform:rotate(-4deg);transform-origin:left center}
 .ins{position:absolute;left:50%;bottom:78%;transform:translateX(-46%) rotate(-5deg);font-family:var(--pen);font-weight:700;color:var(--red);font-size:.56em;letter-spacing:0;line-height:1;white-space:nowrap}
+.ins-hero::after{content:"Cheesy"}
 .co{position:relative;display:inline-block}
 .co svg{position:absolute;left:-14%;top:-10%;width:128%;height:122%;overflow:visible;pointer-events:none}
 .co path{fill:none;stroke:var(--red);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
@@ -559,7 +560,7 @@ html.is-dry .clients-run .star{display:inline}
     <header class="hero">
       <div class="row">
         <div class="hero-txt">
-          <h1 class="name" tabindex="-1" data-reveal>The <span class="edit"><span class="strike">Dry</span><span class="ins" aria-hidden="true">Cheesy</span></span> Text <span class="co">Co.<svg viewBox="0 0 120 70" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M64 5C100 3 117 20 115 38C113 58 86 67 57 65C25 63 5 51 6 34C7 16 31 5 60 6"/></svg></span></h1>
+          <h1 class="name" tabindex="-1" data-reveal>The <span class="edit"><span class="strike">Dry</span><span class="ins ins-hero" aria-hidden="true"></span></span> Text <span class="co">Co.<svg viewBox="0 0 120 70" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M64 5C100 3 117 20 115 38C113 58 86 67 57 65C25 63 5 51 6 34C7 16 31 5 60 6"/></svg></span></h1>
           <p class="dry-line only-dry">Dry mode on. The name is accurate now.</p>
         </div>
         <div class="note-stack">
