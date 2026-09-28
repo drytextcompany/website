@@ -20,7 +20,7 @@ Graphic designer, Business to business service.
 We do not take walk-in clients, so choose **service-area business** and hide the
 street address. Service areas: Ahmedabad, Gandhinagar, Gujarat, India.
 
-## Description (750 character limit — this is 712)
+## Description (750 character limit — this is 702)
 The Dry Text Co. is a content-writing agency in Ahmedabad. We write the words
 brands get judged by: website copy, brand voice and naming, social media and
 LinkedIn, advertising and campaign lines, email and outreach, long-form articles
