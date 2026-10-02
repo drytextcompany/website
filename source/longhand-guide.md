@@ -5,8 +5,9 @@ the next draft follows it. Kept in source/, so it is never served on the website
 
 ## The arrangement
 
-- One new piece is drafted each morning, dated three days ahead, so there are three days to
-  read it, edit it or delete it before the build publishes it.
+- One new piece is drafted each morning, dated three days ahead, and published on its date.
+  Granth does not need to approve pieces (agreed 3 October 2026), but can still edit or delete
+  any draft before its date.
 - Byline: Granth Hirapara.
 - Every drafted piece carries `"drafted_by": "Claude"` in its header. The build ignores it. Delete
   that line when you have read and approved a piece; nothing else changes.
@@ -89,10 +90,10 @@ Already published: what content writing costs; 27 cold mails; Gujarati or Englis
 voice is; what a LinkedIn ghostwriter does; the About page test; how to brief a writer; what a
 website costs; nine overused words.
 
+- [x] Your homepage headline has one job (3 October 2026)
+- [x] How to write a WhatsApp broadcast people don't mute (4 October 2026)
+- [x] Copywriter or content writer: which one you actually need (5 October 2026)
 - [x] How to give feedback on a draft, so round two is the last (6 October 2026)
-- [ ] Your homepage headline has one job (website copy)
-- [ ] How to write a WhatsApp broadcast people don't mute (words)
-- [ ] Copywriter or content writer: which one you actually need (working together)
 - [ ] How long an Instagram caption should be (social)
 - [ ] Writing the Google Business Profile description, the most read paragraph you'll never think about (website copy)
 - [ ] Why every Diwali post looks the same, and how to write one that doesn't (social). Window: drafts dated 20 October to 2 November 2026. Diwali falls on 8 November 2026; confirm before writing.
