@@ -94,7 +94,7 @@ website costs; nine overused words.
 - [x] How to write a WhatsApp broadcast people don't mute (4 October 2026)
 - [x] Copywriter or content writer: which one you actually need (5 October 2026)
 - [x] How to give feedback on a draft, so round two is the last (6 October 2026)
-- [ ] How long an Instagram caption should be (social)
+- [x] How long an Instagram caption should be (7 October 2026)
 - [ ] Writing the Google Business Profile description, the most read paragraph you'll never think about (website copy)
 - [ ] Why every Diwali post looks the same, and how to write one that doesn't (social). Window: drafts dated 20 October to 2 November 2026. Diwali falls on 8 November 2026; confirm before writing.
 - [ ] How to ask a customer for a testimonial you can actually use (words)
