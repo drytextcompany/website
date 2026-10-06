@@ -97,7 +97,7 @@ website costs; nine overused words.
 - [x] How long an Instagram caption should be (7 October 2026)
 - [x] Writing the Google Business Profile description, the most read paragraph you'll never think about (website copy) (8 October 2026)
 - [ ] Why every Diwali post looks the same, and how to write one that doesn't (social). Window: drafts dated 20 October to 2 November 2026. Diwali falls on 8 November 2026; confirm before writing.
-- [ ] How to ask a customer for a testimonial you can actually use (words)
+- [x] How to ask a customer for a testimonial you can actually use (words) (9 October 2026)
 - [ ] The cold mail first line: what to write before they decide to delete (cold mail)
 - [ ] Do you need a tagline? (brand voice)
 - [ ] Hinglish in brand copy: when it works and when it's a costume (language)
