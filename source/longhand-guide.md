@@ -99,7 +99,7 @@ website costs; nine overused words.
 - [ ] Why every Diwali post looks the same, and how to write one that doesn't (social). Window: drafts dated 20 October to 2 November 2026. Diwali falls on 8 November 2026; confirm before writing.
 - [x] How to ask a customer for a testimonial you can actually use (words) (9 October 2026)
 - [x] The cold mail first line: what to write before they decide to delete (cold mail) (10 October 2026)
-- [ ] Do you need a tagline? (brand voice)
+- [x] Do you need a tagline? (brand voice) (11 October 2026)
 - [ ] Hinglish in brand copy: when it works and when it's a costume (language)
 - [ ] Writing an FAQ page from the questions people actually ask (website copy)
 - [ ] Exclamation marks, and other ways copy sounds nervous (words)
