@@ -101,7 +101,7 @@ website costs; nine overused words.
 - [x] The cold mail first line: what to write before they decide to delete (cold mail) (10 October 2026)
 - [x] Do you need a tagline? (brand voice) (11 October 2026)
 - [x] Hinglish in brand copy: when it works and when it's a costume (language) (12 October 2026)
-- [ ] Writing an FAQ page from the questions people actually ask (website copy)
+- [x] Writing an FAQ page from the questions people actually ask (website copy) (13 October 2026)
 - [ ] Exclamation marks, and other ways copy sounds nervous (words)
 - [ ] Writing a product description for an Indian D2C brand (website copy)
 - [ ] How many revisions should a writer include, and what counts as one (working together)
