@@ -108,14 +108,6 @@ for rel in sorted(picture_refs):
     dest.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(source_file, dest)
 
-# Whole pages that are not built from the template, such as the Faro prototype.
-# Copied through untouched, because wrapping them in site chrome would break them.
-standalone = HERE / "standalone"
-if standalone.is_dir():
-    for whole_page in sorted(standalone.glob("*.html")):
-        shutil.copy2(whole_page, OUT / whole_page.name)
-        print("copied through", whole_page.name)
-
 data_blocks = ""
 for token, name, block_id in (("__MAILS_JSON__", "mails.json", "mailData"), ("__WORK_JSON__", "work.json", "workData")):
     payload = json.dumps(json.loads((HERE / name).read_text(encoding="utf-8")), ensure_ascii=False).replace("</", "<\\/")
