@@ -29,7 +29,7 @@ PAGES = {
     "home": dict(
         file="index.html", path="/",
         title="The Dry Text Co. | Content, marketing, advertising, branding and websites from Ahmedabad",
-        desc="A content, marketing, advertising, branding and website agency from Ahmedabad, for brands anywhere that would rather be read than skimmed.",
+        desc="Content, marketing, advertising, branding and websites, from Ahmedabad. We build shopfronts: the words on them, the sites behind them, the tools that run them.",
     ),
     "work": dict(
         file="work.html", path="/work", crumb="Work",
