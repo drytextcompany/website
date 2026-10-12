@@ -93,10 +93,20 @@ assets.mkdir(exist_ok=True)
 images = OUT / "images"
 if images.exists():
     shutil.rmtree(images)
-for rel in sorted(set(re.findall(r"url\((images/[^)]+)\)", css))):
+# Every image the stylesheet asks for, plus every one the markup does. Miss the
+# second set and a page ships with a broken picture, because this folder is rebuilt
+# from scratch each time.
+picture_refs = set(re.findall(r"url\((images/[^)]+)\)", css))
+for markup in [(HERE / "site.html").read_text(encoding="utf-8")] + [
+        f.read_text(encoding="utf-8") for f in sorted((HERE / "pages").glob("*.html"))]:
+    picture_refs |= {m.lstrip("/") for m in re.findall(r'src="(/?images/[^"]+)"', markup)}
+for rel in sorted(picture_refs):
+    source_file = HERE / rel
+    if not source_file.exists():
+        raise SystemExit("missing image: source/%s" % rel)
     dest = images / pathlib.Path(rel).relative_to("images")
     dest.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(HERE / rel, dest)
+    shutil.copy2(source_file, dest)
 
 data_blocks = ""
 for token, name, block_id in (("__MAILS_JSON__", "mails.json", "mailData"), ("__WORK_JSON__", "work.json", "workData")):
