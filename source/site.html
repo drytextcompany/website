@@ -206,6 +206,12 @@ html.is-dry .pen-ring{display:none}
 .toc a:hover b{text-decoration:underline wavy var(--red) 1.5px;text-underline-offset:6px}
 
 /* practice rewrites */
+.shelf{display:grid;gap:clamp(22px,3vw,30px);margin-top:4px}
+.shelf-item{padding-top:20px;border-top:1px solid var(--rule)}
+.shelf-item h3{margin:0;font-weight:500;font-size:clamp(22px,2.4vw,28px);line-height:1.2}
+.shelf-item p{margin:8px 0 0;max-width:46ch}
+.shelf-stage{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--grey)}
+@media(min-width:760px){.shelf{grid-template-columns:1fr 1fr;column-gap:44px}}
 .rw{padding-block:24px;border-top:1px solid var(--rule)}
 .rw-label{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-bottom:10px}
 .rw-before{width:fit-content;max-width:100%;max-height:5em;overflow:hidden;font-size:clamp(21px,2.4vw,28px);line-height:1.3;color:var(--grey);text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px;transition:opacity .45s,filter .45s,max-height .5s .2s,margin .5s .2s}
@@ -541,6 +547,7 @@ html.is-dry .clients-run .star{display:inline}
       <nav class="nav" aria-label="Main">
         <a href="/work" data-nav="work">Work</a>
         <a href="/services" data-nav="services">Services</a>
+        <a href="/self-published" data-nav="self-published">Self-published</a>
         <a href="/about" data-nav="about">About</a>
         <a href="/longhand" data-nav="longhand">Longhand</a>
       </nav>
@@ -570,7 +577,7 @@ html.is-dry .clients-run .star{display:inline}
         </div>
       </div>
       <div class="row hero-r2">
-        <p class="lede">Words, campaigns and websites from Ahmedabad, for brands anywhere in the world that would rather be read than skimmed.</p>
+        <p class="lede">We build shopfronts. Not the wooden kind &mdash; the website, the words on it, and the tools behind it. From Ahmedabad, for brands anywhere in the world.</p>
         <ul class="note hn todo" aria-label="To-do list"><li class="done">fix the name</li><li class="done">build the site</li><li><a href="/contact">hear from you</a></li></ul>
       </div>
       <div class="row hero-r3">
@@ -582,11 +589,11 @@ html.is-dry .clients-run .star{display:inline}
     <section class="sec" id="who" aria-labelledby="who-title">
       <div class="row sec-head"><div>
         <p class="eyebrow" id="who-title">Who we are</p>
-        <p class="who-p">Written in Ahmedabad. Read anywhere. We write the words brands get judged by, and build the websites those words live on. For brands that want to sound like someone, not something.</p>
+        <p class="who-p">Written in Ahmedabad. Read anywhere. A shopfront is whatever a customer sees before they decide &mdash; a website, a menu, a profile, one line in a search result. We write what it says, build the thing it sits on, and make what&rsquo;s behind it work. For brands that want to sound like someone, not something.</p>
       </div></div>
       <div class="row"><div>
-        <p class="does" id="does"><span class="w">Content</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Marketing</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Advertising</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Websites</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Branding</span></p>
-        <div class="does-foot"><p class="note">pick one. or all five.</p><a class="does-link" href="/services">See what&rsquo;s included &rarr;</a></div>
+        <p class="does" id="does"><span class="w">Content</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Marketing</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Advertising</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Branding</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Websites</span><span class="dot" aria-hidden="true">&middot;</span><span class="w">Strategy</span></p>
+        <div class="does-foot"><p class="note">pick one. or all six.</p><a class="does-link" href="/services">See what&rsquo;s included &rarr;</a></div>
       </div></div>
     </section>
 
@@ -597,9 +604,10 @@ html.is-dry .clients-run .star{display:inline}
       </div></div>
       <div class="row"><ol class="toc">
         <li><a href="/work"><span class="toc-t"><b>The work</b><span>Our clients, and 27 cold mails</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 02</span></a></li>
-        <li><a href="/services"><span class="toc-t"><b>Services</b><span>What we write, what we build, how it works</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 03</span></a></li>
+        <li><a href="/services"><span class="toc-t"><b>Services</b><span>What we make, and how it works</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 03</span></a></li>
         <li><a href="/about"><span class="toc-t"><b>About</b><span>Four people. One red pen.</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 04</span></a></li>
-        <li><a href="/contact"><span class="toc-t"><b>Contact</b><span>Four blanks and you're done</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 05</span></a></li>
+        <li><a href="/self-published"><span class="toc-t"><b>Self-published</b><span>Things nobody briefed us on</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 05</span></a></li>
+        <li><a href="/contact"><span class="toc-t"><b>Contact</b><span>Four blanks and you're done</span></span><span class="toc-dots" aria-hidden="true"></span><span class="toc-p">p. 06</span></a></li>
       </ol></div>
     </section>
 
@@ -660,6 +668,32 @@ html.is-dry .clients-run .star{display:inline}
         </div>
         <p class="note">we've decided it's a compliment.</p>
       </div>
+    </section>
+
+    <section class="sec" id="shelf" aria-labelledby="shelf-title">
+      <div class="row sec-head">
+        <div>
+          <p class="eyebrow">Self-published</p>
+          <h2 class="h2" id="shelf-title">Things nobody briefed us on.</h2>
+          <p class="who-p" style="margin-top:18px">Client work arrives with a brief. These didn&rsquo;t. Same studio, same red pen, except the client is us &mdash; which means nobody gets to approve the jokes.</p>
+        </div>
+        <p class="note">the client was us. the client was difficult.</p>
+      </div>
+      <div class="row"><div>
+        <div class="shelf">
+          <div class="shelf-item">
+            <h3>Faro Ahmedabad</h3>
+            <p>Ahmedabad&rsquo;s market streets, rebuilt in 3D. Make an avatar, walk Gurukul Street, visit the shops that are actually there.</p>
+            <p class="shelf-stage">First street in prototype</p>
+          </div>
+          <div class="shelf-item">
+            <h3>Nom Nom</h3>
+            <p>QR ordering for cafes. Guests scan the table, browse the cafe&rsquo;s own menu and order. Staff see it at the counter.</p>
+            <p class="shelf-stage">In design</p>
+          </div>
+        </div>
+        <div class="does-foot"><p class="note">more when they&rsquo;re ready.</p><a class="does-link" href="/self-published">See the shelf &rarr;</a></div>
+      </div></div>
     </section>
 
     <section class="sec" id="hire" aria-labelledby="hire-title">
@@ -827,14 +861,15 @@ Would love to tell you more if this sounds interesting.</p>
 <div class="page" data-page="services" hidden>
   <div class="book">
     <header class="page-head row">
-      <div><p class="eyebrow">Services</p><h1 class="h1" tabindex="-1" data-reveal>What we write</h1><p class="lede">Planning what to say, saying it well, and building the website it lives on. Priced per project, once we understand it.</p></div>
+      <div><p class="eyebrow">Services</p><h1 class="h1" tabindex="-1" data-reveal>What we make</h1><p class="lede">A shopfront is everything a customer sees before they decide. We write what it says, build what it sits on, and keep the part behind it working. Priced per project, once we understand it.</p></div>
     </header>
-    <div class="row svc"><div><h3>Brand and web</h3><p>Website content, copywriting, SEO content.</p><p class="svc-more"><a href="/services/website-content">Website content writing &rarr;</a></p></div><p class="note">the words people read before they trust you.</p></div>
-    <div class="row svc"><div><h3>Social and marketing</h3><p>Captions, social media content, LinkedIn posts, campaign and launch content.</p><p class="svc-more"><a href="/services/social-media-content">Social media content writing &rarr;</a></p></div><p class="note">written for fast thumbs.</p></div>
+    <div class="row svc"><div><h3>Content writing</h3><p>Website content, copywriting, SEO content, long-form and ghostwriting.</p><p class="svc-more"><a href="/services/website-content">Website content writing &rarr;</a></p></div><p class="note">the words people read before they trust you.</p></div>
+    <div class="row svc"><div><h3>Marketing</h3><p>Captions, social media content, LinkedIn posts, newsletters, campaign and launch content.</p><p class="svc-more"><a href="/services/social-media-content">Social media content writing &rarr;</a></p></div><p class="note">written for fast thumbs.</p></div>
     <div class="row svc"><div><h3>Advertising</h3><p>Ad scripts, headlines, taglines and campaign lines, for print, screens and everything in between.</p></div><p class="note">written to beat the skip button.</p></div>
-    <div class="row svc"><div><h3>Long-form</h3><p>Newsletters, ghostwriting.</p></div><p class="note">you get the credit. we keep the secret.</p></div>
+    <div class="row svc"><div><h3>Branding</h3><p>Naming, brand voice and tone of voice. What you are allowed to sound like, written down so everybody uses it.</p></div><p class="note">so four people write like one company.</p></div>
+    <div class="row svc"><div><h3>Websites</h3><p>Written, designed and shipped. You&rsquo;re looking at one.</p></div><p class="note">yes, this one too.</p></div>
     <div class="row svc"><div><h3>Strategy</h3><p>Deciding what to say, where and when, before a word gets written.</p></div><p class="note">the quiet part. it matters most.</p></div>
-    <div class="row svc"><div><h3>Websites</h3><p>Written, designed and shipped. You're looking at one.</p></div><p class="note">yes, this one too.</p></div>
+    <div class="row svc"><div><h3>Outreach</h3><p>Cold mail, written and run for you. Sourcing, writing, sending, the follow-ups, and a number at the end of the month.</p><p class="svc-more"><a href="/work#cold-mails">Read 27 of our own &rarr;</a></p></div><p class="note">we only send mail we would reply to.</p></div>
     <div class="row"><p class="also">If it has words, we write it. If it needs a website, we build it. Anything else? Ask. The answer is usually yes.</p><p class="svc-more" style="margin-top:14px">Starting prices for the usual pieces are on the <a href="/services/content-writing-ahmedabad">content writing page</a>.</p></div>
 
     <section class="sec" style="margin-top:clamp(56px,7vw,96px)" id="how" aria-labelledby="how-title">
@@ -873,6 +908,7 @@ Would love to tell you more if this sounds interesting.</p>
     <div class="row"><p class="body">I started The Dry Text Co. to <span class="edit inline" data-keep="new"><span class="strike">make money</span> <span class="ins">make words cool again</span></span>.</p><p class="note">ok. also money.</p></div>
     <div class="row"><p class="body" style="margin-top:18px">I've been writing content for three years. I also study operations at Ahmedabad University, so deadlines are literally my major.</p></div>
     <div class="row"><p class="body" style="margin-top:18px">I wanted a name with some irony in it. So: The Dry Text Co.<span class="only-wet"> Don't go by the name, cuz we cheesy.</span></p></div>
+    <div class="row"><p class="body" style="margin-top:18px">These days the job has a shorter description. We build shopfronts &mdash; the website, the words on it, and the tools behind it. Every so often we build one with no client and no brief, and those go on the <a href="/self-published">self-published shelf</a>.</p><p class="note">nobody briefed us. nobody could stop us.</p></div>
 
     <section class="sec" style="margin-top:clamp(48px,6vw,80px)" aria-labelledby="b-title">
       <div class="row sec-head"><div><h2 class="h2" id="b-title">Three things I believe about words</h2></div></div>

@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Off-View — a point of view | The Dry Text Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Kalam:wght@700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#FBFBF9;--ink:#16161A;--ink-2:#3A3A40;--grey:#6E6D72;--rule:#E2E0DA;
+  --red:#D2232A;--margin:#F2B8B8;--hl:#FFE27A;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --pen:"Kalam","Segoe Print","Bradley Hand",cursive;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#8A8A8E;font-family:var(--serif);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+/* one A4 sheet, 794 x 1122 px at 96dpi */
+.sheet{position:relative;width:794px;height:1122px;margin:0 auto 28px;padding:48px 64px 72px;background:var(--paper);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 30px rgba(0,0,0,.28)}
+.sheet::before{content:"";position:absolute;top:86px;bottom:0;left:540px;width:2px;background:var(--margin)}
+
+/* page furniture */
+.head{flex:none;position:relative;height:38px;display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--ink)}
+.brand{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:500;letter-spacing:-.01em}
+.stamp,.foot{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
+.foot{position:absolute;left:64px;right:64px;bottom:28px;display:flex;justify-content:space-between;letter-spacing:0;text-transform:none}
+
+/* the notebook grid: text column, then the margin for our notes */
+.row{flex:none;position:relative;display:grid;grid-template-columns:456px 170px;column-gap:40px;align-items:start}
+.col{width:456px;flex:none;position:relative}
+.gap{flex-grow:1}
+.eyebrow{margin:0;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+h1{margin:12px 0 0;font-size:72px;line-height:.98;font-weight:500;letter-spacing:-.03em;text-wrap:balance}
+h2{margin:6px 0 0;font-size:46px;line-height:1.02;font-weight:500;letter-spacing:-.02em;text-wrap:balance}
+h3{margin:0;font-size:21px;font-weight:500;letter-spacing:-.01em}
+p{margin:0}
+.lede{margin-top:10px;font-size:17px;line-height:1.45;color:var(--ink-2)}
+.body{font-size:16px;line-height:1.5;color:var(--ink-2)}
+.note{font-family:var(--pen);font-weight:700;font-size:18px;line-height:1.25;color:var(--red);transform:rotate(-2deg);transform-origin:left top}
+.struck{position:relative;display:inline-block;color:var(--grey);font-size:40px}
+.struck i{position:absolute;left:-4%;right:-4%;top:55%;height:5px;border-radius:99px;background:var(--red);font-style:normal}
+
+/* lists */
+.ticks{display:flex;flex-direction:column;gap:12px}
+.tick{display:flex;gap:14px;align-items:flex-start;font-size:17px;line-height:1.45}
+.tick svg{flex:none;margin-top:6px}
+.blocks{display:flex;flex-direction:column;gap:20px}
+.idea h3 span{font-family:var(--mono);font-size:12px;font-weight:400;color:var(--grey);text-transform:uppercase;letter-spacing:.08em}
+.lines{margin-top:8px;display:flex;flex-direction:column}
+.lines p{padding:6px 0;border-bottom:1px solid var(--rule);font-size:17.5px;line-height:1.3}
+.lines p:first-child{border-top:1px solid var(--rule)}
+.opt{padding-top:12px;border-top:2px solid var(--ink)}
+.opt + .opt{margin-top:20px}
+.pros{margin-top:8px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:20px}
+.pros p{font-size:14.5px;line-height:1.45;color:var(--ink-2)}
+.pros b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);font-weight:400;margin-bottom:4px}
+.mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 2px}
+.contents p{display:flex;align-items:baseline;gap:10px;padding:9px 0;font-size:19px}
+.dots{flex-grow:1;border-bottom:2px dotted #B9B7B0;transform:translateY(-5px)}
+.pp{font-family:var(--mono);font-size:12px;color:var(--grey)}
+.steps{display:flex;flex-direction:column;gap:9px}
+.step{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;align-items:baseline}
+.step span{font-family:var(--mono);font-size:13px;color:var(--red)}
+.step p{font-size:15.5px;line-height:1.45;color:var(--ink-2)}
+.step b{font-weight:500;font-size:17px;color:var(--ink)}
+
+@media print{
+  body{background:#fff}
+  .sheet{margin:0;box-shadow:none;page-break-after:always;break-after:page}
+  .sheet:last-of-type{page-break-after:auto;break-after:auto}
+  @page{size:A4;margin:0}
+}
+</style>
+</head>
+<body>
+
+<!-- 1 · cover -->
+<section class="sheet">
+  <div class="head">
+    <div class="brand"><svg width="20" height="20" viewBox="6 6 20 20" aria-hidden="true"><path d="M8 23 16 9 24 23" fill="none" stroke="#D2232A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>The Dry Text Co.</div>
+    <div class="stamp">Off-View &middot; 6 Oct 2026</div>
+  </div>
+
+  <div class="gap"></div>
+
+  <div class="row">
+    <div>
+      <p class="eyebrow">Prepared for Tirth Boradia &middot; Wolf Eyes</p>
+      <p style="margin-top:26px;line-height:1"><span class="struck">A pitch<i></i></span></p>
+      <h1>A point of view on Off-View.</h1>
+      <p class="lede" style="margin-top:26px;font-size:21px">What Off-View could stand for, how it should sound, and the one question worth settling before any of it goes live.</p>
+    </div>
+    <div><p class="note" style="margin-top:64px">&larr; nobody asked for a deck.</p></div>
+  </div>
+
+  <div class="gap"></div>
+
+  <div class="row">
+    <div class="contents">
+      <p class="eyebrow" style="margin-bottom:8px">Inside</p>
+      <p><span>What we heard, and what we see</span><span class="dots"></span><span class="pp">p. 02</span></p>
+      <p><span>Three ways Off-View could sound</span><span class="dots"></span><span class="pp">p. 03</span></p>
+      <p><span>The one question: whose page?</span><span class="dots"></span><span class="pp">p. 04</span></p>
+      <p><span>Two ideas, and where we&rsquo;d start</span><span class="dots"></span><span class="pp">p. 05</span></p>
+      <p class="body" style="margin-top:22px;color:var(--ink-2)">Prepared by Granth Hirapara, Founder</p>
+    </div>
+    <div><p class="note" style="margin-top:40px">four pages. we counted.</p></div>
+  </div>
+
+  <div class="foot"><span>thedrytextco.in &middot; +91 70162 27880 &middot; info@thedrytextco.in</span><span>Ref DTC/WOLF-01</span></div>
+</section>
+
+<!-- 2 · what we heard, what we see -->
+<section class="sheet">
+  <div class="head">
+    <div class="brand"><svg width="20" height="20" viewBox="6 6 20 20" aria-hidden="true"><path d="M8 23 16 9 24 23" fill="none" stroke="#D2232A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>The Dry Text Co.</div>
+    <div class="stamp">Off-View &middot; p. 02</div>
+  </div>
+
+  <div class="row" style="margin-top:36px">
+    <div><p class="eyebrow">From our meeting</p><h2>What we heard.</h2></div>
+    <div><p class="note" style="margin-top:30px">we were listening.</p></div>
+  </div>
+
+  <div class="col ticks" style="margin-top:24px">
+    <div class="tick"><svg width="22" height="18" viewBox="0 0 30 24" aria-hidden="true"><path d="M3 13 11 20 27 4" fill="none" stroke="#D2232A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Off-View is the affordable line, &#8377;1,000 to &#8377;1,500, built to stand against the big buy-one-get-one offers.</span></div>
+    <div class="tick"><svg width="22" height="18" viewBox="0 0 30 24" aria-hidden="true"><path d="M3 13 11 20 27 4" fill="none" stroke="#D2232A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>It should feel playful, young and a little cool. Wolf Eyes stays the serious one.</span></div>
+    <div class="tick"><svg width="22" height="18" viewBox="0 0 30 24" aria-hidden="true"><path d="M3 13 11 20 27 4" fill="none" stroke="#D2232A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>The products are made and already out there. Production is strong and stays exactly as it is.</span></div>
+    <div class="tick"><svg width="22" height="18" viewBox="0 0 30 24" aria-hidden="true"><path d="M3 13 11 20 27 4" fill="none" stroke="#D2232A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>One page for both brands, because paying two agencies for two brands is money you&rsquo;d rather not spend.</span></div>
+  </div>
+
+  <div class="gap" style="min-height:30px"></div>
+
+  <div class="row">
+    <div><p class="eyebrow">Our read</p><h2>What we see.</h2></div>
+    <div></div>
+  </div>
+
+  <div class="blocks" style="margin-top:24px">
+    <div class="row">
+      <div><h3>This isn&rsquo;t a launch. It&rsquo;s a discovery problem.</h3><p class="body" style="margin-top:4px">The glasses exist, the price is right, the quality is handled. What&rsquo;s missing is anybody knowing the name. That changes the job: the first months are about being found and being remembered, not about a brand book nobody reads.</p></div>
+      <div><p class="note" style="margin-top:2px;font-size:17px">good product. quiet room.</p></div>
+    </div>
+    <div class="row">
+      <div><h3>The Wolf Eyes page is a trade counter, not a shop.</h3><p class="body" style="margin-top:4px">By your own read, most of those 3,500 followers are retailers and distributors: the people who stock you, not the twenty-two-year-old buying one pair. Posting Off-View there reaches the wrong room, and it asks two very different audiences to share one feed.</p></div>
+      <div><p class="note" style="margin-top:2px;font-size:17px">3,500 of the wrong people.</p></div>
+    </div>
+    <div class="row">
+      <div><h3>There&rsquo;s no door to walk through.</h3><p class="body" style="margin-top:4px">The website is Wolf Eyes only. Off-View isn&rsquo;t on it. So even when someone hears the name, there&rsquo;s nowhere to land, nothing to read and nothing to buy. A page of its own on the existing site would fix that without touching anything else.</p></div>
+      <div></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>thedrytextco.in &middot; +91 70162 27880 &middot; info@thedrytextco.in</span><span>Ref DTC/WOLF-01</span></div>
+</section>
+
+<!-- 3 · three directions -->
+<section class="sheet">
+  <div class="head">
+    <div class="brand"><svg width="20" height="20" viewBox="6 6 20 20" aria-hidden="true"><path d="M8 23 16 9 24 23" fill="none" stroke="#D2232A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>The Dry Text Co.</div>
+    <div class="stamp">Off-View &middot; p. 03</div>
+  </div>
+
+  <div class="row" style="margin-top:36px">
+    <div><p class="eyebrow">Voice, three ways</p><h2>How Off-View could sound.</h2><p class="lede">Three directions, each with the thought behind it and three lines written in that voice. Pick one and we build it out properly.</p></div>
+    <div><p class="note" style="margin-top:34px">pick one. ignore two.</p></div>
+  </div>
+
+  <div class="gap" style="min-height:14px"></div>
+
+  <div class="col idea">
+    <h3>One. <span>Glasses, not eyewear</span></h3>
+    <p class="body" style="margin-top:4px">Off-View treats specs as an outfit decision, not a medical purchase. Light, funny, never trying too hard. The enemy isn&rsquo;t another brand, it&rsquo;s the idea that buying glasses has to be boring.</p>
+    <div class="lines">
+      <p>&ldquo;&#8377;1,200. Less than the haircut you regret.&rdquo;</p>
+      <p>&ldquo;Specs for people who lose specs.&rdquo;</p>
+      <p>&ldquo;Looks expensive. Isn&rsquo;t. That&rsquo;s the whole pitch.&rdquo;</p>
+    </div>
+  </div>
+
+  <div class="gap" style="min-height:14px"></div>
+
+  <div class="col idea">
+    <h3>Two. <span>The second pair</span></h3>
+    <p class="body" style="margin-top:4px">Answers buy-one-get-one without playing the discount game. One pair is a habit, two is a wardrobe. It makes owning more pairs normal, which is exactly what sells an affordable line again and again.</p>
+    <div class="lines">
+      <p>&ldquo;One pair is a personality. Two is a wardrobe.&rdquo;</p>
+      <p>&ldquo;Monday glasses. Friday glasses. Same face.&rdquo;</p>
+      <p>&ldquo;Your backup pair just got promoted.&rdquo;</p>
+    </div>
+  </div>
+
+  <div class="gap" style="min-height:14px"></div>
+
+  <div class="row idea">
+    <div>
+      <h3>Three. <span>Wolf Eyes, off duty</span></h3>
+      <p class="body" style="margin-top:4px">Borrows the parent&rsquo;s credibility on purpose: the people who make serious eyewear, with the rules off. It&rsquo;s the direction that makes a shared page make the most sense, and the one that needs the lightest touch to stay charming.</p>
+      <div class="lines">
+        <p>&ldquo;Same factory. Fewer rules.&rdquo;</p>
+        <p>&ldquo;The serious eyewear people, after hours.&rdquo;</p>
+        <p>&ldquo;Wolf Eyes raised us. We don&rsquo;t listen.&rdquo;</p>
+      </div>
+    </div>
+    <div><p class="note" style="margin-top:120px;font-size:17px">this one needs the least new ground.</p></div>
+  </div>
+
+  <div class="foot"><span>thedrytextco.in &middot; +91 70162 27880 &middot; info@thedrytextco.in</span><span>Ref DTC/WOLF-01</span></div>
+</section>
+
+<!-- 4 · the page question -->
+<section class="sheet">
+  <div class="head">
+    <div class="brand"><svg width="20" height="20" viewBox="6 6 20 20" aria-hidden="true"><path d="M8 23 16 9 24 23" fill="none" stroke="#D2232A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>The Dry Text Co.</div>
+    <div class="stamp">Off-View &middot; p. 04</div>
+  </div>
+
+  <div class="row" style="margin-top:36px">
+    <div><p class="eyebrow">Worth settling first</p><h2>Whose page does this live on?</h2><p class="lede">You said one page, to keep the cost of two brands down. That&rsquo;s fair, and it&rsquo;s a money question, so here&rsquo;s the money answer first: <span class="mark">we charge for the work, not per brand.</span> One team, one monthly price, whether it runs on one page or two.</p></div>
+    <div><p class="note" style="margin-top:34px">one team. one price. two pages.</p></div>
+  </div>
+
+  <div class="gap" style="min-height:26px"></div>
+
+  <div class="col">
+    <div class="opt">
+      <h3>Option one &middot; everything on the Wolf Eyes page</h3>
+      <div class="pros">
+        <p><b>What works</b>3,500 followers from day one, no new audience to build, and retailers who stock you see the new line immediately.</p>
+        <p><b>What it costs</b>Those followers are trade. A playful post for a 22-year-old lands in a feed built for distributors, and the serious brand starts sounding unsure of itself. You also can&rsquo;t tell which brand is working, because it&rsquo;s all one number.</p>
+      </div>
+    </div>
+
+    <div class="opt">
+      <h3>Option two &middot; Off-View gets its own page, we run both</h3>
+      <div class="pros">
+        <p><b>What works</b>The right voice reaches the right room, Wolf Eyes keeps its trade face, and you can finally see what Off-View does on its own. Bolder content becomes possible, because it isn&rsquo;t sitting next to a B2B post.</p>
+        <p><b>What it costs</b>It starts at zero followers and needs steady posting for the first couple of months. It does not cost more: the price is for the work we do each month, not the number of logos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="gap" style="min-height:26px"></div>
+
+  <div class="col">
+    <p class="eyebrow">What we&rsquo;d do</p>
+    <p class="body" style="margin-top:6px;font-size:16.5px;color:var(--ink)">Open the Off-View page and give it sixty days, with Wolf Eyes pointing at it: a pinned post, a link in the bio, and the launch pieces shared across. If it hasn&rsquo;t moved by then, we fold Off-View back into the main page as a named series and lose nothing but the handle. The downside is small, the upside is a brand with its own audience that you own.</p>
+  </div>
+
+  <div class="foot"><span>thedrytextco.in &middot; +91 70162 27880 &middot; info@thedrytextco.in</span><span>Ref DTC/WOLF-01</span></div>
+</section>
+
+<!-- 5 · ideas and next step -->
+<section class="sheet">
+  <div class="head">
+    <div class="brand"><svg width="20" height="20" viewBox="6 6 20 20" aria-hidden="true"><path d="M8 23 16 9 24 23" fill="none" stroke="#D2232A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>The Dry Text Co.</div>
+    <div class="stamp">Off-View &middot; p. 05</div>
+  </div>
+
+  <div class="row" style="margin-top:36px">
+    <div><p class="eyebrow">Two ideas we&rsquo;d run first</p><h2>Where we&rsquo;d start.</h2></div>
+    <div><p class="note" style="margin-top:30px">headlines now. detail once we&rsquo;re in.</p></div>
+  </div>
+
+  <div class="blocks" style="margin-top:20px;gap:16px">
+    <div class="col idea">
+      <h3>Drops that don&rsquo;t touch the factory.</h3>
+      <p class="body" style="margin-top:4px">You liked the limited edition idea but not the production risk. So we drop everything except the frame: a festival case, a pouch, a cloth, a sticker set, an artist on the packaging. Same glasses you already hold, new story every few weeks, nothing new to manufacture.</p>
+    </div>
+    <div class="col idea">
+      <h3>Two pairs, not two for one.</h3>
+      <p class="body" style="margin-top:4px">The big players compete on buy-one-get-one, which trains people to wait for a sale. Off-View competes on owning more than one: a pair for work, a pair for the weekend, outfits and faces rather than discounts. It sells the second pair without cutting the price of the first.</p>
+    </div>
+  </div>
+
+  <div class="gap" style="min-height:16px"></div>
+
+  <div class="col">
+    <p class="eyebrow">The first piece of work</p>
+    <h3 style="margin-top:6px;font-size:24px">The First Draft &middot; two to three weeks</h3>
+    <div class="steps" style="margin-top:10px;gap:7px">
+      <div class="step"><span>1</span><p><b>One direction, chosen.</b> You pick from page three, we pressure-test it and write it down properly.</p></div>
+      <div class="step"><span>2</span><p><b>The voice guide.</b> How Off-View talks, what it never says, the words it owns, with examples people can copy.</p></div>
+      <div class="step"><span>3</span><p><b>Pillars and a launch idea.</b> The handful of things the page posts about, and one campaign to open with.</p></div>
+      <div class="step"><span>4</span><p><b>The first month, written.</b> A calendar and the content to fill it, ready to shoot and post.</p></div>
+    </div>
+    <p class="body" style="margin-top:12px">After that, a monthly arrangement for the content itself: words from us, and where you want it, the posts and reels made with our designer and editor. One price for the month, both pages included.</p>
+  </div>
+
+  <div class="gap" style="min-height:14px"></div>
+
+  <div class="row">
+    <div style="padding-top:12px;border-top:1px solid var(--ink)">
+      <h2 style="font-size:28px;line-height:1.1">That&rsquo;s our side of it.<br><span style="font-style:italic">Tell us which one feels like Off-View.</span></h2>
+      <p class="body" style="margin-top:8px">Pick a direction, or tear all three apart, and we&rsquo;ll come back with the scope and the price for The First Draft the same week.</p>
+    </div>
+    <div style="padding-top:12px"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="10" fill="none" stroke="#D2232A" stroke-width="2.2"/><circle cx="13" cy="13" r="2.6" fill="#D2232A"/></svg><p class="note" style="margin-top:6px;font-size:17px">your turn with the pen.</p></div>
+  </div>
+
+  <div class="foot"><span>thedrytextco.in &middot; +91 70162 27880 &middot; info@thedrytextco.in</span><span>Ref DTC/WOLF-01</span></div>
+</section>
+
+</body>
+</html>
