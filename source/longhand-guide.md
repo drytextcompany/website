@@ -103,7 +103,7 @@ website costs; nine overused words.
 - [x] Hinglish in brand copy: when it works and when it's a costume (language) (12 October 2026)
 - [x] Writing an FAQ page from the questions people actually ask (website copy) (13 October 2026)
 - [x] Exclamation marks, and other ways copy sounds nervous (words) (15 October 2026)
-- [ ] Writing a product description for an Indian D2C brand (website copy)
+- [x] Writing a product description for an Indian D2C brand (website copy) (16 October 2026)
 - [ ] How many revisions should a writer include, and what counts as one (working together)
 - [ ] Email subject lines that get opened without lying (cold mail)
 - [ ] Company page or founder profile: where a B2B brand should post on LinkedIn (ghostwriting)
