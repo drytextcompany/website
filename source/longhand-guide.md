@@ -106,7 +106,7 @@ website costs; nine overused words.
 - [x] Writing a product description for an Indian D2C brand (website copy) (16 October 2026)
 - [x] How many revisions should a writer include, and what counts as one (working together) (17 October 2026)
 - [ ] Email subject lines that get opened without lying (cold mail)
-- [ ] Company page or founder profile: where a B2B brand should post on LinkedIn (ghostwriting)
+- [x] Company page or founder profile: where a B2B brand should post on LinkedIn (ghostwriting) (14 October 2026)
 - [ ] Writing a hoarding: seven words at sixty kilometres an hour (advertising)
 - [ ] The Contact page: the last page before money, and the least written (website copy)
 - [ ] How to write a job post that good people answer (words)
