@@ -109,7 +109,7 @@ website costs; nine overused words.
 - [x] Company page or founder profile: where a B2B brand should post on LinkedIn (ghostwriting) (14 October 2026)
 - [x] Writing a hoarding: seven words at sixty kilometres an hour (advertising) (19 October 2026)
 - [x] The Contact page: the last page before money, and the least written (website copy) (21 October 2026)
-- [ ] How to write a job post that good people answer (words)
+- [x] How to write a job post that good people answer (words) (22 October 2026)
 - [ ] Writing a case study when the client won't let you name them (working together)
 - [ ] Should your website show prices? (what things cost)
 - [ ] Brochures: does anyone read them, and what to put in the one they do (words)
