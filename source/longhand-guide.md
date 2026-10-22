@@ -111,7 +111,7 @@ website costs; nine overused words.
 - [x] The Contact page: the last page before money, and the least written (website copy) (21 October 2026)
 - [x] How to write a job post that good people answer (words) (22 October 2026)
 - [x] Writing a case study when the client won't let you name them (working together) (23 October 2026)
-- [ ] Should your website show prices? (what things cost)
+- [x] Should your website show prices? (what things cost) (25 October 2026)
 - [ ] Brochures: does anyone read them, and what to put in the one they do (words)
 - [ ] Writing for doctors, lawyers and CAs without sounding like a pamphlet (words)
 - [ ] The small words on a website: buttons, error messages, empty states (website copy)
