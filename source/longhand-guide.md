@@ -113,7 +113,7 @@ website costs; nine overused words.
 - [x] Writing a case study when the client won't let you name them (working together) (23 October 2026)
 - [x] Should your website show prices? (what things cost) (25 October 2026)
 - [x] Brochures: does anyone read them, and what to put in the one they do (words) (26 October 2026)
-- [ ] Writing for doctors, lawyers and CAs without sounding like a pamphlet (words)
+- [x] Writing for doctors, lawyers and CAs without sounding like a pamphlet (words) (27 October 2026)
 - [ ] The small words on a website: buttons, error messages, empty states (website copy)
 - [ ] Writing a price increase message customers don't leave over (words)
 - [ ] The menu is copy: writing a cafe or restaurant menu people order from (words)
