@@ -6,7 +6,14 @@
   <atom:link href="https://www.thedrytextco.in/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Writing about writing, from a content agency in Ahmedabad. A new piece most mornings.</description>
   <language>en-IN</language>
-  <lastBuildDate>Fri, 23 Oct 2026 09:04:00 +0530</lastBuildDate>
+  <lastBuildDate>Sun, 25 Oct 2026 09:04:00 +0530</lastBuildDate>
+  <item>
+    <title>Should your website show prices?</title>
+    <link>https://www.thedrytextco.in/longhand/should-your-website-show-prices</link>
+    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/should-your-website-show-prices</guid>
+    <description>Price on request feels safe and reads as expensive. When to show the number, and how to write it.</description>
+    <pubDate>Sun, 25 Oct 2026 09:04:00 +0530</pubDate>
+  </item>
   <item>
     <title>Writing a case study when the client won't let you name them</title>
     <link>https://www.thedrytextco.in/longhand/case-study-without-naming-the-client</link>
@@ -174,13 +181,6 @@
     <guid isPermaLink="true">https://www.thedrytextco.in/longhand/how-to-brief-a-writer</guid>
     <description>Most rewrites are caused by the brief, not the writer. The six questions we ask before writing a word.</description>
     <pubDate>Wed, 30 Sep 2026 09:04:00 +0530</pubDate>
-  </item>
-  <item>
-    <title>The About page test: what yours should say</title>
-    <link>https://www.thedrytextco.in/longhand/how-to-write-an-about-page</link>
-    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/how-to-write-an-about-page</guid>
-    <description>Cover your company name. If the page still makes sense, it isn't about you. What to put there instead.</description>
-    <pubDate>Tue, 29 Sep 2026 09:04:00 +0530</pubDate>
   </item>
 </channel>
 </rss>

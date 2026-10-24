@@ -45,7 +45,7 @@ PAGES = {
     "services": dict(
         file="services.html", path="/services", crumb="Services",
         title="Services | Content writing, advertising, branding and websites | The Dry Text Co.",
-        desc="What we write and build: website content, social and marketing, long-form, advertising, strategy and websites. Priced per project, once we understand it.",
+        desc="What we make: content writing, marketing, advertising, branding, websites, strategy and outreach. Priced per project, once we understand it.",
     ),
     "about": dict(
         file="about.html", path="/about", crumb="About",
@@ -225,6 +225,19 @@ ALL = [dict(PAGES[n], name=n, markup=pages[n], data=(n == "work")) for n in PAGE
 ALT_NAMES = ["Dry Text Co.", "The Dry Text Company", "Dry Text", "DryText", "thedrytextco"]
 
 
+PREPAINT_OPEN = "(function (d) {"
+PREPAINT_INTRO = "if (!seen && !r.classList.contains('is-dry'))"
+
+
+def patch_prepaint(is_home):
+    """Tell the prepaint which page it is on, so only Home ever plays the intro."""
+    for literal in (PREPAINT_OPEN, PREPAINT_INTRO):
+        if prepaint.count(literal) != 1:
+            raise SystemExit("prepaint no longer contains %r exactly once; update build.py with it" % literal)
+    return (prepaint.replace(PREPAINT_OPEN, PREPAINT_OPEN + "\n  var isHome = %s;" % ("true" if is_home else "false"))
+            .replace(PREPAINT_INTRO, "if (isHome && " + PREPAINT_INTRO[4:]))
+
+
 def schema(page):
     """What the page is, in the form search engines read."""
     name, path = page["name"], page["path"]
@@ -258,9 +271,9 @@ def schema(page):
         crumbs.append({"@type": "ListItem", "position": len(crumbs) + 1, "name": page.get("crumb", page["title"]), "item": SITE + path})
         graph.append({"@type": "BreadcrumbList", "itemListElement": crumbs})
     if name == "services":
-        graph.append({"@type": "ItemList", "name": "What we write and build", "itemListElement": [
+        graph.append({"@type": "ItemList", "name": "What we make", "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "item": {"@type": "Service", "name": s, "provider": {"@id": SITE + "/#org"}, "areaServed": "Worldwide"}}
-            for i, s in enumerate(["Brand and web copywriting", "Social and marketing content", "Long-form writing and ghostwriting", "Advertising copy", "Content strategy", "Website design and build"])
+            for i, s in enumerate(["Content writing", "Marketing", "Advertising", "Branding", "Website design and build", "Strategy", "Outreach"])
         ]})
     if name == "contact":
         graph.append({"@type": "ContactPage", "url": SITE + "/contact", "about": {"@id": SITE + "/#org"}})
@@ -289,7 +302,7 @@ def schema(page):
             "url": SITE + path, "datePublished": page["date"], "dateModified": page.get("updated", page["date"]),
             "author": {"@type": "Person", "name": page.get("author", "Granth Hirapara")},
             "publisher": {"@id": SITE + "/#org"}, "image": SITE + "/og-image.png",
-            "inLanguage": "en-IN", "isPartOf": {"@type": "Blog", "@id": SITE + "/notes"},
+            "inLanguage": "en-IN", "isPartOf": {"@type": "Blog", "@id": SITE + "/longhand", "url": SITE + "/longhand", "name": "Longhand"},
         })
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, separators=(",", ":"))
 
@@ -347,8 +360,7 @@ def build_page(page):
         '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',
         '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',
         '<link rel="stylesheet" href="/assets/site.css">',
-        prepaint.replace("(function (d) {", "(function (d) {\n  var isHome = %s;" % ("true" if name == "home" else "false"))
-                .replace("if (!seen && !r.classList.contains('is-dry'))", "if (isHome && !seen && !r.classList.contains('is-dry'))"),
+        patch_prepaint(name == "home"),
         '<script type="application/ld+json">%s</script>' % schema(page),
         "</head>",
         "<body>",

@@ -41,7 +41,7 @@
 </script>
 <style>
 :root{
-  --paper:#FBFBF9;--ink:#16161A;--ink-2:#3A3A40;--red:#D2232A;--blue:#2F5BD3;--margin:#F2B8B8;--grey:#77767A;--hi:#FFE27A;--rule:#E6E4DE;--sheet:#FFFFFF;
+  --paper:#FBFBF9;--ink:#16161A;--ink-2:#3A3A40;--red:#D2232A;--blue:#2F5BD3;--margin:#F2B8B8;--grey:#6B6A6F;--hi:#FFE27A;--rule:#E6E4DE;--sheet:#FFFFFF;
   --serif:"Newsreader",Georgia,"Times New Roman",serif;
   --pen:"Kalam","Segoe Print","Bradley Hand",cursive;
   --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
@@ -117,7 +117,7 @@ html.intro .brand,html.intro main,html.intro .foot{opacity:0}
 .page-head{padding-block:clamp(56px,8vw,110px) clamp(40px,5vw,64px)}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin-bottom:12px}
 .h1{position:relative;font-size:clamp(46px,7vw,92px);font-weight:500;letter-spacing:-.03em;line-height:1;margin:0}
-.h2{font-size:clamp(32px,4.2vw,52px);font-weight:500;letter-spacing:-.02em;line-height:1.05;margin:0}
+.h2{position:relative;font-size:clamp(32px,4.2vw,52px);font-weight:500;letter-spacing:-.02em;line-height:1.05;margin:0}
 [data-reveal]{position:relative;width:fit-content;max-width:100%}
 .pst{position:absolute;left:-2%;right:-2%;top:52%;height:max(3px,.06em);background:var(--red);border-radius:9px;transform-origin:left center;rotate:-2deg;pointer-events:none}
 .lede{font-size:clamp(22px,2.4vw,28px);line-height:1.35;max-width:34ch;margin-top:26px}
@@ -319,7 +319,7 @@ html.is-dry .quote .u{text-decoration:none}
 /* fill-in-the-blanks form */
 .fill{font-size:clamp(26px,3.4vw,40px);line-height:1.75;letter-spacing:-.01em;max-width:30ch}
 .fill input{font-family:var(--pen);font-weight:700;font-size:.92em;color:var(--red);background:transparent;border:0;border-bottom:2px solid var(--ink);border-radius:0;padding:0 6px;margin:0 4px;width:8ch;min-width:4ch;max-width:100%;line-height:1.2}
-.fill input::placeholder{color:#B5B3AC;opacity:1}
+.fill input::placeholder{color:#7D7B74;opacity:1}
 .fill input:focus{outline:none;border-bottom-color:var(--red);background:rgba(255,226,122,.45)}
 .fill input[aria-invalid="true"]{border-bottom-color:var(--red);background:rgba(210,35,42,.06)}
 .err{font-family:var(--mono);font-size:13px;color:var(--red);margin-top:12px;min-height:1.2em}
@@ -440,7 +440,7 @@ html.cur :is(input,textarea){cursor:text!important}
 @media (max-width:820px){.nx-list{grid-template-columns:minmax(0,1fr);gap:0}}
 .nt-meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
 .prose{max-width:64ch;font-size:18px;line-height:1.65}
-.prose h2{font-size:clamp(22px,2.6vw,29px);font-weight:500;letter-spacing:-.015em;line-height:1.2;margin:38px 0 0}
+.prose h2{position:relative;font-size:clamp(22px,2.6vw,29px);font-weight:500;letter-spacing:-.015em;line-height:1.2;margin:38px 0 0}
 .prose h3{font-size:20px;font-weight:500;margin:26px 0 0}
 .prose p{margin-top:14px}
 .prose ul,.prose ol{margin:14px 0 0;padding-left:22px;display:grid;gap:8px}
@@ -516,12 +516,12 @@ html.is-dry .clients-run .star{display:inline}
 
 /* visitors' own comments, written in the margin in blue */
 .slot{font-family:var(--pen);font-weight:700;font-size:19px;line-height:1.3;color:var(--blue)}
-.slot .add{display:block;width:100%;text-align:left;font:inherit;color:#9FACCB;background:none;border:0;border-bottom:1.5px dashed #C6CEE2;padding:2px 0 6px;cursor:pointer;opacity:.8;transition:opacity .2s,color .2s,border-color .2s}
+.slot .add{display:block;width:100%;text-align:left;font:inherit;color:#5A6FA8;background:none;border:0;border-bottom:1.5px dashed #AEB9D6;padding:2px 0 6px;cursor:pointer;opacity:1;transition:opacity .2s,color .2s,border-color .2s}
 .slot .add:hover,.slot .add:focus-visible{opacity:1;color:var(--blue);border-bottom-color:var(--blue)}
 .slot textarea{display:block;width:100%;font:inherit;color:var(--blue);background:rgba(47,91,211,.06);border:0;border-bottom:1.5px solid var(--blue);border-radius:3px 3px 0 0;padding:4px 6px;resize:none;overflow:hidden;min-height:2.2em}
 .slot textarea:focus{outline:none;background:rgba(47,91,211,.1)}
 .mine{position:relative;margin:0;padding-right:20px;white-space:pre-line;transform:rotate(-1deg);transform-origin:left top;cursor:text}
-.mine .del{position:absolute;right:0;top:-2px;font-family:var(--mono);font-size:13px;color:#9FACCB;background:none;border:0;cursor:pointer;padding:2px 4px}
+.mine .del{position:absolute;right:0;top:-2px;font-family:var(--mono);font-size:13px;color:#5A6FA8;background:none;border:0;cursor:pointer;padding:2px 4px}
 .mine .del:hover{color:var(--red)}
 .dock{position:fixed;right:16px;bottom:16px;z-index:55;font-family:var(--mono);font-size:13px}
 .dock[hidden],.dock-menu[hidden]{display:none}
@@ -767,11 +767,11 @@ html.is-dry .clients-run .star{display:inline}
     </nav></div>
     <section class="sec" id="linkedin" aria-labelledby="li-title">
       <div class="row sec-head"><div><p class="eyebrow">LinkedIn</p><h2 class="h2" id="li-title">Posts that sound like the person.</h2><p class="ob-count">6 posts &middot; written for SELEQT Wealth</p></div><p class="note">ghostwritten. the credit is theirs.</p></div>
-      <div class="row"><div class="wide"><div class="outbox"><div class="ob-list" id="liList" aria-label="LinkedIn posts"></div><div class="ob-read" id="liRead" aria-live="polite"></div></div></div></div>
+      <div class="row"><div class="wide"><div class="outbox"><div class="ob-list" id="liList" role="group" aria-label="LinkedIn posts"></div><div class="ob-read" id="liRead" aria-live="polite"></div></div></div></div>
     </section>
     <section class="sec" id="outreach" aria-labelledby="or-title">
       <div class="row sec-head"><div><p class="eyebrow">Mails for clients</p><h2 class="h2" id="or-title">One programme, twelve doors.</h2><p class="ob-count">12 mails &middot; SELEQT&rsquo;s Investment Awareness Programme 2026, written for hospitals in Ahmedabad and Surat</p></div><p class="note">same offer. different way in.</p></div>
-      <div class="row"><div class="wide"><div class="outbox"><div class="ob-list" id="orList" aria-label="Mails written for clients"></div><div class="ob-read" id="orRead" aria-live="polite"></div></div></div></div>
+      <div class="row"><div class="wide"><div class="outbox"><div class="ob-list" id="orList" role="group" aria-label="Mails written for clients"></div><div class="ob-read" id="orRead" aria-live="polite"></div></div></div></div>
     </section>
     <section class="sec" id="newspaper" aria-labelledby="np-title">
       <div class="row sec-head"><div><p class="eyebrow">Newspaper</p><h2 class="h2" id="np-title">A money paper for a town.</h2><p class="ob-count">1 concept &middot; Lakhani Investment &middot; Rajula and the towns around it &middot; in progress</p></div><p class="note">the drawing isn&rsquo;t done. the thinking is.</p></div>
@@ -871,7 +871,7 @@ Would love to tell you more if this sounds interesting.</p>
     </section>
     <section class="sec" id="cold-mails" aria-labelledby="cm-title">
       <div class="row sec-head"><div><p class="eyebrow">Our own cold mails</p><h2 class="h2" id="cm-title">Sent on purpose.</h2><p class="ob-count">27 sent &middot; pick any subject line, or use the arrow keys</p></div></div>
-      <div class="row"><div class="wide"><div class="outbox"><div class="ob-list" id="obList" aria-label="Cold mails"></div><div class="ob-read" id="obRead" aria-live="polite"></div></div></div></div>
+      <div class="row"><div class="wide"><div class="outbox"><div class="ob-list" id="obList" role="group" aria-label="Cold mails"></div><div class="ob-read" id="obRead" aria-live="polite"></div></div></div></div>
     </section>
     <section class="sec" aria-labelledby="w-cta-title">
       <div class="row"><div><h2 class="h2" id="w-cta-title">Want one written for you?</h2><div class="ctas"><a class="btn" href="/contact">Hire the pen</a><a class="pen-link" href="/#rewrites">Read the practice rewrites</a></div></div></div>
@@ -1035,7 +1035,7 @@ Would love to tell you more if this sounds interesting.</p>
 (() => {
   const root = document.documentElement;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const INK = '#16161A', GREY = '#77767A';
+  const INK = '#16161A', GREY = '#6B6A6F';
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -1119,7 +1119,7 @@ Would love to tell you more if this sounds interesting.</p>
     store.set('dryMode', on ? '1' : '0');
     if (!animate || reduce) { root.classList.toggle('is-dry', on); return; }
     if (on) {
-      const jokes = [...document.querySelectorAll('.note, .ins, .co svg, .only-wet')].filter(visible);
+      const jokes = [...document.querySelectorAll('.note, .edit:not([data-keep="new"]) .ins, .co svg, .only-wet')].filter(visible);
       jokes.forEach((el, i) => track(el.animate(
         [{ opacity: 1, filter: 'blur(0px)', translate: '0 0' }, { opacity: 0, filter: 'blur(6px)', translate: '0 -18px' }],
         { duration: 760, delay: Math.min(i, 10) * 60, easing: 'cubic-bezier(.3,.1,.3,1)', fill: 'forwards' })));
@@ -1155,6 +1155,13 @@ Would love to tell you more if this sounds interesting.</p>
   menuBtn.addEventListener('click', () => {
     const open = bar.classList.toggle('open');
     menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  // Escape or a click outside closes the phone menu, and puts focus back where it started
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && bar.classList.contains('open')) { closeMenu(); menuBtn.focus(); }
+  });
+  document.addEventListener('pointerdown', e => {
+    if (bar.classList.contains('open') && !bar.contains(e.target)) closeMenu();
   });
 
   // Rub out the old lines: move the eraser across them, or tap
@@ -1258,6 +1265,8 @@ Would love to tell you more if this sounds interesting.</p>
 
   // A heading can run to three lines, so the pen draws one stroke per line, all at once
   function strikeLines(heading) {
+    // the strokes are placed against the heading itself, so it has to be their containing block
+    if (getComputedStyle(heading).position === 'static') heading.style.position = 'relative';
     const box = heading.getBoundingClientRect(), range = document.createRange(), rows = [];
     range.selectNodeContents(heading);
     [...range.getClientRects()].forEach(r => {
@@ -1311,6 +1320,13 @@ Would love to tell you more if this sounds interesting.</p>
     e.preventDefault();
     closeMenu();
     strikeThenGo(url.href);
+  });
+
+  // Coming back with the Back button restores the page as it was left: take the strike off and close the menu
+  addEventListener('pageshow', e => {
+    if (!e.persisted) return;
+    document.querySelectorAll('.pst').forEach(n => n.remove());
+    closeMenu();
   });
 
   // The hero edit: the strike, then "Cheesy", then the circle around "Co.", then the margin notes one by one
@@ -1374,7 +1390,7 @@ Would love to tell you more if this sounds interesting.</p>
     finish();
   }
   if (document.getElementById('intro') && root.classList.contains('intro')) runIntro();
-  else if (document.querySelector('.hero')) setTimeout(playHero, reduce ? 0 : 300);
+  else if (document.querySelector('.hero') && root.classList.contains('hero-wait')) setTimeout(playHero, reduce ? 0 : 300);
   else root.classList.remove('hero-wait');
 
   // The tagline machine
@@ -1392,6 +1408,8 @@ Would love to tell you more if this sounds interesting.</p>
   spinBtn.addEventListener('click', () => {
     if (reduce) { reels.forEach((r, i) => { r.textContent = pick(REELS[i]); }); settleTag(); return; }
     spinBtn.disabled = true;
+    const reelBox = document.getElementById('reels');
+    if (reelBox) reelBox.setAttribute('aria-busy', 'true');
     reels.forEach((r, i) => {
       let ticks = 0;
       r.classList.add('spinning');
@@ -1401,7 +1419,7 @@ Would love to tell you more if this sounds interesting.</p>
         clearInterval(t);
         r.classList.remove('spinning');
         r.animate([{ transform: 'translateY(-6px)' }, { transform: 'none' }], { duration: 260, easing: 'cubic-bezier(.3,1.5,.5,1)' });
-        if (i === reels.length - 1) { spinBtn.disabled = false; settleTag(); }
+        if (i === reels.length - 1) { spinBtn.disabled = false; settleTag(); if (reelBox) reelBox.removeAttribute('aria-busy'); }
       }, 70);
     });
   });
@@ -1579,7 +1597,7 @@ Would love to tell you more if this sounds interesting.</p>
     if (!text) {
       const add = make('button', 'add', '✎ add a comment');
       add.type = 'button';
-      add.setAttribute('aria-label', 'Add your own note: ' + slot.dataset.label);
+      add.setAttribute('aria-label', 'Add a comment: ' + slot.dataset.label);
       add.addEventListener('click', () => editSlot(slot));
       slot.append(add);
       return;
@@ -1669,6 +1687,13 @@ Would love to tell you more if this sounds interesting.</p>
     const open = dockMenu.hidden;
     dockMenu.hidden = !open;
     dockBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  const closeDock = () => { dockMenu.hidden = true; dockBtn.setAttribute('aria-expanded', 'false'); };
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !dockMenu.hidden) { closeDock(); dockBtn.focus(); }
+  });
+  document.addEventListener('pointerdown', e => {
+    if (!dockMenu.hidden && !dockMenu.contains(e.target) && !dockBtn.contains(e.target)) closeDock();
   });
   document.getElementById('notesPdf').addEventListener('click', downloadNotes);
   document.getElementById('notesClear').addEventListener('click', () => {

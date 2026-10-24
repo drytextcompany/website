@@ -1,7 +1,7 @@
 (() => {
   const root = document.documentElement;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const INK = '#16161A', GREY = '#77767A';
+  const INK = '#16161A', GREY = '#6B6A6F';
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -85,7 +85,7 @@
     store.set('dryMode', on ? '1' : '0');
     if (!animate || reduce) { root.classList.toggle('is-dry', on); return; }
     if (on) {
-      const jokes = [...document.querySelectorAll('.note, .ins, .co svg, .only-wet')].filter(visible);
+      const jokes = [...document.querySelectorAll('.note, .edit:not([data-keep="new"]) .ins, .co svg, .only-wet')].filter(visible);
       jokes.forEach((el, i) => track(el.animate(
         [{ opacity: 1, filter: 'blur(0px)', translate: '0 0' }, { opacity: 0, filter: 'blur(6px)', translate: '0 -18px' }],
         { duration: 760, delay: Math.min(i, 10) * 60, easing: 'cubic-bezier(.3,.1,.3,1)', fill: 'forwards' })));
@@ -121,6 +121,13 @@
   menuBtn.addEventListener('click', () => {
     const open = bar.classList.toggle('open');
     menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  // Escape or a click outside closes the phone menu, and puts focus back where it started
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && bar.classList.contains('open')) { closeMenu(); menuBtn.focus(); }
+  });
+  document.addEventListener('pointerdown', e => {
+    if (bar.classList.contains('open') && !bar.contains(e.target)) closeMenu();
   });
 
   // Rub out the old lines: move the eraser across them, or tap
@@ -224,6 +231,8 @@
 
   // A heading can run to three lines, so the pen draws one stroke per line, all at once
   function strikeLines(heading) {
+    // the strokes are placed against the heading itself, so it has to be their containing block
+    if (getComputedStyle(heading).position === 'static') heading.style.position = 'relative';
     const box = heading.getBoundingClientRect(), range = document.createRange(), rows = [];
     range.selectNodeContents(heading);
     [...range.getClientRects()].forEach(r => {
@@ -277,6 +286,13 @@
     e.preventDefault();
     closeMenu();
     strikeThenGo(url.href);
+  });
+
+  // Coming back with the Back button restores the page as it was left: take the strike off and close the menu
+  addEventListener('pageshow', e => {
+    if (!e.persisted) return;
+    document.querySelectorAll('.pst').forEach(n => n.remove());
+    closeMenu();
   });
 
   // The hero edit: the strike, then "Cheesy", then the circle around "Co.", then the margin notes one by one
@@ -340,7 +356,7 @@
     finish();
   }
   if (document.getElementById('intro') && root.classList.contains('intro')) runIntro();
-  else if (document.querySelector('.hero')) setTimeout(playHero, reduce ? 0 : 300);
+  else if (document.querySelector('.hero') && root.classList.contains('hero-wait')) setTimeout(playHero, reduce ? 0 : 300);
   else root.classList.remove('hero-wait');
 
   // The tagline machine
@@ -358,6 +374,8 @@
   spinBtn.addEventListener('click', () => {
     if (reduce) { reels.forEach((r, i) => { r.textContent = pick(REELS[i]); }); settleTag(); return; }
     spinBtn.disabled = true;
+    const reelBox = document.getElementById('reels');
+    if (reelBox) reelBox.setAttribute('aria-busy', 'true');
     reels.forEach((r, i) => {
       let ticks = 0;
       r.classList.add('spinning');
@@ -367,7 +385,7 @@
         clearInterval(t);
         r.classList.remove('spinning');
         r.animate([{ transform: 'translateY(-6px)' }, { transform: 'none' }], { duration: 260, easing: 'cubic-bezier(.3,1.5,.5,1)' });
-        if (i === reels.length - 1) { spinBtn.disabled = false; settleTag(); }
+        if (i === reels.length - 1) { spinBtn.disabled = false; settleTag(); if (reelBox) reelBox.removeAttribute('aria-busy'); }
       }, 70);
     });
   });
@@ -545,7 +563,7 @@
     if (!text) {
       const add = make('button', 'add', '✎ add a comment');
       add.type = 'button';
-      add.setAttribute('aria-label', 'Add your own note: ' + slot.dataset.label);
+      add.setAttribute('aria-label', 'Add a comment: ' + slot.dataset.label);
       add.addEventListener('click', () => editSlot(slot));
       slot.append(add);
       return;
@@ -635,6 +653,13 @@
     const open = dockMenu.hidden;
     dockMenu.hidden = !open;
     dockBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  const closeDock = () => { dockMenu.hidden = true; dockBtn.setAttribute('aria-expanded', 'false'); };
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !dockMenu.hidden) { closeDock(); dockBtn.focus(); }
+  });
+  document.addEventListener('pointerdown', e => {
+    if (!dockMenu.hidden && !dockMenu.contains(e.target) && !dockBtn.contains(e.target)) closeDock();
   });
   document.getElementById('notesPdf').addEventListener('click', downloadNotes);
   document.getElementById('notesClear').addEventListener('click', () => {
