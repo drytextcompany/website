@@ -44,7 +44,7 @@ PAGES = {
     ),
     "services": dict(
         file="services.html", path="/services", crumb="Services",
-        title="Content writing, advertising, branding and websites | The Dry Text Co.",
+        title="Services | Content writing, advertising, branding and websites | The Dry Text Co.",
         desc="What we write and build: website content, social and marketing, long-form, advertising, strategy and websites. Priced per project, once we understand it.",
     ),
     "about": dict(
@@ -54,7 +54,7 @@ PAGES = {
     ),
     "contact": dict(
         file="contact.html", path="/contact", crumb="Hire the pen",
-        title="Hire the pen | The Dry Text Co., Ahmedabad",
+        title="Contact | Hire the pen | The Dry Text Co., Ahmedabad",
         desc="Tell us what you need in one line and we will reply. Content, advertising, branding and websites, from Ahmedabad for brands anywhere. WhatsApp or email us.",
     ),
     "missing": dict(file="404.html", path=None, title="Page not found | The Dry Text Co.", desc="That address does not exist.", noindex=True),
