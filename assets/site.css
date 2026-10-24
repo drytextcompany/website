@@ -390,6 +390,12 @@ html.cur :is(input,textarea){cursor:text!important}
 .nt-t{font-size:clamp(20px,2.3vw,26px);font-weight:500;letter-spacing:-.015em;line-height:1.2}
 .nt-b{grid-column:2;color:var(--ink-2);font-size:16.5px;margin-top:4px;max-width:62ch}
 .nt-soon{font-family:var(--mono);font-size:13px;color:var(--grey);padding:18px 0;border-bottom:1px solid var(--rule)}
+.nx-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 44px;border-top:1px solid var(--ink)}
+.nx-list a{display:block;padding:16px 0;border-bottom:1px solid var(--rule);text-decoration:none;color:inherit}
+.nx-list a:hover .nx-t{text-decoration:underline wavy var(--red) 1.5px;text-underline-offset:5px}
+.nx-t{display:block;font-size:18.5px;font-weight:500;letter-spacing:-.01em;line-height:1.25}
+.nx-b{display:block;color:var(--ink-2);font-size:15px;margin-top:5px}
+@media (max-width:820px){.nx-list{grid-template-columns:minmax(0,1fr);gap:0}}
 .nt-meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
 .prose{max-width:64ch;font-size:18px;line-height:1.65}
 .prose h2{font-size:clamp(22px,2.6vw,29px);font-weight:500;letter-spacing:-.015em;line-height:1.2;margin:38px 0 0}

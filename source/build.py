@@ -10,18 +10,24 @@ in mails.json, the client pieces in work.json), then run:
 
     python3 build.py
 """
+import collections
 import datetime
+import email.utils
+import hashlib
 import json
+import math
 import pathlib
 import re
 import shutil
 import sys
+from xml.sax.saxutils import escape as xml_escape
 
 HERE = pathlib.Path(__file__).resolve().parent
 OUT = HERE.parent
 SITE = "https://www.thedrytextco.in"
 PHONE = "+917016227880"
 EMAIL = "info@thedrytextco.in"
+INDEXNOW_KEY = "81f14d291de60be2ba8a3df8c97460fb"
 SOCIAL = ["https://www.instagram.com/thedrytextco/", "https://www.linkedin.com/company/the-dry-text-co/"]
 
 # One entry per address. The blurb is what Google shows under the blue link.
@@ -138,12 +144,79 @@ note_list = "\n".join(
     '<li><a href="%s"><span class="nt-d">%s</span><span class="nt-t">%s</span><span class="nt-b">%s</span></a></li>'
     % (n["path"], datetime.date.fromisoformat(n["date"]).strftime("%d %b %Y"), n["title_short"], n["blurb"])
     for n in notes)
+
+
+# --- what to read next --------------------------------------------------------------
+# A piece reachable only from the index tends to sit unindexed for months, so every one
+# links to four others, and the second pass makes sure every one is linked to four times.
+WANT, CEILING = 4, 6
+STOP = set("""a an and are as at be but by can for from has have how in into is it its not of on or
+             should that the their them these they this to want was what when which why will with
+             you your our ours we do does doesnt dont one two""".split())
+
+
+def topic_words(note):
+    text = " ".join([note["title_short"], note.get("blurb", ""), note.get("crumb", "")]).lower()
+    return {w for w in re.findall(r"[a-z]{3,}", text) if w not in STOP}
+
+
+def pick_related(notes):
+    """Four neighbours each, chosen by what the pieces are actually about."""
+    bag = {n["path"]: topic_words(n) for n in notes}
+    recent = {n["path"]: i for i, n in enumerate(notes)}          # notes arrive newest first
+
+    # A word shared by half the pieces ("page", "write", "india") says almost nothing
+    # about whether two of them belong together. A rare one says a great deal.
+    seen = collections.Counter(w for words in bag.values() for w in words)
+    weight = {w: 1.0 / (1 + math.log(n)) for w, n in seen.items()}
+
+    def nearness(mine, other):
+        shared = mine & bag[other["path"]]
+        return (-round(sum(weight[w] for w in shared), 4), recent[other["path"]])
+
+    related = {n["path"]: [o["path"] for o in sorted(
+        (o for o in notes if o["path"] != n["path"]), key=lambda o: nearness(bag[n["path"]], o))[:WANT]]
+        for n in notes}
+
+    # Whoever is still short of four ways in gets added to their nearest neighbours, as
+    # long as that neighbour is not already carrying a wall of links.
+    inbound = collections.Counter(p for picks in related.values() for p in picks)
+    for n in sorted(notes, key=lambda n: inbound[n["path"]]):
+        hosts = sorted((o for o in notes
+                        if o["path"] != n["path"]
+                        and n["path"] not in related[o["path"]]
+                        and len(related[o["path"]]) < CEILING),
+                       key=lambda o: nearness(bag[n["path"]], o))
+        while inbound[n["path"]] < WANT and hosts:
+            related[hosts.pop(0)["path"]].append(n["path"])
+            inbound[n["path"]] += 1
+    return related
+
+
+BY_PATH = {n["path"]: n for n in notes}
+RELATED = pick_related(notes) if len(notes) > 1 else {}
+
+
+def read_next(path):
+    picks = [BY_PATH[p] for p in RELATED.get(path, [])]
+    if not picks:
+        return ""
+    items = "".join(
+        '<li><a href="%s"><span class="nx-t">%s</span><span class="nx-b">%s</span></a></li>'
+        % (p["path"], p["title_short"], p["blurb"]) for p in picks)
+    return ('<section class="sec nx" aria-labelledby="nx-h">'
+            '<div class="row sec-head"><div><p class="eyebrow">Read next</p>'
+            '<h2 class="h2" id="nx-h">More Longhand.</h2></div></div>'
+            '<div class="row"><ul class="nx-list">%s</ul></div></section>') % items
 for p in EXTRA:
     # the questions are written once, in the page's header, so the page and the search result agree
     faq = "".join("<dt>%s</dt><dd>%s</dd>" % (q, a) for q, a in p.get("faq", []))
     p["markup"] = (p["markup"]
                    .replace("__NOTE_LIST__", note_list or '<li class="nt-soon">The first one is being written.</li>')
                    .replace("__FAQ__", '<dl class="faq">%s</dl>' % faq))
+    if p.get("kind") == "note":
+        close = p["markup"].rfind("</div>")
+        p["markup"] = p["markup"][:close] + read_next(p["path"]) + p["markup"][close:]
 
 ALL = [dict(PAGES[n], name=n, markup=pages[n], data=(n == "work")) for n in PAGES] + EXTRA
 
@@ -234,6 +307,7 @@ def build_page(page):
         "<title>%s</title>" % page["title"],
         '<meta name="description" content="%s">' % page["desc"],
         '<meta name="theme-color" content="#FBFBF9">',
+        '<link rel="alternate" type="application/rss+xml" title="Longhand | The Dry Text Co." href="/feed.xml">',
     ]
     if page.get("noindex"):
         head.append('<meta name="robots" content="noindex">')
@@ -285,12 +359,28 @@ def build_page(page):
     ])
 
 
+# A page's lastmod should mean "this changed", not "the build ran". Stamping every page
+# with today each time teaches search engines to ignore the dates, so each page keeps the
+# day its own contents last moved.
+STAMPS = OUT / ".lastmod.json"
+stamps = json.loads(STAMPS.read_text(encoding="utf-8")) if STAMPS.exists() else {}
+fresh = {}
+
 written = []
 for page in ALL:
     out = OUT / page["file"]
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(build_page(page), encoding="utf-8")
+    html = build_page(page)
+    out.write_text(html, encoding="utf-8")
     written.append(page["file"])
+    digest = hashlib.sha1(html.encode("utf-8")).hexdigest()
+    was = stamps.get(page["path"] or "/")
+    fresh[page["path"] or "/"] = {
+        "hash": digest,
+        "date": was["date"] if was and was["hash"] == digest else datetime.date.today().isoformat(),
+    }
+if not SHOW_ALL:
+    STAMPS.write_text(json.dumps(fresh, indent=1, sort_keys=True), encoding="utf-8")
 
 # Anything this build made last time but not this time is taken down: a piece whose day
 # has not come yet, or a page that was renamed.
@@ -313,11 +403,54 @@ today = datetime.date.today().isoformat()
 listed = [dict(PAGES[n], name=n) for n in ORDER] + EXTRA
 urls = "".join(
     "  <url><loc>%s%s</loc><lastmod>%s</lastmod><priority>%s</priority></url>\n"
-    % (SITE, p["path"], p.get("updated") or p.get("date") or today, "1.0" if p["name"] == "home" else "0.8")
+    % (SITE, p["path"], fresh.get(p["path"] or "/", {}).get("date", today), "1.0" if p["name"] == "home" else "0.8")
     for p in listed if p.get("path") and not p.get("noindex"))
 (OUT / "sitemap.xml").write_text(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s</urlset>\n' % urls,
     encoding="utf-8")
+# The feed, so a new piece can be found the morning it goes up rather than whenever a
+# crawler next wanders past the index.
+IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
+
+
+def published(day):
+    """Nine in the morning, Ahmedabad, which is when the day's piece goes out."""
+    return email.utils.format_datetime(
+        datetime.datetime.fromisoformat(day).replace(hour=9, minute=4, tzinfo=IST))
+
+
+ITEM = """  <item>
+    <title>%s</title>
+    <link>%s%s</link>
+    <guid isPermaLink="true">%s%s</guid>
+    <description>%s</description>
+    <pubDate>%s</pubDate>
+  </item>
+"""
+CHANNEL = """<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Longhand | The Dry Text Co.</title>
+  <link>%s/longhand</link>
+  <atom:link href="%s/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Writing about writing, from a content agency in Ahmedabad. A new piece most mornings.</description>
+  <language>en-IN</language>
+  <lastBuildDate>%s</lastBuildDate>
+%s</channel>
+</rss>
+"""
+feed_items = "".join(
+    ITEM % (xml_escape(n["title_short"]), SITE, n["path"], SITE, n["path"],
+            xml_escape(n.get("blurb") or n["desc"]), published(n["date"]))
+    for n in notes[:25])
+(OUT / "feed.xml").write_text(
+    CHANNEL % (SITE, SITE, published(notes[0]["date"]) if notes else published(today), feed_items),
+    encoding="utf-8")
+
+# IndexNow proves the site is ours by serving the key back at the root. Bing and Yandex
+# read it; Google ignores the whole protocol and waits for the sitemap instead.
+(OUT / (INDEXNOW_KEY + ".txt")).write_text(INDEXNOW_KEY + "\n", encoding="utf-8")
+
 (OUT / "vercel.json").write_text(json.dumps({
     "cleanUrls": True,
     "trailingSlash": False,
@@ -327,6 +460,7 @@ urls = "".join(
 print("Built %d pages:" % len(ALL), ", ".join(p["file"] for p in ALL))
 if QUEUED:
     print("Waiting for its day:", ", ".join("%s (%s)" % (p["path"], p["date"]) for p in QUEUED))
+print("Feed: %d pieces in feed.xml" % len(notes[:25]))
 print("Shared: assets/site.css %d KB, assets/site.js %d KB, %d images" % (
     (assets / "site.css").stat().st_size // 1024,
     (assets / "site.js").stat().st_size // 1024,

@@ -3,3 +3,7 @@
 /logo
 /README.md
 /.gitignore
+
+# bookkeeping the build reads, not pages the site serves
+/.pages.json
+/.lastmod.json
