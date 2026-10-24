@@ -39,8 +39,7 @@
   }
 
   // Dry mode: switching on makes the jokes evaporate; switching off inks them back in
-  const dryBtn = document.getElementById('dryToggle');
-  let dryOn = root.classList.contains('is-dry'), dryRun = 0, dryAnims = [];
+  let dryRun = 0, dryAnims = [];
   const track = a => { dryAnims.push(a); return a; };
   // When Dry mode adds or removes things, everything that moves glides to its new place instead of jumping,
   // and the part of the page being read stays put
@@ -77,12 +76,10 @@
       if (Math.abs(dy) > 1) glide(el, dy);
     });
   }
-  async function setDry(on, animate) {
+  async function setDry(on, animate, quiet) {
     const run = ++dryRun;
     dryAnims.forEach(a => a.cancel());
     dryAnims = [];
-    dryBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
-    store.set('dryMode', on ? '1' : '0');
     if (!animate || reduce) { root.classList.toggle('is-dry', on); return; }
     if (on) {
       const jokes = [...document.querySelectorAll('.note, .edit:not([data-keep="new"]) .ins, .co svg, .only-wet')].filter(visible);
@@ -104,16 +101,118 @@
       });
       toast('Dry mode on. The jokes have left the building.');
     } else {
+      if (!root.classList.contains('is-dry')) return;
       flipLayout(() => root.classList.remove('is-dry'));
       // The hero's strike, "Cheesy" and circle redraw themselves through their own CSS animations
       const jokes = [...document.querySelectorAll('.note, .only-wet, .edit[data-keep="new"] .strike')].filter(visible);
       jokes.forEach((el, i) => track(el.animate([{ opacity: 0, translate: '0 10px' }, { opacity: 1, translate: '0 0' }],
         { duration: 520, delay: 250 + Math.min(i, 10) * 90, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' })));
-      toast('Jokes are back. They missed you.');
+      if (!quiet) toast('Jokes are back. They missed you.');
     }
   }
-  setDry(dryOn, false);
-  dryBtn.addEventListener('click', () => { dryOn = !dryOn; setDry(dryOn, true); });
+
+  // God mode lives in its own files and is only fetched when someone asks for it
+  let godLoading = null;
+  function loadGod() {
+    if (window.TDTC_GOD) return Promise.resolve(window.TDTC_GOD);
+    if (godLoading) return godLoading;
+    godLoading = new Promise((resolve, reject) => {
+      const ver = '54421c7ed2';
+      const css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = '/assets/god.css?v=' + ver;
+      const cssReady = new Promise(res => { css.onload = res; css.onerror = res; });
+      document.head.append(css);
+      const tag = document.createElement('script');
+      tag.src = '/assets/god.js?v=' + ver;
+      tag.onload = () => cssReady.then(() => window.TDTC_GOD ? resolve(window.TDTC_GOD) : reject(new Error('God mode did not start')));
+      tag.onerror = () => reject(new Error('God mode did not load'));
+      document.head.append(tag);
+    });
+    godLoading.catch(() => { godLoading = null; });
+    return godLoading;
+  }
+  const godOpts = extra => Object.assign({
+    reduce: matchMedia('(prefers-reduced-motion: reduce)').matches,
+    toast, store, wait, A,
+    origin: (() => { const b = modeSwitch && modeSwitch.querySelector('[data-mode="god"]'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()
+  }, extra);
+  async function godEnter(arriving) {
+    root.classList.add('is-god');
+    let god;
+    try { god = await loadGod(); }
+    catch (e) {
+      root.classList.remove('is-god');
+      mode = wanted = 'page';
+      reflectMode('page');
+      if (!arriving) toast('God mode did not load. The page stays as written.');
+      return;
+    }
+    if (wanted !== 'god') return;
+    await god.enter(godOpts({ animate: !arriving && !reduce, arriving: !!arriving }));
+  }
+  async function godExit() {
+    const god = window.TDTC_GOD;
+    if (god) { try { await god.exit(godOpts({ animate: !reduce })); } catch (e) {} }
+    root.classList.remove('is-god');
+  }
+
+  // The switch: Dry, Page, God. The last one picked wins, even mid-transition.
+  const modeSwitch = document.getElementById('modeSwitch');
+  const modeRadios = modeSwitch ? [...modeSwitch.querySelectorAll('[role="radio"]')] : [];
+  let mode = root.classList.contains('is-dry') ? 'dry' : root.classList.contains('is-god') ? 'god' : 'page';
+  let wanted = mode, moving = false;
+  function reflectMode(m) {
+    if (!modeSwitch) return;
+    modeSwitch.dataset.mode = m;
+    modeRadios.forEach(r => { const on = r.dataset.mode === m; r.setAttribute('aria-checked', on ? 'true' : 'false'); r.tabIndex = on ? 0 : -1; });
+  }
+  async function goMode(m) {
+    wanted = m;
+    reflectMode(m);
+    store.set('siteMode', m);
+    if (moving) return;
+    moving = true;
+    try {
+      while (mode !== wanted) {
+        const next = wanted, prev = mode;
+        if (prev === 'god') await godExit();
+        if (prev === 'dry') await setDry(false, true, next === 'god');
+        mode = next;
+        if (next === 'dry') await setDry(true, true);
+        if (next === 'god') await godEnter(false);
+      }
+    } finally { moving = false; }
+  }
+  reflectMode(mode);
+  modeRadios.forEach(r => {
+    r.addEventListener('click', () => goMode(r.dataset.mode));
+    if (r.dataset.mode === 'god') {
+      // start fetching the moment someone heads for it
+      const warm = () => { loadGod().catch(() => {}); };
+      r.addEventListener('pointerenter', warm, { once: true });
+      r.addEventListener('focus', warm, { once: true });
+    }
+  });
+  if (modeSwitch) modeSwitch.addEventListener('keydown', e => {
+    const keys = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+    if (!(e.key in keys) && e.key !== 'Home' && e.key !== 'End') return;
+    e.preventDefault();
+    const i = modeRadios.findIndex(r => r.dataset.mode === wanted);
+    const n = e.key === 'Home' ? 0 : e.key === 'End' ? modeRadios.length - 1 : (i + keys[e.key] + modeRadios.length) % modeRadios.length;
+    modeRadios[n].focus();
+    goMode(modeRadios[n].dataset.mode);
+  });
+  // Arriving in God mode: wait for the opening and the first paint, then let the ink in
+  if (mode === 'god') {
+    const start = () => godEnter(true);
+    const afterIntro = () => {
+      if (!root.classList.contains('intro')) return requestAnimationFrame(() => setTimeout(start, 60));
+      const mo = new MutationObserver(() => { if (!root.classList.contains('intro')) { mo.disconnect(); setTimeout(start, 200); } });
+      mo.observe(root, { attributes: true, attributeFilter: ['class'] });
+    };
+    if (document.readyState === 'complete') afterIntro(); else addEventListener('load', afterIntro, { once: true });
+  }
 
   // Phone menu
   const bar = document.querySelector('.top'), menuBtn = document.getElementById('menuBtn');
@@ -266,6 +365,8 @@
     return best;
   }
   async function strikeThenGo(href) {
+    const god = mode === 'god' && window.TDTC_GOD;
+    if (god && god.beforeLeave) { try { god.beforeLeave(); } catch (e) {} }
     const heading = strikeTarget();
     if (heading && !reduce) {
       const lines = strikeLines(heading);

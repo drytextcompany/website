@@ -45,24 +45,36 @@ html.intro .brand,html.intro main,html.intro .foot{opacity:0}
 .hire-link svg{position:absolute;left:-8px;top:-7px;width:calc(100% + 16px);height:calc(100% + 14px);overflow:visible;pointer-events:none}
 .hire-link path{fill:none;stroke:var(--red);stroke-width:2.2;stroke-linecap:round;vector-effect:non-scaling-stroke;transform-origin:center;transition:transform .3s}
 .hire-link:hover path{transform:rotate(-2deg) scale(1.03)}
-.dry-toggle{display:inline-flex;align-items:center;gap:9px;background:none;border:0;padding:6px 0;font-family:var(--mono);font-size:12px;color:var(--grey);cursor:pointer}
-.dry-toggle .sw{position:relative;width:36px;height:20px;border-radius:99px;background:#D9D7D0;transition:background .2s}
-.dry-toggle .sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .2s}
-.dry-toggle[aria-pressed="true"]{color:var(--ink)}
-.dry-toggle[aria-pressed="true"] .sw{background:var(--ink)}
-.dry-toggle[aria-pressed="true"] .sw::after{transform:translateX(16px)}
+/* the three ways to read the site: Dry, Page (as written) and God. A bead slides to the one you pick. */
+.mode{--seg:42px;position:relative;display:grid;grid-template-columns:repeat(3,var(--seg));flex:none;padding:3px;border-radius:99px;background:#EEECE6;box-shadow:inset 0 0 0 1px var(--rule)}
+.mode button{position:relative;z-index:1;height:26px;padding:0;border:0;background:none;border-radius:99px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--grey);cursor:pointer;transition:color .3s}
+.mode button[aria-checked="true"]{color:var(--paper)}
+.mode button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.mode-bead{--i:1;position:absolute;top:3px;bottom:3px;left:3px;width:var(--seg);border-radius:99px;background:var(--ink);transform:translateX(calc(var(--i) * 100%));transition:transform .5s cubic-bezier(.2,.9,.25,1.12),background .35s;pointer-events:none}
+.mode[data-mode="dry"] .mode-bead{--i:0;background:var(--grey)}
+.mode[data-mode="god"] .mode-bead{--i:2;background:var(--red)}
+/* the frosted bar re-blurs whatever moves behind it, every frame; God mode keeps the bar solid instead */
+html.is-god .top{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--paper)}
 .menu-btn{display:none;background:none;border:1px solid var(--ink);border-radius:99px;padding:7px 14px;font-family:var(--mono);font-size:12px;color:var(--ink);cursor:pointer}
+@media (max-width:1100px){
+  .top-in{gap:16px}
+  .mode{margin-left:auto}
+  .menu-btn{display:inline-flex}
+  .nav-wrap{position:absolute;left:0;right:0;top:100%;display:none;flex-direction:column;align-items:flex-start;gap:18px;margin:0;padding:18px var(--pad) 26px;background:var(--paper);border-bottom:1px solid var(--rule)}
+  .top.open .nav-wrap{display:flex}
+  .nav{flex-direction:column;gap:14px;font-size:15px}
+}
 @media (max-width:860px){
   .top-in{gap:16px;height:64px}
   .brand{font-size:20px}
-  .dry-toggle{margin-left:auto}
   .menu-btn{display:inline-flex}
   .nav-wrap{position:absolute;left:0;right:0;top:100%;display:none;flex-direction:column;align-items:flex-start;gap:18px;margin:0;padding:18px var(--pad) 26px;background:var(--paper);border-bottom:1px solid var(--rule)}
   .top.open .nav-wrap{display:flex}
   .nav{flex-direction:column;gap:14px;font-size:15px}
   .hire-link{margin-left:10px}
 }
-@media (max-width:420px){.dry-toggle .lbl-x{display:none}}
+@media (max-width:420px){.mode{--seg:36px}.mode button{font-size:10.5px;letter-spacing:.02em}.top-in{gap:12px}}
+@media (max-width:360px){.top-in{gap:8px;padding-inline:14px}.brand{font-size:17px}.mode{--seg:31px}.mode button{font-size:10px;letter-spacing:0}.menu-btn{padding:6px 9px}}
 
 /* the notebook */
 .book{position:relative;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}

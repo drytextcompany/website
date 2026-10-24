@@ -28,7 +28,10 @@
 <script>
 (function (d) {
   var r = d.documentElement, mm = window.matchMedia, still = mm && mm('(prefers-reduced-motion: reduce)').matches, seen = false;
-  try { if (localStorage.getItem('dryMode') === '1') r.classList.add('is-dry'); } catch (e) {}
+  var mode = 'page';
+  try { mode = localStorage.getItem('siteMode') || (localStorage.getItem('dryMode') === '1' ? 'dry' : 'page'); } catch (e) {}
+  if (mode === 'dry') r.classList.add('is-dry');
+  else if (mode === 'god') r.classList.add('is-god');
   try { seen = sessionStorage.getItem('introSeen') === '1'; } catch (e) {}
   if (/[?&]nointro\b/.test(location.search)) seen = true;
   if (!still) {
@@ -87,24 +90,36 @@ html.intro .brand,html.intro main,html.intro .foot{opacity:0}
 .hire-link svg{position:absolute;left:-8px;top:-7px;width:calc(100% + 16px);height:calc(100% + 14px);overflow:visible;pointer-events:none}
 .hire-link path{fill:none;stroke:var(--red);stroke-width:2.2;stroke-linecap:round;vector-effect:non-scaling-stroke;transform-origin:center;transition:transform .3s}
 .hire-link:hover path{transform:rotate(-2deg) scale(1.03)}
-.dry-toggle{display:inline-flex;align-items:center;gap:9px;background:none;border:0;padding:6px 0;font-family:var(--mono);font-size:12px;color:var(--grey);cursor:pointer}
-.dry-toggle .sw{position:relative;width:36px;height:20px;border-radius:99px;background:#D9D7D0;transition:background .2s}
-.dry-toggle .sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .2s}
-.dry-toggle[aria-pressed="true"]{color:var(--ink)}
-.dry-toggle[aria-pressed="true"] .sw{background:var(--ink)}
-.dry-toggle[aria-pressed="true"] .sw::after{transform:translateX(16px)}
+/* the three ways to read the site: Dry, Page (as written) and God. A bead slides to the one you pick. */
+.mode{--seg:42px;position:relative;display:grid;grid-template-columns:repeat(3,var(--seg));flex:none;padding:3px;border-radius:99px;background:#EEECE6;box-shadow:inset 0 0 0 1px var(--rule)}
+.mode button{position:relative;z-index:1;height:26px;padding:0;border:0;background:none;border-radius:99px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--grey);cursor:pointer;transition:color .3s}
+.mode button[aria-checked="true"]{color:var(--paper)}
+.mode button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.mode-bead{--i:1;position:absolute;top:3px;bottom:3px;left:3px;width:var(--seg);border-radius:99px;background:var(--ink);transform:translateX(calc(var(--i) * 100%));transition:transform .5s cubic-bezier(.2,.9,.25,1.12),background .35s;pointer-events:none}
+.mode[data-mode="dry"] .mode-bead{--i:0;background:var(--grey)}
+.mode[data-mode="god"] .mode-bead{--i:2;background:var(--red)}
+/* the frosted bar re-blurs whatever moves behind it, every frame; God mode keeps the bar solid instead */
+html.is-god .top{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--paper)}
 .menu-btn{display:none;background:none;border:1px solid var(--ink);border-radius:99px;padding:7px 14px;font-family:var(--mono);font-size:12px;color:var(--ink);cursor:pointer}
+@media (max-width:1100px){
+  .top-in{gap:16px}
+  .mode{margin-left:auto}
+  .menu-btn{display:inline-flex}
+  .nav-wrap{position:absolute;left:0;right:0;top:100%;display:none;flex-direction:column;align-items:flex-start;gap:18px;margin:0;padding:18px var(--pad) 26px;background:var(--paper);border-bottom:1px solid var(--rule)}
+  .top.open .nav-wrap{display:flex}
+  .nav{flex-direction:column;gap:14px;font-size:15px}
+}
 @media (max-width:860px){
   .top-in{gap:16px;height:64px}
   .brand{font-size:20px}
-  .dry-toggle{margin-left:auto}
   .menu-btn{display:inline-flex}
   .nav-wrap{position:absolute;left:0;right:0;top:100%;display:none;flex-direction:column;align-items:flex-start;gap:18px;margin:0;padding:18px var(--pad) 26px;background:var(--paper);border-bottom:1px solid var(--rule)}
   .top.open .nav-wrap{display:flex}
   .nav{flex-direction:column;gap:14px;font-size:15px}
   .hire-link{margin-left:10px}
 }
-@media (max-width:420px){.dry-toggle .lbl-x{display:none}}
+@media (max-width:420px){.mode{--seg:36px}.mode button{font-size:10.5px;letter-spacing:.02em}.top-in{gap:12px}}
+@media (max-width:360px){.top-in{gap:8px;padding-inline:14px}.brand{font-size:17px}.mode{--seg:31px}.mode button{font-size:10px;letter-spacing:0}.menu-btn{padding:6px 9px}}
 
 /* the notebook */
 .book{position:relative;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
@@ -575,7 +590,12 @@ html.is-dry .clients-run .star{display:inline}
       </nav>
       <a class="hire-link" href="/contact" data-nav="contact"><svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M24 34C18 10 176 4 188 26C198 50 34 60 12 38C4 28 34 12 74 9"/></svg>Hire the pen</a>
     </div>
-    <button class="dry-toggle" id="dryToggle" type="button" aria-pressed="false" aria-label="Dry mode" title="For clients here for business, not banter."><span class="sw" aria-hidden="true"></span><span class="lbl" aria-hidden="true">Dry<span class="lbl-x"> mode</span></span></button>
+    <div class="mode" id="modeSwitch" role="radiogroup" aria-label="How the site reads" data-mode="page">
+      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="dry" title="Dry: for clients here for business, not banter.">Dry</button>
+      <button type="button" role="radio" aria-checked="true" tabindex="0" data-mode="page" title="Page: the notebook, as written.">Page</button>
+      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="god" title="God: the ink never dries.">God</button>
+      <span class="mode-bead" aria-hidden="true"></span>
+    </div>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navWrap">Menu</button>
   </div>
 </header>
@@ -1073,8 +1093,7 @@ Would love to tell you more if this sounds interesting.</p>
   }
 
   // Dry mode: switching on makes the jokes evaporate; switching off inks them back in
-  const dryBtn = document.getElementById('dryToggle');
-  let dryOn = root.classList.contains('is-dry'), dryRun = 0, dryAnims = [];
+  let dryRun = 0, dryAnims = [];
   const track = a => { dryAnims.push(a); return a; };
   // When Dry mode adds or removes things, everything that moves glides to its new place instead of jumping,
   // and the part of the page being read stays put
@@ -1111,12 +1130,10 @@ Would love to tell you more if this sounds interesting.</p>
       if (Math.abs(dy) > 1) glide(el, dy);
     });
   }
-  async function setDry(on, animate) {
+  async function setDry(on, animate, quiet) {
     const run = ++dryRun;
     dryAnims.forEach(a => a.cancel());
     dryAnims = [];
-    dryBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
-    store.set('dryMode', on ? '1' : '0');
     if (!animate || reduce) { root.classList.toggle('is-dry', on); return; }
     if (on) {
       const jokes = [...document.querySelectorAll('.note, .edit:not([data-keep="new"]) .ins, .co svg, .only-wet')].filter(visible);
@@ -1138,16 +1155,118 @@ Would love to tell you more if this sounds interesting.</p>
       });
       toast('Dry mode on. The jokes have left the building.');
     } else {
+      if (!root.classList.contains('is-dry')) return;
       flipLayout(() => root.classList.remove('is-dry'));
       // The hero's strike, "Cheesy" and circle redraw themselves through their own CSS animations
       const jokes = [...document.querySelectorAll('.note, .only-wet, .edit[data-keep="new"] .strike')].filter(visible);
       jokes.forEach((el, i) => track(el.animate([{ opacity: 0, translate: '0 10px' }, { opacity: 1, translate: '0 0' }],
         { duration: 520, delay: 250 + Math.min(i, 10) * 90, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' })));
-      toast('Jokes are back. They missed you.');
+      if (!quiet) toast('Jokes are back. They missed you.');
     }
   }
-  setDry(dryOn, false);
-  dryBtn.addEventListener('click', () => { dryOn = !dryOn; setDry(dryOn, true); });
+
+  // God mode lives in its own files and is only fetched when someone asks for it
+  let godLoading = null;
+  function loadGod() {
+    if (window.TDTC_GOD) return Promise.resolve(window.TDTC_GOD);
+    if (godLoading) return godLoading;
+    godLoading = new Promise((resolve, reject) => {
+      const ver = '__GOD_VER__';
+      const css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = '/assets/god.css?v=' + ver;
+      const cssReady = new Promise(res => { css.onload = res; css.onerror = res; });
+      document.head.append(css);
+      const tag = document.createElement('script');
+      tag.src = '/assets/god.js?v=' + ver;
+      tag.onload = () => cssReady.then(() => window.TDTC_GOD ? resolve(window.TDTC_GOD) : reject(new Error('God mode did not start')));
+      tag.onerror = () => reject(new Error('God mode did not load'));
+      document.head.append(tag);
+    });
+    godLoading.catch(() => { godLoading = null; });
+    return godLoading;
+  }
+  const godOpts = extra => Object.assign({
+    reduce: matchMedia('(prefers-reduced-motion: reduce)').matches,
+    toast, store, wait, A,
+    origin: (() => { const b = modeSwitch && modeSwitch.querySelector('[data-mode="god"]'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()
+  }, extra);
+  async function godEnter(arriving) {
+    root.classList.add('is-god');
+    let god;
+    try { god = await loadGod(); }
+    catch (e) {
+      root.classList.remove('is-god');
+      mode = wanted = 'page';
+      reflectMode('page');
+      if (!arriving) toast('God mode did not load. The page stays as written.');
+      return;
+    }
+    if (wanted !== 'god') return;
+    await god.enter(godOpts({ animate: !arriving && !reduce, arriving: !!arriving }));
+  }
+  async function godExit() {
+    const god = window.TDTC_GOD;
+    if (god) { try { await god.exit(godOpts({ animate: !reduce })); } catch (e) {} }
+    root.classList.remove('is-god');
+  }
+
+  // The switch: Dry, Page, God. The last one picked wins, even mid-transition.
+  const modeSwitch = document.getElementById('modeSwitch');
+  const modeRadios = modeSwitch ? [...modeSwitch.querySelectorAll('[role="radio"]')] : [];
+  let mode = root.classList.contains('is-dry') ? 'dry' : root.classList.contains('is-god') ? 'god' : 'page';
+  let wanted = mode, moving = false;
+  function reflectMode(m) {
+    if (!modeSwitch) return;
+    modeSwitch.dataset.mode = m;
+    modeRadios.forEach(r => { const on = r.dataset.mode === m; r.setAttribute('aria-checked', on ? 'true' : 'false'); r.tabIndex = on ? 0 : -1; });
+  }
+  async function goMode(m) {
+    wanted = m;
+    reflectMode(m);
+    store.set('siteMode', m);
+    if (moving) return;
+    moving = true;
+    try {
+      while (mode !== wanted) {
+        const next = wanted, prev = mode;
+        if (prev === 'god') await godExit();
+        if (prev === 'dry') await setDry(false, true, next === 'god');
+        mode = next;
+        if (next === 'dry') await setDry(true, true);
+        if (next === 'god') await godEnter(false);
+      }
+    } finally { moving = false; }
+  }
+  reflectMode(mode);
+  modeRadios.forEach(r => {
+    r.addEventListener('click', () => goMode(r.dataset.mode));
+    if (r.dataset.mode === 'god') {
+      // start fetching the moment someone heads for it
+      const warm = () => { loadGod().catch(() => {}); };
+      r.addEventListener('pointerenter', warm, { once: true });
+      r.addEventListener('focus', warm, { once: true });
+    }
+  });
+  if (modeSwitch) modeSwitch.addEventListener('keydown', e => {
+    const keys = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+    if (!(e.key in keys) && e.key !== 'Home' && e.key !== 'End') return;
+    e.preventDefault();
+    const i = modeRadios.findIndex(r => r.dataset.mode === wanted);
+    const n = e.key === 'Home' ? 0 : e.key === 'End' ? modeRadios.length - 1 : (i + keys[e.key] + modeRadios.length) % modeRadios.length;
+    modeRadios[n].focus();
+    goMode(modeRadios[n].dataset.mode);
+  });
+  // Arriving in God mode: wait for the opening and the first paint, then let the ink in
+  if (mode === 'god') {
+    const start = () => godEnter(true);
+    const afterIntro = () => {
+      if (!root.classList.contains('intro')) return requestAnimationFrame(() => setTimeout(start, 60));
+      const mo = new MutationObserver(() => { if (!root.classList.contains('intro')) { mo.disconnect(); setTimeout(start, 200); } });
+      mo.observe(root, { attributes: true, attributeFilter: ['class'] });
+    };
+    if (document.readyState === 'complete') afterIntro(); else addEventListener('load', afterIntro, { once: true });
+  }
 
   // Phone menu
   const bar = document.querySelector('.top'), menuBtn = document.getElementById('menuBtn');
@@ -1300,6 +1419,8 @@ Would love to tell you more if this sounds interesting.</p>
     return best;
   }
   async function strikeThenGo(href) {
+    const god = mode === 'god' && window.TDTC_GOD;
+    if (god && god.beforeLeave) { try { god.beforeLeave(); } catch (e) {} }
     const heading = strikeTarget();
     if (heading && !reduce) {
       const lines = strikeLines(heading);

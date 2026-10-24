@@ -93,8 +93,18 @@ pages["contact"] = pages["contact"].replace('<div data-slot="form"></div>', form
 # --- the shared files ----------------------------------------------------------------
 assets = OUT / "assets"
 assets.mkdir(exist_ok=True)
+god_js = (HERE / "god.js").read_text(encoding="utf-8") if (HERE / "god.js").exists() else ""
+god_css = (HERE / "god.css").read_text(encoding="utf-8") if (HERE / "god.css").exists() else ""
+if not god_js:
+    raise SystemExit("build.py: source/god.js is missing")
+god_ver = hashlib.sha1((god_js + god_css).encode("utf-8")).hexdigest()[:10]
+if js.count("__GOD_VER__") != 1:
+    raise SystemExit("build.py: site.js must load God mode with __GOD_VER__ exactly once")
+js = js.replace("__GOD_VER__", god_ver)
 (assets / "site.css").write_text(css.replace("url(images/", "url(/images/").strip() + "\n", encoding="utf-8")
 (assets / "site.js").write_text(js + "\n", encoding="utf-8")
+(assets / "god.js").write_text(god_js.strip() + "\n", encoding="utf-8")
+(assets / "god.css").write_text(god_css.replace("url(images/", "url(/images/").strip() + "\n", encoding="utf-8")
 
 images = OUT / "images"
 if images.exists():
@@ -477,3 +487,5 @@ print("Shared: assets/site.css %d KB, assets/site.js %d KB, %d images" % (
     (assets / "site.css").stat().st_size // 1024,
     (assets / "site.js").stat().st_size // 1024,
     len(list(images.rglob("*.*")))))
+print("God mode: assets/god.js %d KB, assets/god.css %d KB (version %s, loaded only on request)" % (
+    (assets / "god.js").stat().st_size // 1024, (assets / "god.css").stat().st_size // 1024, god_ver))
