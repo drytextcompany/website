@@ -145,6 +145,7 @@
       root.classList.remove('is-god');
       mode = wanted = 'page';
       reflectMode('page');
+      if (root.classList.contains('hero-wait')) playHero();
       if (!arriving) toast('God mode did not load. The page stays as written.');
       return;
     }
@@ -155,6 +156,7 @@
     const god = window.TDTC_GOD;
     if (god) { try { await god.exit(godOpts({ animate: !reduce })); } catch (e) {} }
     root.classList.remove('is-god');
+    if (root.classList.contains('hero-wait') && !root.classList.contains('intro')) playHero();
   }
 
   // The switch: Dry, Page, God. The last one picked wins, even mid-transition.
@@ -164,6 +166,7 @@
   let wanted = mode, moving = false;
   function reflectMode(m) {
     if (!modeSwitch) return;
+    modeSwitch.dataset.ready = '1';
     modeSwitch.dataset.mode = m;
     modeRadios.forEach(r => { const on = r.dataset.mode === m; r.setAttribute('aria-checked', on ? 'true' : 'false'); r.tabIndex = on ? 0 : -1; });
   }
@@ -205,6 +208,7 @@
   });
   // Arriving in God mode: wait for the opening and the first paint, then let the ink in
   if (mode === 'god') {
+    loadGod().catch(() => {});
     const start = () => godEnter(true);
     const afterIntro = () => {
       if (!root.classList.contains('intro')) return requestAnimationFrame(() => setTimeout(start, 60));
@@ -398,6 +402,7 @@
 
   // The hero edit: the strike, then "Cheesy", then the circle around "Co.", then the margin notes one by one
   function playHero() {
+    if (root.classList.contains('is-god')) return; // in God mode the pen performs the hero edit
     root.classList.remove('hero-wait');
     root.classList.add('hero-go');
     const delays = [640, 780, 920, 1060, 1200];
@@ -542,9 +547,9 @@
       cur = i;
     }
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
-      circle(0, !reduce);
+      if (!root.classList.contains('is-god')) circle(0, !reduce);
       if (!reduce) setInterval(() => {
-        if (document.hidden || root.classList.contains('is-dry')) return;
+        if (document.hidden || root.classList.contains('is-dry') || root.classList.contains('is-god')) return;
         circle((cur + 1) % words.length, true);
       }, 2000);
       let t;

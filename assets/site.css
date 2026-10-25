@@ -53,6 +53,10 @@ html.intro .brand,html.intro main,html.intro .foot{opacity:0}
 .mode-bead{--i:1;position:absolute;top:3px;bottom:3px;left:3px;width:var(--seg);border-radius:99px;background:var(--ink);transform:translateX(calc(var(--i) * 100%));transition:transform .5s cubic-bezier(.2,.9,.25,1.12),background .35s;pointer-events:none}
 .mode[data-mode="dry"] .mode-bead{--i:0;background:var(--grey)}
 .mode[data-mode="god"] .mode-bead{--i:2;background:var(--red)}
+html.is-god .mode:not([data-ready]) .mode-bead{--i:2;background:var(--red)}
+html.is-dry .mode:not([data-ready]) .mode-bead{--i:0;background:var(--grey)}
+html:is(.is-god,.is-dry) .mode:not([data-ready]) [data-mode="page"]{color:var(--grey)}
+html.is-god .mode:not([data-ready]) [data-mode="god"],html.is-dry .mode:not([data-ready]) [data-mode="dry"]{color:var(--paper)}
 /* the frosted bar re-blurs whatever moves behind it, every frame; God mode keeps the bar solid instead */
 html.is-god .top{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--paper)}
 .menu-btn{display:none;background:none;border:1px solid var(--ink);border-radius:99px;padding:7px 14px;font-family:var(--mono);font-size:12px;color:var(--ink);cursor:pointer}

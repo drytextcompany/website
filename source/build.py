@@ -97,6 +97,8 @@ god_js = (HERE / "god.js").read_text(encoding="utf-8") if (HERE / "god.js").exis
 god_css = (HERE / "god.css").read_text(encoding="utf-8") if (HERE / "god.css").exists() else ""
 if not god_js:
     raise SystemExit("build.py: source/god.js is missing")
+if len(god_js.encode("utf-8")) > 92160 or len(god_css.encode("utf-8")) > 12288:
+    raise SystemExit("build.py: God mode is over budget (god.js max 90 KB, god.css max 12 KB)")
 god_ver = hashlib.sha1((god_js + god_css).encode("utf-8")).hexdigest()[:10]
 if js.count("__GOD_VER__") != 1:
     raise SystemExit("build.py: site.js must load God mode with __GOD_VER__ exactly once")

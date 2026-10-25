@@ -98,6 +98,10 @@ html.intro .brand,html.intro main,html.intro .foot{opacity:0}
 .mode-bead{--i:1;position:absolute;top:3px;bottom:3px;left:3px;width:var(--seg);border-radius:99px;background:var(--ink);transform:translateX(calc(var(--i) * 100%));transition:transform .5s cubic-bezier(.2,.9,.25,1.12),background .35s;pointer-events:none}
 .mode[data-mode="dry"] .mode-bead{--i:0;background:var(--grey)}
 .mode[data-mode="god"] .mode-bead{--i:2;background:var(--red)}
+html.is-god .mode:not([data-ready]) .mode-bead{--i:2;background:var(--red)}
+html.is-dry .mode:not([data-ready]) .mode-bead{--i:0;background:var(--grey)}
+html:is(.is-god,.is-dry) .mode:not([data-ready]) [data-mode="page"]{color:var(--grey)}
+html.is-god .mode:not([data-ready]) [data-mode="god"],html.is-dry .mode:not([data-ready]) [data-mode="dry"]{color:var(--paper)}
 /* the frosted bar re-blurs whatever moves behind it, every frame; God mode keeps the bar solid instead */
 html.is-god .top{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--paper)}
 .menu-btn{display:none;background:none;border:1px solid var(--ink);border-radius:99px;padding:7px 14px;font-family:var(--mono);font-size:12px;color:var(--ink);cursor:pointer}
@@ -1199,6 +1203,7 @@ Would love to tell you more if this sounds interesting.</p>
       root.classList.remove('is-god');
       mode = wanted = 'page';
       reflectMode('page');
+      if (root.classList.contains('hero-wait')) playHero();
       if (!arriving) toast('God mode did not load. The page stays as written.');
       return;
     }
@@ -1209,6 +1214,7 @@ Would love to tell you more if this sounds interesting.</p>
     const god = window.TDTC_GOD;
     if (god) { try { await god.exit(godOpts({ animate: !reduce })); } catch (e) {} }
     root.classList.remove('is-god');
+    if (root.classList.contains('hero-wait') && !root.classList.contains('intro')) playHero();
   }
 
   // The switch: Dry, Page, God. The last one picked wins, even mid-transition.
@@ -1218,6 +1224,7 @@ Would love to tell you more if this sounds interesting.</p>
   let wanted = mode, moving = false;
   function reflectMode(m) {
     if (!modeSwitch) return;
+    modeSwitch.dataset.ready = '1';
     modeSwitch.dataset.mode = m;
     modeRadios.forEach(r => { const on = r.dataset.mode === m; r.setAttribute('aria-checked', on ? 'true' : 'false'); r.tabIndex = on ? 0 : -1; });
   }
@@ -1259,6 +1266,7 @@ Would love to tell you more if this sounds interesting.</p>
   });
   // Arriving in God mode: wait for the opening and the first paint, then let the ink in
   if (mode === 'god') {
+    loadGod().catch(() => {});
     const start = () => godEnter(true);
     const afterIntro = () => {
       if (!root.classList.contains('intro')) return requestAnimationFrame(() => setTimeout(start, 60));
@@ -1452,6 +1460,7 @@ Would love to tell you more if this sounds interesting.</p>
 
   // The hero edit: the strike, then "Cheesy", then the circle around "Co.", then the margin notes one by one
   function playHero() {
+    if (root.classList.contains('is-god')) return; // in God mode the pen performs the hero edit
     root.classList.remove('hero-wait');
     root.classList.add('hero-go');
     const delays = [640, 780, 920, 1060, 1200];
@@ -1596,9 +1605,9 @@ Would love to tell you more if this sounds interesting.</p>
       cur = i;
     }
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
-      circle(0, !reduce);
+      if (!root.classList.contains('is-god')) circle(0, !reduce);
       if (!reduce) setInterval(() => {
-        if (document.hidden || root.classList.contains('is-dry')) return;
+        if (document.hidden || root.classList.contains('is-dry') || root.classList.contains('is-god')) return;
         circle((cur + 1) % words.length, true);
       }, 2000);
       let t;
