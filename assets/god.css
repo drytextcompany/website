@@ -1,1 +1,58 @@
-.god-layer{position:fixed;inset:0;pointer-events:none;z-index:20;background:radial-gradient(circle at 70% 30%,rgba(210,35,42,.10),transparent 60%)}
+/* God mode: the ink never dries. Every rule is scoped under html.is-god; anything that restyles the page also needs .g-on. */
+html.is-god .pen-ring{display:none}
+
+/* the inkwell, inside the switch */
+html.is-god.g-on .mode[data-mode="god"] .mode-bead{background:transparent;box-shadow:none}
+html.is-god .g-well,html.is-god .g-wellpen{position:absolute;top:3px;left:calc(3px + 2 * var(--seg));width:var(--seg);height:26px;overflow:visible;pointer-events:none}
+html.is-god .g-well{z-index:0}
+html.is-god .g-wellpen{z-index:2}
+html.is-god .g-glass{fill:rgba(255,255,255,.55);stroke:rgba(22,22,26,.22);stroke-width:1}
+html.is-god .g-ink{fill:#D2232A}
+html.is-god .g-men{fill:none;stroke:#EE6B65;stroke-width:1.2;stroke-linecap:round}
+html.is-god .g-shine{fill:none;stroke:rgba(255,255,255,.28);stroke-width:1;stroke-linecap:round}
+html.is-god .g-rim{fill:none;stroke:rgba(255,255,255,.45);stroke-width:.8}
+html.is-god .g-rip{fill:none;stroke:rgba(255,255,255,.85);stroke-width:.8;opacity:0}
+html.is-god .g-drop{fill:#D2232A;opacity:0}
+
+/* the pen layer: the only fixed layer */
+html.is-god #g-pen-layer{position:fixed;left:0;top:0;width:0;height:0;z-index:50;pointer-events:none}
+html.is-god #g-pen,html.is-god .g-shadow{position:absolute;left:0;top:0;transform-origin:0 0;pointer-events:none}
+html.is-god #g-pen{will-change:transform}
+html.is-god .g-shadow{opacity:0;will-change:transform,opacity}
+html.is-god #g-pen[hidden],html.is-god .g-shadow[hidden]{display:none}
+html.is-god #g-pen.g-out{view-transition-name:god-pen}
+
+/* ink canvases: under the type, inside isolated hosts, scrolling with the page */
+html.is-god.g-on .g-host{isolation:isolate}
+html.is-god.g-on .g-host-rel{position:relative}
+html.is-god.g-on main{position:relative;isolation:isolate;overflow-x:clip}
+html.is-god .g-cv,html.is-god .g-wc,html.is-god .g-live{position:absolute;display:block;margin:0;padding:0;border:0;pointer-events:none;z-index:-1}
+html.is-god .g-cv.g-over,html.is-god .g-wc.g-over{z-index:1}
+
+/* notes: waiting, being written, wet, dry */
+html.is-god.g-on .note.g-pend{opacity:0!important;translate:none!important;transition:none!important}
+html.is-god.g-on .note:is(.g-writing,.g-wet,.g-dry,.g-quick){opacity:1!important;translate:none!important}
+html.is-god.g-on .note.g-writing{transition:none!important}
+html.is-god.g-on :is(.note,.ins).g-wet{color:#C2121B;text-shadow:-.35px -.45px 0 rgba(255,255,255,.8),0 0 .7px rgba(194,18,27,.5)}
+html.is-god.g-on :is(.note,.ins).g-dry{transition:color 1.8s ease,text-shadow 1.8s ease}
+html.is-god.g-on .note.g-quick{animation:gQuick .42s cubic-bezier(.2,.7,.2,1) both}
+@keyframes gQuick{from{clip-path:inset(-30% 100% -30% -8%)}to{clip-path:inset(-30% -8% -30% -8%)}}
+
+/* the page hands its red pen edits to the pen */
+html.is-god.g-on .hero:is(.g-taken,.g-giving) .strike::after,html.is-god.g-on .hero:is(.g-taken,.g-giving) .co svg{opacity:0;transition:opacity .25s ease}
+html.is-god.g-on .hero .strike.g-unstruck{color:var(--ink)}
+html.is-god.g-on .hero .ins.g-pend{opacity:0!important;animation:none!important}
+html.is-god.g-on .hero .ins:is(.g-writing,.g-wet,.g-dry){opacity:1!important;animation:none!important}
+html.is-god.g-exit .hero .strike::after,html.is-god.g-exit .hero .co svg{transition:opacity .3s ease}
+
+/* the visitor's blue nib, for fine pointers */
+html.is-god.g-on.g-nib.cur :is(body,main,.page,.book,.sec,.row,.hero,.hero-txt,.page-head,.note-stack,.does-foot,.foot,.foot-in,.sec-head,.wide,.row>div:not([class])){cursor:var(--g-nib) 2 30,crosshair}
+html.is-god.g-on.g-nib.cur :is(p,h1,h2,h3,li,dt,dd,blockquote,figcaption,.note,.slot){cursor:var(--c-pencil),auto}
+
+/* reduced motion: no wet phase and no flying pen; the pen rests in the well */
+@media (prefers-reduced-motion:reduce){html.is-god .g-wc{display:none}html.is-god #g-pen-layer{display:none}}
+/* print the page as written */
+@media print{html.is-god :is(#g-pen-layer,.g-cv,.g-wc,.g-live,.g-well,.g-wellpen){display:none!important}}
+/* the pen lifts off the old page during the view transition */
+@media (prefers-reduced-motion:no-preference){html.is-god::view-transition-old(god-pen){animation:gPenOut .24s ease-in both}}
+@keyframes gPenOut{to{opacity:0;transform:translateY(-14px)}}

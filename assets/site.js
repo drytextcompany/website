@@ -117,7 +117,7 @@
     if (window.TDTC_GOD) return Promise.resolve(window.TDTC_GOD);
     if (godLoading) return godLoading;
     godLoading = new Promise((resolve, reject) => {
-      const ver = '54421c7ed2';
+      const ver = '51d374a57d';
       const css = document.createElement('link');
       css.rel = 'stylesheet';
       css.href = '/assets/god.css?v=' + ver;
