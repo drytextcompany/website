@@ -171,7 +171,7 @@ html.is-dry .note{display:none}
 .ins-hero::after{content:"Cheesy"}
 .co{position:relative;display:inline-block}
 .co svg{position:absolute;left:-14%;top:-10%;width:128%;height:122%;overflow:visible;pointer-events:none}
-.co path{fill:none;stroke:var(--red);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
+.co path{fill:none;stroke:var(--red);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:1 2;stroke-dashoffset:0}
 .hero .strike{transition:color .45s ease .2s}
 html.hero-wait .hero .strike{color:var(--ink)}
 html.hero-wait .hero .strike::after{transform:rotate(-4deg) scaleX(0)}
@@ -272,7 +272,7 @@ html.is-dry .pen-ring{display:none}
 .fp-row{padding-block:14px;border-top:1px solid var(--rule)}
 .big{display:flex;gap:14px;align-items:flex-start;font-size:clamp(22px,2.6vw,30px);line-height:1.25}
 .tick{flex:none;width:.9em;height:.9em;margin-top:.14em}
-.tick path{fill:none;stroke:var(--red);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.tick path{fill:none;stroke:var(--red);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 2;stroke-dashoffset:0}
 html.ink .tick path{stroke-dashoffset:1;transition:stroke-dashoffset .6s ease .15s}
 html.ink .tick.inked path{stroke-dashoffset:0}
 
@@ -1583,7 +1583,7 @@ Would love to tell you more if this sounds interesting.</p>
       svg.appendChild(path);
       w.appendChild(svg);
       const L = path.getTotalLength();
-      path.style.strokeDasharray = L;
+      path.style.strokeDasharray = L + ' ' + 2 * L;
       path.style.strokeDashoffset = L;
       return (w._ring = { svg, path, L, W, H });
     };

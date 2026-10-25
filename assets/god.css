@@ -45,14 +45,40 @@ html.is-god.g-on .hero .ins.g-pend{opacity:0!important;animation:none!important}
 html.is-god.g-on .hero .ins:is(.g-writing,.g-wet,.g-dry){opacity:1!important;animation:none!important}
 html.is-god.g-exit .hero .strike::after,html.is-god.g-exit .hero .co svg{transition:opacity .3s ease}
 
-/* the visitor's blue nib, for fine pointers */
-html.is-god.g-on.g-nib.cur :is(body,main,.page,.book,.sec,.row,.hero,.hero-txt,.page-head,.note-stack,.does-foot,.foot,.foot-in,.sec-head,.wide,.row>div:not([class])){cursor:var(--g-nib) 2 30,crosshair}
-html.is-god.g-on.g-nib.cur :is(p,h1,h2,h3,li,dt,dd,blockquote,figcaption,.note,.slot){cursor:var(--c-pencil),auto}
+/* the visitor's pencil: the site's own cursor everywhere; the eraser swaps it for the other end */
+html.is-god.g-on.g-erase.cur,html.is-god.g-on.g-erase.cur body{cursor:var(--c-eraser),auto}
+html.is-god.g-on.g-erase.cur :is(a,button,[role="button"],label){cursor:var(--c-pencil),pointer}
+/* on a phone, a picked up tool keeps the page still under your finger */
+html.is-god.g-on.g-armed,html.is-god.g-on.g-armed *{touch-action:none}
+html.is-god.g-on.g-armed body{-webkit-user-select:none;user-select:none}
+
+/* the tray: a pencil and an eraser, by the comments */
+html.is-god.g-on .g-tray{position:fixed;right:16px;bottom:16px;z-index:56;display:flex;gap:4px;padding:5px;background:var(--paper);border:1px solid var(--rule);border-radius:999px;box-shadow:0 1px 1px rgba(0,0,0,.04),0 8px 22px rgba(32,28,20,.12);animation:gTrayIn .4s cubic-bezier(.2,.7,.2,1) both}
+html.is-god.g-on:has(#dock:not([hidden])) .g-tray{bottom:70px}
+html.is-god.g-on .g-tool{display:grid;place-items:center;width:42px;height:42px;padding:0;border:0;border-radius:50%;background:transparent;transition:background .2s ease,box-shadow .2s ease}
+html.is-god.g-on .g-tool:hover{background:#F1EFEA}
+html.is-god.g-on .g-tool[aria-pressed="true"]{background:#FBE5E6;box-shadow:inset 0 0 0 1.5px var(--red)}
+html.is-god.g-on .g-tool:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+html.is-god.g-on .g-tool svg{display:block;width:26px;height:26px}
+@keyframes gTrayIn{from{opacity:0;transform:translateY(12px)}}
+
+/* the services, glossed: each takes its own ink, one at a time, and says what it is underneath */
+html.is-god.g-on .does.g-glossed{row-gap:38px;padding-bottom:30px}
+html.is-god.g-on .does.g-glossed .w{isolation:isolate}
+html.is-god.g-on .does.g-glossed .w::before{content:"";position:absolute;z-index:-1;left:4px;right:3px;top:.21em;bottom:.05em;border-radius:2px 7px 3px 6px / 4px 3px 6px 3px;background:var(--g-wash);rotate:-.6deg;transform:scaleX(0);transform-origin:left center;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+html.is-god.g-on .does.g-glossed .w.g-lit::before{transform:none}
+html.is-god.g-on .g-gloss{position:absolute;left:10px;top:100%;margin-top:3px;white-space:nowrap;font-family:var(--pen);font-weight:700;font-size:16px;letter-spacing:0;line-height:1.1;color:var(--g-gink);rotate:-1.5deg;transform-origin:left center;clip-path:inset(-40% 100% -40% -8%);transition:clip-path .55s cubic-bezier(.2,.7,.2,1) .15s}
+html.is-god.g-on .w.g-lit .g-gloss{clip-path:inset(-40% -8% -40% -8%)}
+@media (max-width:600px){
+  html.is-god.g-on .does.g-glossed{flex-direction:column;align-items:flex-start;row-gap:2px;padding-bottom:4px}
+  html.is-god.g-on .does.g-glossed .dot{display:none}
+  html.is-god.g-on .g-gloss{left:100%;top:auto;bottom:.34em;margin:0 0 0 2px;font-size:15px}
+}
 
 /* reduced motion: no wet phase and no flying pen; the pen rests in the well */
-@media (prefers-reduced-motion:reduce){html.is-god .g-wc{display:none}html.is-god #g-pen-layer{display:none}}
+@media (prefers-reduced-motion:reduce){html.is-god .g-wc{display:none}html.is-god #g-pen-layer{display:none}html.is-god.g-on :is(.g-tray,.does.g-glossed .w::before,.g-gloss){animation:none;transition:none}}
 /* print the page as written */
-@media print{html.is-god :is(#g-pen-layer,.g-cv,.g-wc,.g-live,.g-well,.g-wellpen){display:none!important}}
+@media print{html.is-god :is(#g-pen-layer,.g-cv,.g-wc,.g-live,.g-well,.g-wellpen,.g-tray){display:none!important}}
 /* the pen lifts off the old page during the view transition */
 @media (prefers-reduced-motion:no-preference){html.is-god::view-transition-old(god-pen){animation:gPenOut .24s ease-in both}}
 @keyframes gPenOut{to{opacity:0;transform:translateY(-14px)}}
