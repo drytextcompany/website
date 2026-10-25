@@ -117,7 +117,7 @@
     if (window.TDTC_GOD) return Promise.resolve(window.TDTC_GOD);
     if (godLoading) return godLoading;
     godLoading = new Promise((resolve, reject) => {
-      const ver = '51d374a57d';
+      const ver = 'cacd17bb29';
       const css = document.createElement('link');
       css.rel = 'stylesheet';
       css.href = '/assets/god.css?v=' + ver;
@@ -525,7 +525,7 @@
       svg.appendChild(path);
       w.appendChild(svg);
       const L = path.getTotalLength();
-      path.style.strokeDasharray = L;
+      path.style.strokeDasharray = L + ' ' + 2 * L;
       path.style.strokeDashoffset = L;
       return (w._ring = { svg, path, L, W, H });
     };

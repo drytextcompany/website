@@ -11,22 +11,23 @@ const INK = {
   r: { wet: '#C2121B', dry: '#D2232A', rim: '#9F141B', gloss: 'rgba(255,255,255,.62)', sheen: 'rgba(255,255,255,.18)' },
   b: { wet: '#2346B8', dry: '#2F5BD3', rim: '#1F3C93', gloss: 'rgba(255,255,255,.6)', sheen: 'rgba(255,255,255,.18)' }
 };
-const BATH = { content: ['#F6C6C9', '#D2232A'], marketing: ['#FBF2C2', '#FBBF27'], advertising: ['#F8E1E0', '#E67778'], branding: ['#E7BDC3', '#7E1820'], websites: ['#F9EBC5', '#EA861D'], strategy: ['#FBFBF9', null], systems: ['#FBFBF9', null], outreach: ['#F2DCCB', '#C4613A'] };
-const BATH_ORDER = ['content', 'marketing', 'advertising', 'branding', 'websites', 'strategy', 'outreach'];
+// the six services, each with its own ink and a few words on what it is: [gloss, wash, ink]
+const GLOSS = {
+  content: ['the words on it', '#F6C6C9', '#B5121A'], marketing: ['getting it seen', '#FBE7A1', '#8A6206'],
+  advertising: ['paying to be seen', '#F7D0CF', '#AE3537'], branding: ['what it sounds like', '#EBC6CB', '#7E1820'],
+  websites: ['the thing it sits on', '#F8DBB0', '#97500A'], strategy: ['what to say first', '#D4DEF6', '#2346B8']
+};
 const COPY = {
   on: 'God mode on. Nothing here has dried since 11:48 pm.',
   onReduce: "God mode on. Everything's written and already dry. Your settings asked for stillness.",
   off: 'Dried. The stains stay on the page you left.',
   hero: 'same edit. by hand this time.',
-  sorry: ' sorry.',
-  bath1: 'six inks. one bath. scroll to comb.',
-  bath2: "aabru: reputation, in Gujarati. also the art of the water's face.",
-  turn: "your turn. blue's yours.",
-  nibHint: "Blue's yours. Drag on any blank paper to write.",
-  nibHintTouch: "Blue's yours. Tap any blank paper for a blot.",
+  turn: "your turn. the pencil's yours.",
+  nibHint: "The pencil's yours. Draw on any blank paper; the eraser is in the corner.",
+  nibHintTouch: "The pencil's yours. Tap it in the corner to draw, and again to scroll.",
   full: 'This page is full. Leave some paper for the next reader.'
 };
-const CAPS = { strokes: 80, blots: 60, pts: 1200, wet: 12 };
+const CAPS = { strokes: 140, pts: 1200, wet: 12 };
 
 // ---------- 1. utilities ----------
 const clamp = (x, a, b) => x < a ? a : x > b ? b : x;
@@ -91,13 +92,14 @@ function quality() {
 }
 // tween: one job on the loop; respects urgency; rejects with CANCEL when God mode moves on
 function tween(ms, f, fixed) {
-  const g = gen;
+  const g = gen, job = S && S.cur;
   return new Promise((res, rej) => {
     let t = 0;
     every(dt => {
       if (g !== gen) { rej(CANCEL); return false; }
       t += dt * (fixed || !S ? 1 : S.m);
-      const u = ms <= 0 ? 1 : min(1, t / ms);
+      // scroll away from a job mid act and every tween left in it lands on its final frame
+      const u = ms <= 0 || (job && job.abort) ? 1 : min(1, t / ms);
       f(u, dt);
       if (u >= 1) { res(); return false; }
       return true;
@@ -199,11 +201,6 @@ function blotPath(ctx, b, r, sc) {
 }
 function satPaths(ctx, b, r) {
   for (const s of b.sats) { const d = r * s[1]; ctx.moveTo(b.x + d * cos(s[0]) + s[2] * min(1, r / b.R), b.y + d * sin(s[0])); ctx.arc(b.x + d * cos(s[0]), b.y + d * sin(s[0]), s[2] * min(1, r / b.R), 0, 6.2832); }
-}
-function newBlot(x, y, R0, ink, seed, nSat) {
-  const r = rng(seed), sats = [];
-  for (let i = 0; i < nSat; i++) sats.push([r() * 6.2832, 1.5 + .5 * r(), .6 + 1.4 * r()]);
-  return { kind: 'blot', x, y, R: R0, r: R0, ink, f1: r() * 6, f2: r() * 6, sats };
 }
 // the wet look: saturated body, a little spread, a gloss streak toward the lamp (top left)
 function drawWet(ctx, rec, n, extra) {
@@ -792,6 +789,26 @@ function finishWrite(g) {
   if (O.reduce) { el.classList.remove('g-wet'); el.classList.add('g-dry'); return; }
   later(5000, () => { el.classList.remove('g-wet'); el.classList.add('g-dry'); });
 }
+// margin notes write themselves: the reveal runs along the nib's path with no pen on screen
+async function inkWrite(g) {
+  const sm = nibPath(g, 0, g.chars.length, S.seed), n = sm.length;
+  if (n < 2) { quick(g.el); return; }
+  startWrite(g.el); setClip(g);
+  const fs = g.fs, Tt = sm[n - 1].t || 1;
+  let i = 0;
+  await tween(Tt, u => {
+    const t = u * Tt;
+    while (i < n - 2 && sm[i + 1].t <= t) i++;
+    const A0 = sm[i], A1 = sm[i + 1], f = A1.t > A0.t ? clamp((t - A0.t) / (A1.t - A0.t), 0, 1) : 1;
+    const c = g.chars[sm[u >= 1 ? n - 1 : i].c];
+    if (!c) return;
+    const x = lerp(A0.x, A1.x, f);
+    if (c.line > g.rv.line) { g.rv.line = c.line; g.rv.X = -60; }
+    if (c.line === g.rv.line) g.rv.X = max(g.rv.X, x + .15 * fs);
+    setClip(g);
+  });
+  finishWrite(g);
+}
 function quick(el, delay) {
   if (!el || el.classList.contains('g-dry') || el.classList.contains('g-wet') || el.classList.contains('g-writing')) return;
   el.classList.remove('g-pend'); el.style.clipPath = '';
@@ -831,139 +848,25 @@ function pageNoteText() {
   return null;
 }
 
-// ---------- 10. the marbling bath ----------
-function makeBath(does) {
-  const host = getHost(does);
-  const B = { host, el: does, drops: [], polys: [], F: -1e9, Fl: null, active: false, inRange: true, renders: 0, p: 0, low: null, falling: [], q: false, done2: false, verts: 0 };
-  B.measure = () => {
-    const o = host.org();
-    B.W = does.clientWidth; B.H = does.clientHeight + 6; B.y0 = 1;
-    if (B.cv) B.cv.c.remove();
-    B.cv = canvasAt(does, 'g-cv g-bath', 0, B.y0, B.W, B.H, min(W.devicePixelRatio || 1, TIERS[tier].k));
-    B.top = does.getBoundingClientRect().top + scrollY + B.y0;
-    B.vh = innerHeight;
-    const Hd = does.clientHeight;
-    B.comb = { D: 18, c: 5, z: .34 * Hd };
-    const u = pow(2, -1 / B.comb.c), uD = pow(u, B.comb.D);
-    B.comb.Amax = B.comb.z * (1 + uD) / (1 - uD); B.comb.L = 1.6 * B.comb.Amax; B.comb.lu = LN2 / B.comb.c; B.comb.den = 1 - uD;
-    // toner mask: every glyph refuses ink, with a soft halo
-    const mk2 = mk('canvas'); mk2.width = B.cv.c.width; mk2.height = B.cv.c.height;
-    const m = mk2.getContext('2d'), k = B.cv.k; m.setTransform(k, 0, 0, k, 0, -B.y0 * k);
-    const cs = getComputedStyle(does), mt = metrics(cs);
-    m.font = mt.font; m.fillStyle = m.strokeStyle = '#fff'; m.lineJoin = 'round'; m.lineWidth = 2 * max(1.2, .04 * mt.fs);
-    const rg = D.createRange();
-    B.words = [];
-    $$('.w, .dot', does).forEach(el => {
-      const tn = el.firstChild; if (!tn) return;
-      const s = tn.textContent;
-      for (let i = 0; i < s.length; i++) {
-        rg.setStart(tn, i); rg.setEnd(tn, i + 1);
-        const r = rg.getClientRects()[0]; if (!r) continue;
-        const x = r.left - o.x, y = r.top - o.y + mt.A;
-        if (s[i] !== ' ') { m.strokeText(s[i], x, y); m.fillText(s[i], x, y); }
-      }
-      if (el.classList.contains('w')) { const r = el.getBoundingClientRect(); B.words.push({ el, x: r.left - o.x + r.width / 2, y: r.top - o.y + r.height / 2, top: r.top - o.y, h: r.height, key: el.textContent.trim().toLowerCase() }); }
-    });
-    if (tier < 2) {
-      const sm = mk('canvas'); sm.width = ceil(mk2.width / 4); sm.height = ceil(mk2.height / 4);
-      const sc = sm.getContext('2d'); sc.imageSmoothingQuality = 'high'; sc.drawImage(mk2, 0, 0, sm.width, sm.height);
-      m.setTransform(1, 0, 0, 1, 0, 0); m.globalCompositeOperation = 'lighter'; m.imageSmoothingQuality = 'high'; m.drawImage(sm, 0, 0, mk2.width, mk2.height);
-    }
-    B.mask = mk2;
-    const gr = (x0, y0, x1, y1) => { const g = B.cv.ctx.createLinearGradient(x0, y0, x1, y1); g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(1, 'rgba(0,0,0,0)'); return g; };
-    const e = 28, Y0 = B.y0, Y1 = B.y0 + B.H;
-    B.fade = [[gr(0, 0, e, 0), 0, Y0, e, B.H], [gr(B.W, 0, B.W - e, 0), B.W - e, Y0, e, B.H], [gr(0, Y1, 0, Y1 - 18), 0, Y1 - 18, B.W, 18]];
-  };
-  B.dropsFor = () => {
-    const Hd = does.clientHeight;
-    B.drops = B.words.map((w, i) => {
-      const pal = BATH[w.key] || BATH[BATH_ORDER[i % BATH_ORDER.length]];
-      return { cx: w.x, cy: w.y, R: clamp(.72 * Hd * (1 - .06 * i), 34, 140), r: 0, field: pal[0], vein: pal[1], landed: false };
-    });
-  };
-  const applyDrop = (x, y, d) => { const qx = x - d.cx, qy = y - d.cy, m2 = qx * qx + qy * qy || 1e-9, f = sqrt(1 + d.r * d.r / m2); return [d.cx + qx * f, d.cy + qy * f]; };
-  B.chain = (k, th) => { const d = B.drops[k]; let x = d.cx + d.r * cos(th), y = d.cy + d.r * sin(th); for (let j = k + 1; j < B.drops.length; j++) { if (B.drops[j].r > 0) { const q = applyDrop(x, y, B.drops[j]); x = q[0]; y = q[1]; } } return [x, y]; };
-  B.combA = x => { const c = B.comb, dh = ((x % c.D) + c.D) % c.D; return c.z * (exp(-c.lu * dh) + exp(-c.lu * (c.D - dh))) / c.den; };
-  B.wall = x => { const a = clamp(x / 10, 0, 1), b = clamp((B.W - x) / 10, 0, 1); return a * a * (3 - 2 * a) * b * b * (3 - 2 * b); };
-  B.cy = (x, y, F) => { if (y >= F) return y; const A = B.combA(x) * B.wall(x); if (y <= F - B.comb.L) return y + A; return y + A * (F - y) / B.comb.L; };
-  B.build = refine => {
-    const budget = TIERS[tier].verts;
-    let total = 0;
-    B.polys = [];
-    B.drops.forEach((d, k) => {
-      if (!(d.r > 0)) return;
-      const n = max(48, ceil(2 * PI * d.r / 2.5)); let th = [];
-      for (let i = 0; i < n; i++) th.push(i / n * 2 * PI);
-      total += n;
-      B.polys.push({ k, th });
-    });
-    if (refine) {
-      const eb = [2.5, 3.5, 5][tier], ec = [3, 4, 6][tier], cy = (x, y) => B.cy(x, y, 1e9);
-      for (const p of B.polys) {
-        const out = [], th = p.th, n = th.length;
-        for (let i = 0; i < n; i++) {
-          const a = th[i], b = i + 1 < n ? th[i + 1] : th[0] + 2 * PI;
-          const split = (t0, t1, q0, depth) => {
-            const q1 = B.chain(p.k, t1);
-            const long = hypot(q1[0] - q0[0], q1[1] - q0[1]) > eb || hypot(q1[0] - q0[0], cy(q1[0], q1[1]) - cy(q0[0], q0[1])) > ec;
-            if (long && depth < 10 && total < budget) { const tm = (t0 + t1) / 2, qm = B.chain(p.k, tm); total++; split(t0, tm, q0, depth + 1); split(tm, t1, qm, depth + 1); }
-            else out.push(t0);
-          };
-          split(a, b, B.chain(p.k, a), 0);
-        }
-        p.th = out;
-      }
-    }
-    B.verts = 0;
-    for (const p of B.polys) {
-      const n = p.th.length; p.x = new Float32Array(n); p.y = new Float32Array(n);
-      for (let i = 0; i < n; i++) { const q = B.chain(p.k, p.th[i]); p.x[i] = q[0]; p.y[i] = q[1]; }
-      B.verts += n;
-    }
-  };
-  B.render = F => {
-    const ctx = B.cv.ctx, k = B.cv.k;
-    B.F = F; B.renders++;
-    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1; ctx.clearRect(0, 0, B.cv.c.width, B.cv.c.height);
-    ctx.setTransform(k, 0, 0, k, 0, -B.y0 * k);
-    const vw = matchMedia('(pointer:coarse)').matches ? .9 : 1.1;
-    for (const p of B.polys) {
-      const d = B.drops[p.k], n = p.x.length;
-      ctx.beginPath();
-      for (let i = 0; i < n; i++) { const x = p.x[i], y = B.cy(x, p.y[i], F); if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y); }
-      ctx.closePath();
-      ctx.fillStyle = d.field; ctx.fill();
-      if (d.vein) { ctx.lineJoin = 'round'; ctx.lineWidth = vw; ctx.globalAlpha = .9; ctx.strokeStyle = d.vein; ctx.stroke(); ctx.globalAlpha = 1; }
-    }
-    for (const fd of B.falling) { ctx.fillStyle = fd.c; ctx.beginPath(); ctx.ellipse(fd.x, fd.y, 2.4, 2.4 * (1 + fd.v), 0, 0, 6.2832); ctx.fill(); }
-    const L2 = B.comb.L, p = clamp((F + L2) / (B.H + 2 * L2), 0, 1);
-    B.p = p;
-    if (p > 0 && p < 1 && F > -1e8 && F < 1e8) {
-      ctx.fillStyle = 'rgba(184,145,106,.7)'; ctx.fillRect(0, F - 15, B.W, 2);
-      ctx.strokeStyle = 'rgba(80,78,74,.55)'; ctx.lineWidth = 1; ctx.beginPath();
-      for (let x = B.comb.D / 2; x < B.W; x += B.comb.D) { ctx.moveTo(x, F - 14); ctx.lineTo(x, F); }
-      ctx.stroke(); ctx.fillStyle = 'rgba(80,78,74,.7)';
-      ctx.beginPath(); for (let x = B.comb.D / 2; x < B.W; x += B.comb.D) { ctx.moveTo(x + .7, F); ctx.arc(x, F, .7, 0, 6.2832); } ctx.fill();
-    }
-    grainFill(ctx, k, 0, B.y0, B.W, B.H, tier < 2 ? .16 : 0);
-    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'destination-out'; ctx.drawImage(B.mask, 0, 0);
-    ctx.setTransform(k, 0, 0, k, 0, -B.y0 * k);   // the band's edges feather into the paper
-    for (const e of B.fade) { ctx.fillStyle = e[0]; ctx.fillRect(e[1], e[2], e[3], e[4]); }
-    ctx.globalCompositeOperation = 'source-over';
-    if (p >= .98 && !B.done2 && B.onFull) { B.done2 = true; B.onFull(); }
-  };
-  B.liveF = () => scrollY + .45 * B.vh - B.top;
-  B.update = () => {
-    if (!B.active) return;
-    let F = B.liveF();
-    if (B.low != null) F = lerp(-B.comb.L, F, B.low);
-    if (B.Fl != null && abs(F - B.Fl) < .25) return;
-    B.Fl = F; B.render(F);
-  };
-  B.schedule = () => { if (B.q || !B.active || !B.inRange || O.reduce) return; B.q = true; every(() => { B.q = false; B.update(); return false; }); };
-  B.measure(); B.dropsFor();
-  return B;
+// ---------- 10. the services, glossed ----------
+// one at a time, each service takes its own ink and the line underneath says what it is
+function makeGloss(does) {
+  const words = $$('.w', does).map(w => {
+    const gl = GLOSS[w.textContent.trim().toLowerCase()];
+    if (!gl) return null;
+    w.style.setProperty('--g-wash', gl[1]); w.style.setProperty('--g-gink', gl[2]);
+    const sp = keep(mk('span', 'g-gloss', gl[0])); sp.setAttribute('aria-hidden', 'true'); sp.dataset.g = 'gloss';
+    w.append(sp);
+    return w;
+  }).filter(Boolean);
+  does.classList.add('g-glossed');
+  return { does, words };
 }
+async function actGloss(G) {
+  for (const w of G.words) { w.classList.add('g-lit'); await hold(260); }
+  await hold(320);
+}
+function glossFinal(G) { G.words.forEach(w => w.classList.add('g-lit')); }
 
 // ---------- 11. acts ----------
 function jobPush(job) {
@@ -991,7 +894,7 @@ function pick() {
 }
 function noteJob(el, order) {
   return { prio: 50, order, note: true, el, deadline: 1600, stagger: 0,
-    run: async () => { await write(geom(el)); },
+    run: async () => { await inkWrite(geom(el)); },
     final: function () { quick(el, this.stagger || 0); } };
 }
 // the IntersectionObserver that triggers acts as the reader arrives
@@ -1006,11 +909,12 @@ function onIO(es) {
     const j = w.job;
     if (en.isIntersecting && en.intersectionRatio >= w.ratio - .02) {
       if (j.state == null) jobPush(j);
-    } else if (!en.isIntersecting && j.state === 'wait' && j.note) jobFinal(j);
+    } else if (!en.isIntersecting && j.state === 'run') j.abort = true;   // left mid act: it lands on its last frame
+    else if (!en.isIntersecting && j.state === 'wait') jobFinal(j);       // left before its turn: it appears finished
     else if (en.isIntersecting && j.state == null && j.note && !w.t) {
       w.t = later(2200, () => { if (j.state == null) jobFinal(j); });
     }
-    if (j.state === 'done' || j.state === 'final' || j.state === 'run') { S.io.unobserve(en.target); S.watch.delete(en.target); }
+    if (j.state === 'done' || j.state === 'final' || j.abort) { S.io.unobserve(en.target); S.watch.delete(en.target); }
   }
 }
 
@@ -1119,85 +1023,6 @@ function glyphRec(g, host, c, mode, Rv, seed) {
     }
   } };
 }
-async function actRunDry(note) {
-  const host = getHost(note.parentElement);
-  const g = geom(note);
-  const txt = g.chars.map(c => c.sp ? ' ' : c.ch).join('');
-  const k6 = txt.lastIndexOf('six.');
-  if (k6 < 0) { await write(g); return; }
-  const iS = k6, iI = k6 + 1, iX = k6 + 2;
-  const cs = g.chars[iS], cx = g.chars[iX];
-  g.rv.gap = { line: cs.line, a: cs.x - .02 * g.fs, b: cx.x - .04 * g.fs };
-  penInk(.42);
-  await write(g, { to: iS, keep: true });
-  // s, i: the nib moves on but the ink gives out
-  const sm = nibPath(g, iS, iI + 1, S.seed + 91);
-  const drawn = new Set();
-  await follow(sm, (x, y) => { g.f.drift(); return g.f.toClient(x, y); }, (i, f2) => {
-    const ci = sm[i].c;
-    penInk(lerp(.34, .05, i / sm.length));
-    if (!drawn.has(ci) && (i === sm.length - 1 || sm[i + 1].c !== ci)) { drawn.add(ci); host.bake(glyphRec(g, host, g.chars[ci], ci === iS ? 'rail' : 'skip', ci === iS ? .17 : .06, S.seed + ci)); }
-  });
-  for (const c of [iS, iI]) if (!drawn.has(c)) host.bake(glyphRec(g, host, g.chars[c], c === iS ? 'rail' : 'skip', .1, S.seed + c));
-  // two blind scratches where the x should be
-  await fly(() => { g.f.drift(); return g.f.toClient(cx.x, cx.base - .5 * g.xh); }, { lift: 3, ms: 120 });
-  for (let k = 0; k < 2; k++) await tween(90, u => { const c2 = g.f.toClient(cx.x + 8 * u, cx.base - .5 * g.xh + (floor(u * 6) % 2 ? -1.5 : 1.5) + 3 * k); P.x = c2.x; P.y = c2.y; P.z = 0; P.dirty = true; });
-  host.bake(glyphRec(g, host, cx, 'scratch', 0, 1));
-  await hold(160);
-  // to the inkwell, dip, and back; a drop falls on the way
-  await dip();
-  let dropped = false;
-  await fly(() => { g.f.drift(); return g.f.toClient(cx.x, cx.base - .4 * g.xh); }, { lift: 22, each: u => {
-    if (!dropped && u >= .7) { dropped = true; const q = g.f.toClient(cx.x + .5 * g.fs, cx.base + .95 * g.fs); blotAt(q.x, q.y, 7, 'r', 7); }
-  } });
-  g.rv.X = max(g.rv.X, g.rv.gap.b);
-  await write(g, { from: iX, noFly: true });
-  ss.set('god:v1:session', Object.assign(ss.get('god:v1:session') || {}, { runDry: 1 }));
-}
-function blotAt(cx, cy, R0, ink, nSat) {   // a blot on the page layer, at a client point
-  const main = S.main; if (!main) return;
-  const o = main.org(), rec = newBlot(cx - o.x, cy - o.y, R0, ink, (S.seed + S.blots++ * 31) | 0, nSat);
-  rec.r = R0; recBox(rec);
-  if (O.reduce || S.leaving) { main.bake(rec); return; }
-  const wl = main.wet(rec);
-  tween(400, u => { rec.r = R0 * sqrt(max(.02, u)); if (wl) { wl.ctx.clearRect(wl.x, wl.y, wl.w, wl.h); drawWet(wl.ctx, rec); } }, true).then(() => {
-    rec.r = R0; main.bake(rec); if (wl) dryOff(wl.c, 9000);
-  }, () => { rec.r = R0; main.bake(rec); });
-}
-
-// Act 5. Six inks, one bath
-async function actBath(B) {
-  B.top = B.el.getBoundingClientRect().top + scrollY + B.y0; B.vh = innerHeight;
-  const ws = B.words;
-  const toH = (x, y) => { const o = B.host.org(); return { x: o.x + x, y: o.y + y }; };
-  const T = [320, 290, 260, 230, 210, 190];
-  const spreads = [];
-  for (let i = 0; i < B.drops.length; i++) {
-    const w = ws[i], d = B.drops[i], hx = w.x, hy = w.top - .35 * w.h;
-    await fly(() => toH(hx, hy), { a: -46, s: sw(), z: 18, lift: 8, ms: T[i] || 190 });
-    // the drop leaves the nib and falls
-    const fd = { x: hx, y: hy + 2, v: 0, c: d.vein || '#E9E6DE' };
-    B.falling.push(fd);
-    const y0 = hy + 2, fall = max(8, d.cy - y0);
-    const tf = sqrt(2 * fall / 3000) * 1000;
-    await tween(tf, u => { const t = u * tf / 1000; fd.y = y0 + .5 * 3000 * t * t; fd.v = min(.6, t * 2); B.render(-1e9); }, true);
-    B.falling.splice(B.falling.indexOf(fd), 1);
-    spreads.push(tween(260, u => { d.r = d.R * sqrt(1 - pow(1 - u, 3)); B.build(false); B.render(-1e9); }, true));
-  }
-  await Promise.all(spreads);
-  B.build(true);
-  B.active = true; B.low = 0;
-  await tween(500, u => { B.low = eoc(u); B.Fl = null; B.update(); }, true);
-  B.low = null; B.Fl = null; B.update();
-  if (B.note1) await write(geom(B.note1));
-}
-function bathFinal(B) {
-  B.done2 = true;
-  B.drops.forEach(d => { d.r = d.R; });
-  B.build(true); B.active = false; B.render(1e9);
-  [B.note1, B.note2].forEach(n => { if (n) { n.classList.remove('g-pend'); n.classList.add('inked', 'g-dry'); } });
-}
-
 // Act 7. The arrival on every other page: a wavy underline under the heading, then the page note
 function lineRects(el) {
   const rg = D.createRange(); rg.selectNodeContents(el);
@@ -1243,107 +1068,147 @@ function arriveFinal(A) {
   if (A.note) { A.note.classList.remove('g-pend'); A.note.classList.add('inked', 'g-dry'); }
 }
 
-// ---------- 12. the visitor's blue nib ----------
+// ---------- 12. the visitor's pencil, and an eraser ----------
 const PAPER = 'body,main,.page,.book,.sec,.row,.hero,.hero-txt,.page-head,.note-stack,.does-foot,.foot,.foot-in,.sec-head,.wide';
 function isPaper(t) {
   if (!t || t.nodeType !== 1 || t.closest('.top,.dock,#intro,.toast,a,button,input,textarea,select,label,.slot,.machine,.rw-before,canvas')) return false;
   if (t.matches(PAPER)) return true;
   return t.tagName === 'DIV' && !t.className && !!t.parentElement && t.parentElement.classList.contains('row');
 }
-function nibCursor() {
-  const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="translate(2 30) rotate(-45)" stroke="#16161A" stroke-width="1" stroke-linejoin="round"><polygon points="0,0 9,-4 9,4" fill="#D8D6CF"/><line x1="1" y1="0" x2="6" y2="0"/><rect x="9" y="-4" width="5" height="8" fill="#16161A"/><rect x="14" y="-5" width="17" height="10" rx="2" fill="#2F5BD3"/></g><circle cx="3" cy="29" r="2" fill="#2F5BD3"/></svg>';
-  return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
+const CONTROLS = '.top,.dock,.g-tray,#intro,.toast,a,button,input,textarea,select,label,.slot,.machine,.rw-before';
+// once a finger has picked a tool up it may draw over links and words too; only real controls stay out of reach
+const TOUCH_CONTROLS = '.top,.dock,.g-tray,#intro,.toast,button,input,textarea,select,label,.slot,.machine,.rw-before';
+const SVGNS = 'http://www.w3.org/2000/svg';
+// the tray's pencil is the site's own pencil, the same drawing as the cursor
+const PENCIL = '<polygon points="5,-2 10,-4.5 10,4.5 5,2" fill="#EACDA3"/><polygon points="0,0 5,-2 5,2" fill="#2B2B2B"/><rect x="10" y="-4.5" width="20" height="9" fill="#F2C230"/><rect x="30" y="-4.5" width="3" height="9" fill="#BDBBB4"/><rect x="33" y="-4.5" width="5" height="9" rx="1.5" fill="#F0A3A3"/>';
+const PENCIL_ART = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g transform="translate(4 28) rotate(-45)" stroke="#16161A" stroke-width="1" stroke-linejoin="round">' + PENCIL + '</g></svg>';
+// a block eraser, rubber end down, so the two buttons can't be mistaken for each other
+const ERASER_ART = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g transform="rotate(-38 16 16)" stroke="#16161A" stroke-width="1" stroke-linejoin="round"><rect x="4.5" y="11" width="23" height="10" rx="2.2" fill="#F0A3A3"/><path d="M14 11h11.3a2.2 2.2 0 0 1 2.2 2.2v5.6a2.2 2.2 0 0 1-2.2 2.2H14z" fill="#E9E6DF"/></g><path d="M5.5 27.5h12" stroke="#16161A" stroke-width="1.2" stroke-linecap="round" opacity=".55"/></svg>';
+function pathOf(pts) {
+  const q = n => round(n * 10) / 10;
+  if (pts.length === 1) return 'M' + q(pts[0].x) + ' ' + q(pts[0].y) + 'l.01 0';
+  let d = 'M' + q(pts[0].x) + ' ' + q(pts[0].y);
+  for (let i = 1; i < pts.length - 1; i++) d += 'Q' + q(pts[i].x) + ' ' + q(pts[i].y) + ' ' + q((pts[i].x + pts[i + 1].x) / 2) + ' ' + q((pts[i].y + pts[i + 1].y) / 2);
+  const z = pts[pts.length - 1];
+  return d + 'L' + q(z.x) + ' ' + q(z.y);
+}
+function boxOf(pts) {
+  let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+  for (const p of pts) { x0 = min(x0, p.x); y0 = min(y0, p.y); x1 = max(x1, p.x); y1 = max(y1, p.y); }
+  return { x0, y0, x1, y1 };
 }
 function nibOn(hint) {
   if (S.nib || !S.main) return;
-  const N = S.nib = { strokes: 0, blots: 0, cur: null, tap: null, full: false, lv: null };
-  R.style.setProperty('--g-nib', nibCursor());
+  const coarse = matchMedia('(pointer:coarse)').matches;
+  // the marks live in one drawing laid over the page: they scroll with it, stay sharp at any zoom,
+  // and stay put when God mode is switched off, so coming back gives you the eraser for them again
+  let svg = D.getElementById('g-doodles');
+  if (!svg) {
+    svg = D.createElementNS(SVGNS, 'svg'); svg.id = 'g-doodles'; svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('style', 'position:absolute;left:0;top:0;width:1px;height:1px;overflow:visible;pointer-events:none;z-index:35');
+    svg._strokes = []; D.body.append(svg);
+  }
+  // with a mouse the pencil is always in hand; on a phone the page scrolls until you pick a tool up
+  const N = S.nib = { tool: coarse ? null : 'pencil', coarse, svg, strokes: svg._strokes, cur: null, full: false };
   R.classList.add('g-nib');
+  const tray = keep(frag('<div class="g-tray" role="toolbar" aria-label="Pencil and eraser">'
+    + '<button type="button" class="g-tool" data-tool="pencil" aria-pressed="false" aria-label="Pencil" title="Pencil">' + PENCIL_ART + '</button>'
+    + '<button type="button" class="g-tool" data-tool="eraser" aria-pressed="false" aria-label="Eraser" title="Eraser">' + ERASER_ART + '</button></div>'));
+  tray.dataset.g = 'tray';
+  D.body.append(tray);
+  const rest = coarse ? null : 'pencil';
+  const set = tool => {
+    N.tool = tool;
+    tray.querySelectorAll('.g-tool').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tool === tool)));
+    R.classList.toggle('g-erase', tool === 'eraser');
+    R.classList.toggle('g-armed', coarse && !!tool);
+  };
+  set(N.tool);
+  listen(tray, 'click', e => { const b = e.target.closest('.g-tool'); if (b) set(N.tool === b.dataset.tool ? rest : b.dataset.tool); });
+  listen(D, 'keydown', e => { if (e.key === 'Escape' && N.tool !== rest) set(rest); });
   const full = () => { if (!N.full) { N.full = true; O.toast(COPY.full); } };
-  const addPt = (st, e) => {
-    const x = e.clientX - st.ox, y = e.clientY - st.oy + (scrollY - st.sy), now = e.timeStamp || performance.now();
-    const last = st.pts[st.pts.length - 1];
-    if (last) {
-      const d = hypot(x - last.x, y - last.y);
-      if (d < .75) return;
-      const v = d / max(1, now - st.lt) * 1000; st.v = st.v ? lerp(st.v, v, .35) : v;
-      if (!st.moved && d > 2) { st.moved = true; const tau = now - st.t0; st.pool = min(1.9, 1 + .9 * sqrt(min(400, tau) / 120)) * last.w / 2; }
-    }
-    st.lt = now;
-    let p = e.pointerType === 'pen' && e.pressure > 0 && e.pressure !== .5 ? e.pressure : clamp(pow(max(0, 1 - (st.v || 0) / 1800), .8), .15, 1);
-    const w = 1.3 + 2.4 * pow(p, 1.3), n = st.pts.length;
-    if (last && hypot(x - last.x, y - last.y) > 4) {   // fill long gaps with a Catmull-Rom arc so fast strokes stay round
-      const p0 = st.pts[max(0, n - 2)], p1 = last, p3x = 2 * x - p1.x, p3y = 2 * y - p1.y, k = min(12, ceil(hypot(x - last.x, y - last.y) / 3));
-      const cr = catmull([[p0.x, p0.y], [p1.x, p1.y], [x, y], [p3x, p3y]], k);
-      for (let j = 1; j < k; j++) {
-        const q = cr[k + j];
-        if (q) st.pts.push({ x: q[0], y: q[1], w: lerp(p1.w, w, j / k), p, t: now - st.t0 });
+  const at = e => { const b = svg.getBoundingClientRect(); return { x: e.clientX - b.left, y: e.clientY - b.top }; };
+  const mkPath = pts => {
+    const el = D.createElementNS(SVGNS, 'path');
+    el.setAttribute('d', pathOf(pts));
+    el.setAttribute('fill', 'none'); el.setAttribute('stroke', '#47464C'); el.setAttribute('stroke-width', '1.7');
+    el.setAttribute('stroke-linecap', 'round'); el.setAttribute('stroke-linejoin', 'round'); el.setAttribute('opacity', '.9');
+    svg.append(el); return el;
+  };
+  // the eraser takes out every point within reach, and splits a line where it passes through
+  const REACH = 13;
+  const rub = (x, y) => {
+    for (let k = N.strokes.length - 1; k >= 0; k--) {
+      const st = N.strokes[k], b = st.box;
+      if (x < b.x0 - REACH || x > b.x1 + REACH || y < b.y0 - REACH || y > b.y1 + REACH) continue;
+      const runs = []; let run = [], hit = false;
+      for (const q of st.pts) {
+        if (hypot(q.x - x, q.y - y) <= REACH) { hit = true; if (run.length) { runs.push(run); run = []; } }
+        else run.push(q);
       }
+      if (!hit) continue;
+      if (run.length) runs.push(run);
+      st.el.remove(); N.strokes.splice(k, 1);
+      for (const r of runs) if (r.length > 1) N.strokes.push({ pts: r, box: boxOf(r), el: mkPath(r) });
     }
-    st.pts.push({ x, y, w, p, t: now - st.t0 });
-    st.dirty = true;
+    if (N.full && N.strokes.length < CAPS.strokes) N.full = false;
   };
-  const endStroke = st => {
-    N.cur = null;
-    if (N.lv) { N.lv.ctx.clearRect(N.lv.x, N.lv.y, N.lv.w, N.lv.h); N.lv.c.style.display = 'none'; }
-    if (st.pts.length < 2) { if (st.pts.length === 1) blotFromNib(st.pts[0]); return; }
-    const rec = { kind: 'line', ink: 'b', S: st.pts, pools: st.pool ? [[st.pts[0].x, st.pts[0].y, st.pool]] : null };
-    S.main.bake(rec);
-    const wl = S.main.wet(rec);
-    if (wl) { drawWet(wl.ctx, rec); dryOff(wl.c, dryMs(rec)); }
-    N.strokes++;
+  let last = null;   // so a fast swipe still rubs out everything between two events
+  const rubTo = q => {
+    if (last) { const k = ceil(hypot(q.x - last.x, q.y - last.y) / (REACH * .5)); for (let i = 1; i <= k; i++) rub(lerp(last.x, q.x, i / k), lerp(last.y, q.y, i / k)); }
+    else rub(q.x, q.y);
+    last = q;
   };
-  const blotFromNib = p => { const o = S.main.org(); blotAt(p.x + o.x, p.y + o.y - 0, 3 + 1.5 * random(), 'b', 3); };
   const draw = () => {
-    const st = N.cur; if (!st) return false;
-    if (st.dirty && N.lv) {
-      st.dirty = false;
-      const l = N.lv; l.ctx.clearRect(l.x, l.y, l.w, l.h);
-      const rec = { kind: 'line', ink: 'b', S: st.pts, pools: st.pool ? [[st.pts[0].x, st.pts[0].y, st.pool]] : null };
-      if (O.reduce) { l.ctx.fillStyle = INK.b.dry; l.ctx.beginPath(); outline(l.ctx, st.pts, st.pts.length, 0); l.ctx.fill(); }
-      else drawWet(l.ctx, rec);
-    }
+    const st = N.cur; if (!st || st.erase) return false;
+    if (st.dirty) { st.dirty = false; st.el.setAttribute('d', pathOf(st.pts)); }
     return true;
   };
+  const add = (st, e) => {
+    const q = at(e), z = st.pts[st.pts.length - 1];
+    if (z && hypot(q.x - z.x, q.y - z.y) < .75) return;
+    st.pts.push(q); st.dirty = true;
+  };
+  let swallow = 0;   // on a phone, a line drawn across a link must not open it when the finger lifts
+  const end = e => {
+    const st = N.cur; if (!st || e.pointerId !== st.id) return;
+    N.cur = null; last = null;
+    if (coarse && (st.erase || st.pts.length > 2)) swallow = performance.now();
+    if (st.erase) return;
+    st.el.setAttribute('d', pathOf(st.pts));
+    N.strokes.push({ pts: st.pts, box: boxOf(st.pts), el: st.el });
+  };
   listen(D, 'pointerdown', e => {
-    if (!S || S.leaving) return;
-    if (e.pointerType === 'touch') { N.tap = { id: e.pointerId, x: e.clientX, y: e.clientY, t: performance.now(), ok: isPaper(e.target) }; return; }
-    if (e.button !== 0 || !isPaper(e.target)) return;
-    if (N.strokes >= CAPS.strokes) { full(); return; }
+    if (!S || S.leaving || !N.tool || N.cur || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    const t = e.target;
+    if (!t.closest || t.closest(coarse ? TOUCH_CONTROLS : CONTROLS) || $('.top.open')) return;
+    // with a mouse the pencil writes on blank paper and selects words, so the yellow highlight still works
+    if (N.tool === 'pencil' && !coarse && !isPaper(t)) return;
     e.preventDefault();
-    const o = S.main.org();
-    const st = { id: e.pointerId, ox: o.x, oy: o.y, sy: scrollY, pts: [], v: 0, t0: e.timeStamp || performance.now(), lt: 0, moved: false, pool: 0, dirty: true };
-    const x = -o.x, y = -o.y, wv = innerWidth, hv = innerHeight;
-    if (!N.lv || N.lv.x !== x || N.lv.y !== y || N.lv.w !== wv || N.lv.h !== hv) {
-      if (N.lv) N.lv.c.remove();
-      N.lv = canvasAt(S.main.el, 'g-live', x, y, wv, hv, min(W.devicePixelRatio || 1, 1.25));
-    }
-    N.lv.c.style.display = '';
-    addPt(st, e); st.pts[0].w = 1.6;
+    if (N.tool === 'eraser') { last = null; N.cur = { erase: true, id: e.pointerId }; rubTo(at(e)); return; }
+    if (N.strokes.length >= CAPS.strokes) { full(); return; }
+    const st = { id: e.pointerId, pts: [], dirty: true };
+    add(st, e); st.el = mkPath(st.pts);
     N.cur = st; every(draw);
   }, { passive: false });
   listen(D, 'pointermove', e => {
     const st = N.cur; if (!st || e.pointerId !== st.id) return;
-    const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : null;
-    if (evs && evs.length) evs.forEach(ev => addPt(st, ev)); else addPt(st, e);
-    if (st.pts.length >= CAPS.pts) { endStroke(st); }
+    const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : null, list = evs && evs.length ? evs : [e];
+    if (st.erase) { list.forEach(ev => rubTo(at(ev))); return; }
+    list.forEach(ev => add(st, ev));
+    if (st.pts.length >= CAPS.pts) end(e);
     wake();
   }, { passive: true });
-  const up = e => {
-    if (N.tap && e.pointerId === N.tap.id) {
-      const t = N.tap; N.tap = null;
-      if (e.type === 'pointerup' && t.ok && performance.now() - t.t < 300 && hypot(e.clientX - t.x, e.clientY - t.y) < 8 && !$('.top.open')) {
-        if (N.blots >= CAPS.blots) { full(); return; }
-        N.blots++; blotAt(e.clientX, e.clientY, 6 + 3 * random(), 'b', 3 + floor(random() * 3));
-      }
-      return;
-    }
-    const st = N.cur; if (!st || e.pointerId !== st.id) return;
-    endStroke(st);
-  };
-  listen(D, 'pointerup', up, { passive: true });
-  listen(D, 'pointercancel', up, { passive: true });
-  if (hint) O.toast(matchMedia('(pointer:coarse)').matches ? COPY.nibHintTouch : COPY.nibHint);
+  listen(D, 'pointerup', end, { passive: true });
+  listen(D, 'pointercancel', end, { passive: true });
+  // only the one click the stroke itself makes, and never one aimed at the bar, the tray or the comments
+  listen(D, 'click', e => {
+    if (!swallow || performance.now() - swallow > 400) return;
+    swallow = 0;
+    if (e.target.closest && e.target.closest('.top,.g-tray,.dock')) return;
+    e.preventDefault(); e.stopPropagation();
+  }, { capture: true });
+  if (hint) O.toast(coarse ? COPY.nibHintTouch : COPY.nibHint);
 }
 
 // ---------- 13. mount, director, exit ----------
@@ -1387,15 +1252,13 @@ function mount() {
   listen(W, 'scroll', () => {
     const now = performance.now(), y = scrollY, dt = max(8, now - s.vt);
     s.vs = lerp(s.vs, (y - s.vy) / dt * 1000, .35); s.vy = y; s.vt = now;
-    if (s.bath) s.bath.schedule();
   }, { passive: true });
-  listen(W, 'resize', () => { s.barB = top ? top.getBoundingClientRect().bottom : 0; if (s.bath && s.bath.active) { s.bath.vh = innerHeight; s.bath.Fl = null; s.bath.schedule(); } P.dirty = true; wake(); }, { passive: true });
+  listen(W, 'resize', () => { s.barB = top ? top.getBoundingClientRect().bottom : 0; P.dirty = true; wake(); }, { passive: true });
   listen(D, 'visibilitychange', () => setHidden(D.visibilityState === 'hidden'));
   listen(W, 'pagehide', () => setHidden(true));
   listen(W, 'pageshow', e => { setHidden(D.visibilityState === 'hidden'); if (e.persisted) { restores++; if (s.leaving) resume(); } });
   s.main = getHost($('#main') || D.body, true);
   // God only notes and the page as the pen will perform it
-  const sess = ss.get('god:v1:session') || {};
   if (s.page.home) {
     const hero = $('.hero'), name = $('.hero .name');
     if (hero && name) {
@@ -1405,15 +1268,7 @@ function mount() {
       if (R.classList.contains('hero-wait')) { hero.classList.add('g-taken'); if (H.strike) H.strike.classList.add('g-unstruck'); if (H.ins) H.ins.classList.add('g-pend'); }
     }
     const does = $('#does');
-    if (does && $$('.w', does).length > 1) {
-      const row = does.closest('.row'), st = row ? madeStack(row) : null;
-      s.bathEls = { does, n1: st ? st.appendChild(godNote(COPY.bath1, 'bath1')) : null, n2: st ? st.appendChild(godNote(COPY.bath2, 'bath2')) : null };
-    }
-    const rd = $('#who .does-foot .note');
-    if (rd && !sess.runDry && /six\.\s*$/.test(rd.textContent)) {
-      const add = mk('span', 'g-add', COPY.sorry); add.dataset.g = 'sorry'; rd.append(add); keep(add);
-      rd.classList.add('g-pend'); s.runDry = rd;
-    }
+    if (does && $$('.w', does).length > 1) s.gloss = makeGloss(does);
     const cst = $('#contents .sec-head .note-stack') || $('#contents .note-stack');
     if (cst) s.turn = intoStack(cst, godNote(COPY.turn, 'turn'));
   } else {
@@ -1428,7 +1283,7 @@ function mount() {
     const text = pageNoteText();
     s.arrive = { h1, note: text && stack ? intoStack(stack, godNote(text, 'page')) : null };
   }
-  s.pending = pendNotes().filter(n => n !== s.runDry);
+  s.pending = pendNotes();
   s.pending.forEach(n => n.classList.add('g-pend'));
 }
 function setHidden(h) {
@@ -1446,53 +1301,42 @@ function resume() {   // back from the bfcache after a navigation: the pen is ho
 function registerJobs() {
   const s = S, reduce = O.reduce;
   let order = 0;
-  const all = [];
   if (s.page.home) {
     if (s.hero) {
       const H = s.hero;
       if (reduce) heroFinal(H);
-      else { const j = { prio: 100, order: order++, run: () => actHero(H), final: () => heroFinal(H) }; s.heroJob = j; watch(H.hero, .3, j); }
+      else { const j = { prio: 100, order: order++, pen: true, run: () => actHero(H), final: () => heroFinal(H) }; s.heroJob = j; watch(H.hero, .3, j); }
     }
-    if (s.runDry) {
-      const rd = s.runDry;
-      if (reduce) { rd.classList.remove('g-pend'); rd.classList.add('inked', 'g-dry'); blotNear(rd); }
-      else watch(rd, 1, s.rdJob = { prio: 90, order: order++, run: () => actRunDry(rd), final: () => quick(rd) });
-    }
-    if (s.bathEls) {
-      const B = s.bath = makeBath(s.bathEls.does);
-      B.note1 = s.bathEls.n1; B.note2 = s.bathEls.n2;
-      B.onFull = () => { if (B.note2 && !B.note2.classList.contains('inked')) { const j = { prio: 75, order: 999, note: true, deadline: 2400, el: B.note2, run: () => write(geom(B.note2)), final: () => quick(B.note2) }; jobPush(j); } };
-      const rio = new IntersectionObserver(es => { es.forEach(en => { B.inRange = en.isIntersecting; if (en.isIntersecting) { B.Fl = null; B.schedule(); } }); }, { rootMargin: '50% 0px 50% 0px' });
-      rio.observe(B.el); s.obs.push(rio);
-      if (reduce) bathFinal(B);
-      else { const rj = s.rdJob, j = s.bathJob = { prio: 80, order: order++, ready: () => !rj || rj.state === 'done' || rj.state === 'final' || (rj.state == null && performance.now() - j.at > 1200), run: () => actBath(B), final: () => { bathFinal(B); B.active = true; B.Fl = null; B.update(); } }; watch(B.el, .5, j); }
+    if (s.gloss) {
+      const G = s.gloss;
+      if (reduce) glossFinal(G);
+      else watch(G.does, .5, s.glossJob = { prio: 80, order: order++, run: () => actGloss(G), final: () => glossFinal(G) });
     }
     if (s.turn) {
       const tn = s.turn, sess = ss.get('god:v1:session') || {};
       if (reduce) { tn.classList.remove('g-pend'); tn.classList.add('inked', 'g-dry'); nibOn(false); }
       else {
         const grant = () => { ss.set('god:v1:session', Object.assign(ss.get('god:v1:session') || {}, { nib: 1 })); nibOn(!sess.nib); };
-        watch(tn.closest('.note-stack') || tn, .6, { prio: 70, order: order++, ready: () => !s.bathJob || s.bathJob.state === 'done' || s.bathJob.state === 'final' || s.bathJob.state == null,
-          run: async () => { await write(geom(tn)); grant(); }, final: () => { quick(tn); grant(); } });
+        const gj = s.glossJob;
+        watch(tn.closest('.note-stack') || tn, .6, { prio: 70, order: order++, ready: () => !gj || gj.state == null || gj.state === 'done' || gj.state === 'final',
+          run: async () => { await inkWrite(geom(tn)); grant(); }, final: () => { quick(tn); grant(); } });
         if (sess.nib) nibOn(false);
       }
     } else nibOn(false);
   } else {
     if (reduce) arriveFinal(s.arrive);
-    else jobPush({ prio: 100, order: order++, run: () => actArrive(s.arrive), final: () => arriveFinal(s.arrive) });
+    else {
+      const j = { prio: 100, order: order++, pen: true, run: () => actArrive(s.arrive), final: () => arriveFinal(s.arrive) };
+      jobPush(j);
+      if (s.arrive.h1) watch(s.arrive.h1, 0, j);   // watched only so that scrolling away from it finishes it
+    }
     nibOn(false);
   }
   s.pending.forEach(n => {
     if (reduce) { n.classList.remove('g-pend'); n.classList.add('inked'); return; }
-    const j = noteJob(n, order++);
     const tall = n.getBoundingClientRect().height > .4 * innerHeight;
-    watch(n, tall ? .6 : 1, j);
-    all.push(j);
+    watch(n, tall ? .6 : 1, noteJob(n, order++));
   });
-}
-function blotNear(note) {   // reduced motion: the run dry act's finished blot, beside the note
-  const r = note.getBoundingClientRect();
-  blotAt(r.right - 18, r.top - 10, 7, 'r', 7);
 }
 async function director() {
   const g = gen;
@@ -1501,16 +1345,18 @@ async function director() {
       const job = pick();
       if (job) {
         job.state = 'run'; if (job.tid) { clearTimeout(job.tid); S.timers.delete(job.tid); }
-        try { if (!P.out) await rise(); await job.run(); job.state = 'done'; }
+        S.cur = job;
+        try {
+          if (job.pen && !P.out) await rise();   // only the opening act is performed with the pen
+          await job.run();
+          if (job.pen) await goHome();            // then it goes back in the well, and stays there
+          job.state = 'done';
+        }
         catch (e) { if (e === CANCEL) throw e; errors++; job.state = 'done'; safe(() => job.final && job.final()); }
+        finally { if (S) S.cur = null; }
         continue;
       }
-      if (P.out) {
-        await Promise.race([hold(350), nextKick()]);
-        if (g !== gen) return;
-        if (!S.jobs.some(j => j.state === 'wait')) await goHome();
-        continue;
-      }
+      if (P.out) { await goHome(); continue; }
       P.state = 'well';
       await nextKick();
     }
@@ -1536,11 +1382,11 @@ function teardown() {
   s.offs.forEach(f => f()); s.offs.length = 0;
   if (s.unwrap && s.unwrap.stack.isConnected) { s.unwrap.stack.before(s.unwrap.lone); }
   s.nodes.forEach(n => n.remove()); s.nodes.length = 0;
-  const cls = ['g-host', 'g-host-rel', 'g-pend', 'g-writing', 'g-wet', 'g-dry', 'g-quick', 'g-done', 'g-taken', 'g-unstruck', 'g-giving'];
+  const cls = ['g-host', 'g-host-rel', 'g-pend', 'g-writing', 'g-wet', 'g-dry', 'g-quick', 'g-done', 'g-taken', 'g-unstruck', 'g-giving', 'g-glossed', 'g-lit'];
   $$('.' + cls.join(',.')).forEach(e => e.classList.remove.apply(e.classList, cls));
   $$('.note, .ins').forEach(e => { e.style.clipPath = ''; e.style.animationDelay = ''; });
-  R.classList.remove('g-on', 'g-nib', 'g-reduce', 'g-exit');
-  R.style.removeProperty('--g-nib');
+  $$('#does .w').forEach(w => { w.style.removeProperty('--g-wash'); w.style.removeProperty('--g-gink'); });
+  R.classList.remove('g-on', 'g-nib', 'g-reduce', 'g-exit', 'g-erase', 'g-armed');
   Object.assign(P, { el: null, sh: null, inkEl: null, out: false, dirty: false, state: 'well' });
   Object.assign(WL, { svg: null, wp: null, pen: null, cap: null, clip: null, inkg: null, rip: null, drop: null, dirty: false });
   S = null;
@@ -1555,7 +1401,7 @@ async function enter(opts) {
     tier = TIER0;
     const seed0 = ss.get('god:seed');
     S = { nodes: [], offs: [], obs: [], anims: new Set(), timers: new Set(), hosts: new Set(), wets: new Set(), jobs: [], watch: new Map(),
-      m: 1, vs: 0, vy: scrollY, vt: 0, blots: 0, kickRes: null, seed: seed0 != null ? seed0 : (random() * 1e9) | 0, leaving: false };
+      m: 1, vs: 0, vy: scrollY, vt: 0, kickRes: null, cur: null, seed: seed0 != null ? seed0 : (random() * 1e9) | 0, leaving: false };
     mount();
     const g = gen;
     if (O.reduce) { O.toast(COPY.onReduce); startDirector(); return; }
@@ -1609,8 +1455,8 @@ function stats() {
   return { version: '1', on, reduce: !!(O && O.reduce), tier, raf: !!L.id, rafs, loopFns: L.fns.size, frames: L.frames, p95: +f2(p95()), pen: P.state, out: P.out,
     queue: s ? s.jobs.filter(j => j.state === 'wait').length : 0, wet: s ? s.wets.size : 0, canvases: $$('canvas[data-g]').length,
     nodes: $$('[data-g]').length + $$('.g-cv,.g-wc,#g-pen-layer').length, timers: s ? s.timers.size : 0, anims: s ? s.anims.size : 0, listeners: s ? s.offs.length : 0,
-    bath: s && s.bath ? { drops: s.bath.drops.filter(d => d.r > 0).length, verts: s.bath.verts, F: round(s.bath.F), p: +s.bath.p.toFixed(3), renders: s.bath.renders, active: s.bath.active } : null,
-    visitor: s && s.nib ? { strokes: s.nib.strokes, blots: s.nib.blots } : null, restores, errors };
+    gloss: s && s.gloss ? s.gloss.words.filter(w => w.classList.contains('g-lit')).length : null, current: s && s.cur ? (s.cur.pen ? 'pen act' : s.cur.note ? 'note' : 'act') : null,
+    visitor: s && s.nib ? { tool: s.nib.tool, strokes: s.nib.strokes.length } : null, restores, errors };
 }
 W.TDTC_GOD = { version: '1', enter, exit, beforeLeave, stats };
 })();
