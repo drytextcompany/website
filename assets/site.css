@@ -4,7 +4,7 @@
   --pen:"Kalam","Segoe Print","Bradley Hand",cursive;
   --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
   --maxw:1240px;--pad:clamp(20px,5vw,64px);--mw:clamp(200px,22vw,280px);--gap:clamp(32px,4.5vw,64px);
-  --p-ceo:url(/images/ceo.jpg);--p-kiwi:url(/images/kiwi.jpg);--p-mihir:url(/images/mihir.jpg);--p-aagam:url(/images/aagam.jpg);
+  --p-ceo:url(/images/ceo.jpg);--p-kiwi:url(/images/kiwi.jpg);--p-mihir:url(/images/mihir.jpg);--p-aagam:url(/images/aagam.jpg);--p-pratham:url(/images/pratham.jpg);--p-netra:url(/images/netra.jpg);
   color-scheme:light;
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -53,6 +53,10 @@ html.intro .brand,html.intro main,html.intro .foot{opacity:0}
 .mode-bead{--i:1;position:absolute;top:3px;bottom:3px;left:3px;width:var(--seg);border-radius:99px;background:var(--ink);transform:translateX(calc(var(--i) * 100%));transition:transform .5s cubic-bezier(.2,.9,.25,1.12),background .35s;pointer-events:none}
 .mode[data-mode="dry"] .mode-bead{--i:0;background:var(--grey)}
 .mode[data-mode="god"] .mode-bead{--i:2;background:var(--red)}
+/* changing mode turns the page: the old page is a snapshot laid over the new one and clipped as it turns */
+html.turning::view-transition-group(*),html.turning::view-transition-image-pair(*),html.turning::view-transition-old(*),html.turning::view-transition-new(*){animation:none;mix-blend-mode:normal}
+html.turning::view-transition-old(*){opacity:0}
+html.turning::view-transition-old(root){opacity:1;z-index:1;clip-path:var(--turn-clip,none)}
 html.is-god .mode:not([data-ready]) .mode-bead{--i:2;background:var(--red)}
 html.is-dry .mode:not([data-ready]) .mode-bead{--i:0;background:var(--grey)}
 html:is(.is-god,.is-dry) .mode:not([data-ready]) [data-mode="page"]{color:var(--grey)}
@@ -262,6 +266,12 @@ html.ink .tick.inked path{stroke-dashoffset:0}
 .boss .side{position:absolute;left:calc(50% + 140px);top:336px;max-width:min(220px,calc(50% - 150px));font-size:17px;line-height:1.3;transform-origin:left top}
 .solo{max-width:280px;margin:0}
 .solo figcaption{padding-top:10px}
+@media (min-width:761px){
+  .badges{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .badges>.hang{grid-column:span 2}
+  .badges>.hang.pair:nth-last-child(2){grid-column:2/4}
+  .badges>.hang.pair:last-child{grid-column:4/6}
+}
 .crew{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 22px}
 .crew .solo{max-width:none}
 .crew .solo:first-child{grid-column:1/-1;width:calc((100% - 44px)/3)}

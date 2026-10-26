@@ -832,7 +832,7 @@ function pageNoteText() {
   const pg = $('.page'), name = (pg && pg.dataset.page) || '', path = location.pathname.replace(/\/+$/, '').replace(/\.html$/, '') || '/';
   if (name === 'work' || /^\/work\//.test(path)) return 'every one of these went out wet.';
   if (name === 'services' || /^\/services\//.test(path)) return 'prices in pencil. the rest in ink.';
-  if (name === 'about') return 'four people. one pen. this one.';
+  if (name === 'about') return 'six people. one pen. this one.';
   if (name === 'contact') return 'sign here. in ink.';
   if (name === 'missing') return 'this page dried up.';
   if (/self-published/.test(path) || /self-published/.test(name)) return 'nobody briefed us. we inked it anyway.';

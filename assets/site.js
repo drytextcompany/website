@@ -117,7 +117,7 @@
     if (window.TDTC_GOD) return Promise.resolve(window.TDTC_GOD);
     if (godLoading) return godLoading;
     godLoading = new Promise((resolve, reject) => {
-      const ver = '883203950e';
+      const ver = '392962ee41';
       const css = document.createElement('link');
       css.rel = 'stylesheet';
       css.href = '/assets/god.css?v=' + ver;
@@ -159,207 +159,101 @@
     if (root.classList.contains('hero-wait') && !root.classList.contains('intro')) playHero();
   }
 
-  // Changing mode covers the whole screen, changes the page underneath, then uncovers it:
-  // a slice of cheese for Page, blotting paper for Dry, one ink drop from the switch for God.
-  // The page never rearranges itself in view, so nothing jumps.
-  const MODE_TOAST = { page: 'Back to cheesy.', dry: 'Dry mode on. The jokes have left the building.' };
+  // Changing mode turns the notebook page. The page you were on lifts from its corner and turns over,
+  // and the new mode is already on the page underneath: forward (Dry, Page, God) turns from the right,
+  // back turns from the left, and the top bar stays put like the cover. The turning page is the
+  // browser's own snapshot of the old one, so nothing on the real page moves while it turns.
+  const MODE_TOAST = { page: 'Back to the page as written.', dry: 'Dry mode on. The jokes are on the last page.' };
+  const MODE_ORDER = { dry: 0, page: 1, god: 2 };
   let fxJob = null;
-  addEventListener('pointerdown', e => { if (fxJob && !(modeSwitch && modeSwitch.contains(e.target))) fxJob.skipped = true; }, { passive: true });
-  addEventListener('keydown', e => { if (fxJob && e.key === 'Escape') fxJob.skipped = true; });
-  async function modeFx(next, swap) {
-    const job = fxJob = { skipped: false };
+  addEventListener('pointerdown', e => { if (fxJob && !(modeSwitch && modeSwitch.contains(e.target))) fxJob.skip(); }, { passive: true });
+  addEventListener('keydown', e => { if (fxJob && e.key === 'Escape') fxJob.skip(); });
+  async function modeFx(from, next, swap) {
+    if (reduce || !document.startViewTransition) { await swap(); return; }
+    const forward = MODE_ORDER[next] > MODE_ORDER[from];
     const W = document.documentElement.clientWidth, H = document.documentElement.clientHeight;
+    const bar = document.querySelector('.top');
+    const top = bar ? Math.max(0, bar.getBoundingClientRect().bottom) : 0;
     const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+    // the back of the turning sheet and the shadow it throws are drawn here, live, above the snapshot
     const cv = document.createElement('canvas');
     cv.setAttribute('aria-hidden', 'true');
-    cv.style.cssText = 'position:fixed;left:0;top:0;width:' + W + 'px;height:' + H + 'px;z-index:90;pointer-events:none;display:block';
+    cv.style.cssText = 'position:fixed;left:0;top:0;width:' + W + 'px;height:' + H + 'px;pointer-events:none;z-index:95;view-transition-name:mode-turn';
     cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
     const g = cv.getContext('2d');
     g.setTransform(DPR, 0, 0, DPR, 0, 0);
-    const { PI, sin, cos, min, max, hypot } = Math, TAU = PI * 2;
-    const clear = () => g.clearRect(0, 0, W, H);
-    const step = (ms, draw) => new Promise(res => {
-      const t0 = performance.now();
-      const f = now => {
-        if (job.skipped) { draw(1); return res(); }
-        const u = min(1, (now - t0) / ms);
-        draw(u);
-        if (u < 1) requestAnimationFrame(f); else res();
-      };
-      requestAnimationFrame(f);
-    });
-    const easeIn = u => u * u * u, easeOut = u => 1 - Math.pow(1 - u, 3);
-    const easeInOut = u => u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
-    const span = (u, a, b) => Math.max(0, Math.min(1, (u - a) / (b - a)));
-    let seed = 7;
-    const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
-    const tile = paint => { const c = document.createElement('canvas'); c.width = c.height = 256; paint(c.getContext('2d')); return g.createPattern(c, 'repeat'); };
-    // draws something near a tile edge again on the far side, so the texture has no seams
-    const wrap = (x, y, r, fn) => { for (const ox of [-256, 0, 256]) for (const oy of [-256, 0, 256]) if (x + ox + r > 0 && x + ox - r < 256 && y + oy + r > 0 && y + oy - r < 256) fn(x + ox, y + oy); };
-
-    // PAGE: a slice of cheese slaps down, then its holes open until it is gone
-    async function cheese() {
-      seed = 11;
-      const grain = tile(t => {
-        for (let i = 0; i < 900; i++) { t.fillStyle = rnd() < .5 ? 'rgba(255,248,214,.22)' : 'rgba(196,128,20,.10)'; t.fillRect(rnd() * 256, rnd() * 256, 1 + rnd() * 1.5, 1 + rnd() * 1.5); }
-        for (let i = 0; i < 14; i++) {
-          const x0 = rnd() * 256, y0 = rnd() * 256, r = 14 + rnd() * 30;
-          wrap(x0, y0, r, (x, y) => { const rg = t.createRadialGradient(x, y, 0, x, y, r); rg.addColorStop(0, 'rgba(255,236,150,.22)'); rg.addColorStop(1, 'rgba(255,236,150,0)'); t.fillStyle = rg; t.fillRect(x - r, y - r, r * 2, r * 2); });
-        }
-      });
-      seed = 3;
-      const cell = max(110, min(W, H) / 4.2), cols = Math.ceil(W / cell) + 1, rows = Math.ceil(H / cell) + 1, holes = [];
-      for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) {
-        holes.push({ x: (i + .15 + rnd() * .7) * cell - cell * .3, y: (j + .15 + rnd() * .7) * cell - cell * .3, r0: 6 + rnd() * 16, r1: cell * (.78 + rnd() * .45), d: rnd() * .32, sq: .82 + rnd() * .36, a: rnd() * PI });
+    root.classList.add('turning');
+    let vt;
+    try { vt = document.startViewTransition(async () => { await swap(); document.body.append(cv); }); }
+    catch (e) { root.classList.remove('turning'); cv.remove(); await swap(); return; }
+    const job = fxJob = { skip: () => { try { vt.skipTransition(); } catch (e) {} } };
+    const { PI, sin, min, max, hypot } = Math;
+    const dot = (a, b) => a.x * b.x + a.y * b.y;
+    const clipHalf = (poly, M, n, sign) => {
+      const out = [];
+      for (let i = 0; i < poly.length; i++) {
+        const a = poly[i], b = poly[(i + 1) % poly.length];
+        const da = sign * dot({ x: a.x - M.x, y: a.y - M.y }, n), db = sign * dot({ x: b.x - M.x, y: b.y - M.y }, n);
+        if (da >= 0) out.push(a);
+        if ((da >= 0) !== (db >= 0)) { const t = da / (da - db); out.push({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t }); }
       }
-      for (let k = 0; k < cols * rows * .45; k++) holes.push({ x: rnd() * W, y: rnd() * H, r0: 3 + rnd() * 7, r1: cell * (.35 + rnd() * .3), d: .1 + rnd() * .35, sq: .85 + rnd() * .3, a: rnd() * PI });
-      const base = g.createLinearGradient(0, 0, W * .4, H);
-      base.addColorStop(0, '#FAD866'); base.addColorStop(.55, '#F5C843'); base.addColorStop(1, '#ECB52E');
-      const paint = (dy, open, fade) => {
-        clear();
-        g.save(); g.globalAlpha = 1 - fade; g.translate(0, dy);
-        if (dy < -2) { const sg = g.createLinearGradient(0, H, 0, H + 40); sg.addColorStop(0, 'rgba(60,40,0,.28)'); sg.addColorStop(1, 'rgba(60,40,0,0)'); g.fillStyle = sg; g.fillRect(0, H, W, 40); }
-        g.fillStyle = base; g.fillRect(0, 0, W, H);
-        g.fillStyle = grain; g.fillRect(0, 0, W, H);
-        const radius = h => open <= 0 ? h.r0 * .55 : h.r0 + (h.r1 - h.r0) * easeInOut(span(open, h.d, min(1, h.d + .62)));
-        const shape = (h, r, dx, dy2) => { g.save(); g.translate(h.x, h.y); g.rotate(h.a); g.scale(1, h.sq); g.beginPath(); g.arc(dx, dy2, r, 0, TAU); g.restore(); };
-        g.fillStyle = '#D99A22';
-        for (const h of holes) { shape(h, radius(h) + 3, 1.5, 2.5); g.fill(); }
-        if (open <= 0) {
-          for (const h of holes) {
-            const r = radius(h), dg = g.createRadialGradient(h.x - r * .3, h.y - r * .3, 0, h.x, h.y, r);
-            dg.addColorStop(0, '#E5A325'); dg.addColorStop(1, '#F3C140');
-            g.fillStyle = dg; shape(h, r, 0, 0); g.fill();
-          }
-        } else {
-          g.globalCompositeOperation = 'destination-out'; g.fillStyle = '#000';
-          for (const h of holes) { shape(h, radius(h), 0, 0); g.fill(); }
-          g.globalCompositeOperation = 'source-over';
-        }
-        g.restore();
+      return out;
+    };
+    const reflect = (q, M, n) => { const k = 2 * dot({ x: q.x - M.x, y: q.y - M.y }, n); return { x: q.x - k * n.x, y: q.y - k * n.y }; };
+    const trace = poly => { g.beginPath(); poly.forEach((q, i) => i ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y)); g.closePath(); };
+    const easeInOut = u => u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+    const sheet = [{ x: 0, y: top }, { x: W, y: top }, { x: W, y: H }, { x: 0, y: H }];
+    const C = forward ? { x: W, y: H } : { x: 0, y: H };   // the corner being lifted
+    const reach = W * 2.05 + 60, h = H - top;
+    const draw = u => {
+      const t = easeInOut(u);
+      // the corner is carried in a low arc over to the far side; the fold is halfway between
+      const Q = { x: forward ? W - reach * t : reach * t, y: H - h * .62 * sin(PI * t) - 24 * sin(PI * t) * sin(PI * t) };
+      const len = hypot(Q.x - C.x, Q.y - C.y);
+      g.clearRect(0, 0, W, H);
+      if (len < .5) { root.style.setProperty('--turn-clip', 'none'); return; }
+      const n = { x: (Q.x - C.x) / len, y: (Q.y - C.y) / len }, M = { x: (C.x + Q.x) / 2, y: (C.y + Q.y) / 2 };
+      // the old page shows only where it is still lying flat (the top bar is its own layer, above it)
+      const flat = clipHalf(sheet, M, n, 1);
+      root.style.setProperty('--turn-clip', flat.length > 2 ? 'polygon(' + flat.map(q => q.x.toFixed(1) + 'px ' + q.y.toFixed(1) + 'px').join(',') + ')' : 'polygon(0 0,0 0,0 0)');
+      const lifted = clipHalf(sheet, M, n, -1);
+      if (lifted.length < 3) return;
+      // the shadow on the new page, strongest right at the fold
+      g.save(); trace(lifted); g.clip();
+      const sh = g.createLinearGradient(M.x, M.y, M.x - n.x * 90, M.y - n.y * 90), sa = .26 * sin(PI * min(1, u * 1.05));
+      sh.addColorStop(0, 'rgba(30,24,20,' + sa + ')'); sh.addColorStop(1, 'rgba(30,24,20,0)');
+      g.fillStyle = sh; g.fillRect(0, top, W, h);
+      g.restore();
+      // the back of the sheet: the lifted part, folded over
+      const flap = lifted.map(q => reflect(q, M, n));
+      g.save();
+      g.beginPath(); g.rect(0, top, W, h); g.clip();
+      g.shadowColor = 'rgba(30,24,20,.22)'; g.shadowBlur = 22; g.shadowOffsetX = n.x * 10; g.shadowOffsetY = n.y * 10 + 4;
+      const span = max(220, len * .6), back = g.createLinearGradient(M.x, M.y, M.x + n.x * span, M.y + n.y * span);
+      back.addColorStop(0, '#D9D3C8'); back.addColorStop(.12, '#F6F3EC'); back.addColorStop(.55, '#FBFAF6'); back.addColorStop(1, '#ECE7DE');
+      g.fillStyle = back; trace(flap); g.fill();
+      g.restore();
+    };
+    try {
+      await vt.ready;
+      const DUR = 1150;
+      // keeps the transition open for the length of the turn; the frames below follow its clock exactly
+      const clock = root.animate([{ opacity: 1 }, { opacity: 1 }], { duration: DUR, pseudoElement: '::view-transition-old(root)' });
+      const frame = () => {
+        if (clock.playState === 'finished' || clock.playState === 'idle') return;
+        draw(min(1, (clock.currentTime || 0) / DUR));
+        requestAnimationFrame(frame);
       };
-      await step(340, u => paint(-H * 1.06 * (1 - (u < .78 ? easeIn(u / .78) : 1)) + (u < .78 ? 0 : sin(span(u, .78, 1) * PI) * 10), 0, 0));
-      await swap();
-      await step(80, () => paint(0, 0, 0));
-      await step(820, u => paint(0, u, easeIn(span(u, .62, 1))));
+      draw(0);
+      requestAnimationFrame(frame);
+      await vt.finished;
+    } catch (e) {}
+    finally {
+      root.classList.remove('turning');
+      root.style.removeProperty('--turn-clip');
+      cv.remove();
+      if (fxJob === job) fxJob = null;
     }
-
-    // DRY: blotting paper presses down, the red soaks through, and it lifts the jokes away
-    async function blotter() {
-      // where the red is, read once before anything moves
-      const stains = document.createElement('canvas');
-      stains.width = cv.width; stains.height = cv.height;
-      const sg = stains.getContext('2d');
-      sg.setTransform(DPR, 0, 0, DPR, 0, 0);
-      sg.textBaseline = 'top';
-      document.querySelectorAll('.note:not(.pencil), .ins, .co svg, .pen-ring, .strike').forEach(el => {
-        const r = el.getBoundingClientRect();
-        if (r.width < 2 || r.bottom < 0 || r.top > H || el.closest('[hidden]')) return;
-        const cls = el.getAttribute('class') || '';
-        let text = el.classList.contains('note') ? el.textContent.trim() : '';
-        let cs = getComputedStyle(el);
-        if (el.classList.contains('ins')) { const a = getComputedStyle(el, '::after'); text = el.textContent.trim() || (a.content || '').replace(/^["']|["']$/g, '').replace(/^none$/, ''); if (!el.textContent.trim()) cs = a; }
-        sg.save();
-        if (text) {
-          const size = parseFloat(cs.fontSize) || 20;
-          sg.font = cs.fontWeight + ' ' + size + 'px ' + cs.fontFamily;
-          sg.fillStyle = 'rgba(196,40,52,.62)'; sg.shadowColor = 'rgba(210,35,42,.55)'; sg.shadowBlur = 7;
-          sg.translate(r.left, r.top + 2); sg.rotate(-.026);
-          const lh = size * 1.3; let line = '', y = 0;
-          for (const w of text.split(/\s+/)) { const t = line ? line + ' ' + w : w; if (sg.measureText(t).width > r.width + 4 && line) { sg.fillText(line, 0, y); line = w; y += lh; } else line = t; }
-          sg.fillText(line, 0, y);
-        } else {
-          const strike = cls.includes('strike');
-          sg.shadowColor = 'rgba(210,35,42,.5)'; sg.shadowBlur = 10;
-          sg.beginPath(); sg.ellipse(r.left + r.width / 2, r.top + r.height * .55, r.width * .5, max(3, r.height * (strike ? .06 : .38)), 0, 0, TAU);
-          if (strike) { sg.fillStyle = 'rgba(210,35,42,.30)'; sg.fill(); } else { sg.lineWidth = 3; sg.strokeStyle = 'rgba(210,35,42,.4)'; sg.stroke(); }
-        }
-        sg.restore();
-      });
-      seed = 23;
-      const fibre = tile(t => {
-        t.lineCap = 'round';
-        for (let i = 0; i < 420; i++) {
-          const x0 = rnd() * 256, y0 = rnd() * 256, a = rnd() * PI, l = 4 + rnd() * 12;
-          t.strokeStyle = rnd() < .6 ? 'rgba(120,96,96,.07)' : 'rgba(255,255,255,.35)'; t.lineWidth = .6 + rnd() * .7;
-          wrap(x0, y0, l, (x, y) => { t.beginPath(); t.moveTo(x, y); t.lineTo(x + cos(a) * l, y + sin(a) * l); t.stroke(); });
-        }
-      });
-      const base = g.createLinearGradient(0, 0, 0, H);
-      base.addColorStop(0, '#F4EFE7'); base.addColorStop(1, '#ECE5DA');
-      const paint = (dy, soak, curl) => {
-        clear(); g.save(); g.translate(0, dy);
-        const shade = Math.min(1, Math.abs(dy) / 60) * .22 + curl * .18;
-        if (shade > .01) { const sh = g.createLinearGradient(0, H, 0, H + 46); sh.addColorStop(0, 'rgba(40,30,30,' + shade + ')'); sh.addColorStop(1, 'rgba(40,30,30,0)'); g.fillStyle = sh; g.fillRect(0, H, W, 46); }
-        g.fillStyle = base; g.fillRect(0, 0, W, H + 2);
-        g.fillStyle = fibre; g.fillRect(0, 0, W, H + 2);
-        if (soak > 0) { g.globalAlpha = soak; g.drawImage(stains, 0, 0, W, H); g.globalAlpha = 1; }
-        if (curl > 0) { const ch = 70 * curl, cg = g.createLinearGradient(0, H - ch, 0, H); cg.addColorStop(0, 'rgba(255,255,255,0)'); cg.addColorStop(.55, 'rgba(255,255,255,.55)'); cg.addColorStop(1, 'rgba(150,130,120,.35)'); g.fillStyle = cg; g.fillRect(0, H - ch, W, ch); }
-        g.restore();
-      };
-      await step(380, u => paint(-H * 1.04 * (1 - easeOut(u)), 0, 0));
-      await step(380, u => paint(0, easeOut(u), 0));
-      await swap();
-      await step(700, u => paint(-H * 1.08 * easeInOut(u), 1, min(1, u * 2.4)));
-    }
-
-    // GOD: one drop leaves the inkwell, floods the screen, and drains back in
-    async function ink() {
-      const b = modeSwitch && modeSwitch.querySelector('[data-mode="god"]');
-      const br = b ? b.getBoundingClientRect() : { left: W - 60, top: 20, width: 40, height: 26 };
-      const w = { x: br.left + br.width / 2, y: br.top + br.height / 2 }, hit = { x: W * .5, y: H * .48 };
-      const far = q => max(hypot(q.x, q.y), hypot(W - q.x, q.y), hypot(q.x, H - q.y), hypot(W - q.x, H - q.y)) * 1.08;
-      const blob = (cx, cy, R, t, k) => {
-        const n = Math.round(Math.max(72, Math.min(420, R / 5)));
-        g.beginPath();
-        for (let i = 0; i <= n; i++) {
-          const a = i / n * TAU, wob = 1 + k * (.07 * sin(5 * a + t * 3.1) + .045 * sin(9 * a - t * 4.3 + 1.3) + .03 * sin(15 * a + t * 6.7 + .4));
-          i ? g.lineTo(cx + cos(a) * R * wob, cy + sin(a) * R * wob) : g.moveTo(cx + cos(a) * R * wob, cy + sin(a) * R * wob);
-        }
-        g.closePath();
-      };
-      const inkFill = (cx, cy, R) => { const rg = g.createRadialGradient(cx, cy, 0, cx, cy, max(1, R)); rg.addColorStop(0, '#860C11'); rg.addColorStop(.7, '#B2171D'); rg.addColorStop(.965, '#C91F26'); rg.addColorStop(1, '#7E0C11'); return rg; };
-      seed = 5;
-      const drops = Array.from({ length: 9 }, (_, i) => ({ a: i / 9 * TAU + rnd() * .5, v: 120 + rnd() * 160, r: 2 + rnd() * 4 }));
-      await step(420, u => {
-        clear();
-        const x = w.x + (hit.x - w.x) * u, y = w.y + (hit.y - w.y) * u * u, st = 1 + 2 * u * .9;
-        g.save(); g.translate(x, y); g.rotate(Math.atan2((hit.y - w.y) * 2 * u, hit.x - w.x) - PI / 2);
-        g.fillStyle = '#D2232A';
-        g.beginPath(); g.ellipse(0, 0, 7, 7 * st, 0, 0, TAU); g.fill();
-        g.beginPath(); g.moveTo(-5, -4 * st); g.quadraticCurveTo(0, -18 * st, 0, -20 * st); g.quadraticCurveTo(0, -18 * st, 5, -4 * st); g.fill();
-        g.fillStyle = 'rgba(255,255,255,.45)'; g.beginPath(); g.ellipse(-2.4, -2, 1.6, 2.6 * st, 0, 0, TAU); g.fill();
-        g.restore();
-      });
-      const R1 = far(hit);
-      await step(560, u => {
-        clear();
-        const R = 6 + (R1 - 6) * easeOut(u);
-        blob(hit.x, hit.y, R, u * 2, 1 - u * .5); g.fillStyle = inkFill(hit.x, hit.y, R); g.fill();
-        if (u < .55) { g.fillStyle = '#C51D24'; for (const d of drops) { const sp = d.v * u; g.beginPath(); g.arc(hit.x + cos(d.a) * sp, hit.y + sin(d.a) * sp + 260 * u * u, d.r * (1 - u), 0, TAU); g.fill(); } }
-      });
-      clear(); g.fillStyle = inkFill(hit.x, hit.y, R1); g.fillRect(0, 0, W, H);
-      await swap();
-      await step(90, () => {});
-      const R2 = far(w);
-      await step(760, u => {
-        clear();
-        const R = max(0, R2 * (1 - easeInOut(u)));
-        if (R > .5) { blob(w.x, w.y, R, u * 2.5, 1); g.fillStyle = inkFill(w.x, w.y, R); g.fill(); g.lineWidth = 2.5; g.strokeStyle = 'rgba(120,10,15,.45)'; g.stroke(); }
-        if (u > .1) { blob(w.x, w.y, R2 * (1 - easeInOut(u - .1)), u * 2.5, 1); g.lineWidth = 1.2; g.strokeStyle = 'rgba(210,35,42,' + (.18 * (1 - u)) + ')'; g.stroke(); }
-      });
-    }
-
-    // reduced motion: a short paper fade instead
-    async function fadeOnly() {
-      await step(120, u => { clear(); g.fillStyle = 'rgba(251,251,249,' + u + ')'; g.fillRect(0, 0, W, H); });
-      await swap();
-      await step(180, u => { clear(); g.fillStyle = 'rgba(251,251,249,' + (1 - u) + ')'; g.fillRect(0, 0, W, H); });
-    }
-
-    document.body.append(cv);
-    try { await (reduce ? fadeOnly : next === 'page' ? cheese : next === 'dry' ? blotter : ink)(); }
-    finally { cv.remove(); if (fxJob === job) fxJob = null; }
   }
 
   // The switch: Dry, Page, God. The last one picked wins, even mid-transition.
@@ -385,7 +279,7 @@
         if (next === 'god') loadGod().catch(() => {});
         let failed = false;
         // everything inside happens under full cover, all at once
-        await modeFx(next, async () => {
+        await modeFx(prev, next, async () => {
           if (prev === 'god') {
             const god = window.TDTC_GOD;
             if (god) { try { await god.exit(godOpts({ animate: false, toast: () => {} })); } catch (e) {} }

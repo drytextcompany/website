@@ -50,7 +50,7 @@ PAGES = {
     "about": dict(
         file="about.html", path="/about", crumb="About",
         title="About | The Dry Text Co., a content agency in Ahmedabad",
-        desc="Four people in Ahmedabad who write the words brands get judged by, and build the websites those words live on. Meet the team and see how we work.",
+        desc="Six people in Ahmedabad who write the words brands get judged by, and build the websites those words live on. Meet the team and see how we work.",
     ),
     "contact": dict(
         file="contact.html", path="/contact", crumb="Hire the pen",
