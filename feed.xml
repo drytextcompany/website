@@ -6,7 +6,14 @@
   <atom:link href="https://www.thedrytextco.in/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Writing about writing, from a content agency in Ahmedabad. A new piece most mornings.</description>
   <language>en-IN</language>
-  <lastBuildDate>Sun, 25 Oct 2026 09:04:00 +0530</lastBuildDate>
+  <lastBuildDate>Mon, 26 Oct 2026 09:04:00 +0530</lastBuildDate>
+  <item>
+    <title>Brochures: does anyone read them, and what to put in the one they do</title>
+    <link>https://www.thedrytextco.in/longhand/brochures</link>
+    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/brochures</guid>
+    <description>Most brochures go in a drawer. The one that gets read is read by someone who wasn't in the meeting.</description>
+    <pubDate>Mon, 26 Oct 2026 09:04:00 +0530</pubDate>
+  </item>
   <item>
     <title>Should your website show prices?</title>
     <link>https://www.thedrytextco.in/longhand/should-your-website-show-prices</link>
@@ -174,13 +181,6 @@
     <guid isPermaLink="true">https://www.thedrytextco.in/longhand/nine-words-indian-brands-overuse</guid>
     <description>Seamless, curated, bespoke, passionate, and one whole sentence shape. Why they're there, and what to write instead.</description>
     <pubDate>Fri, 02 Oct 2026 09:04:00 +0530</pubDate>
-  </item>
-  <item>
-    <title>What a website should cost in India</title>
-    <link>https://www.thedrytextco.in/longhand/what-a-website-costs-in-india</link>
-    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/what-a-website-costs-in-india</guid>
-    <description>The real price bands, what moves a quote, and the line every budget forgets: the words on the pages.</description>
-    <pubDate>Thu, 01 Oct 2026 09:04:00 +0530</pubDate>
   </item>
 </channel>
 </rss>
