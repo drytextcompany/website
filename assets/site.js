@@ -117,7 +117,7 @@
     if (window.TDTC_GOD) return Promise.resolve(window.TDTC_GOD);
     if (godLoading) return godLoading;
     godLoading = new Promise((resolve, reject) => {
-      const ver = 'cacd17bb29';
+      const ver = '883203950e';
       const css = document.createElement('link');
       css.rel = 'stylesheet';
       css.href = '/assets/god.css?v=' + ver;
@@ -215,7 +215,8 @@
       const mo = new MutationObserver(() => { if (!root.classList.contains('intro')) { mo.disconnect(); setTimeout(start, 200); } });
       mo.observe(root, { attributes: true, attributeFilter: ['class'] });
     };
-    if (document.readyState === 'complete') afterIntro(); else addEventListener('load', afterIntro, { once: true });
+    // Start once the type has settled, not at the load event: analytics can hold that back for seconds
+    Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), wait(1200)]).then(afterIntro);
   }
 
   // Phone menu

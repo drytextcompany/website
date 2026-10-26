@@ -477,7 +477,7 @@ function wellPose(name) {
   if (name === 'rest') return { x: .66 * s, y: 21, a: -62 };
   return { x: .66 * s + 8.7, y: 26 * (1 - WL.L) - 2.5, a: -50 };
 }
-const dockPose = () => ({ x: .40 * WL.seg, y: -3, a: -8 });
+const dockPose = () => ({ x: .40 * WL.seg, y: 5, a: -6 }); // resting on the rim, inside the switch
 function postedCap(p) { const r = p.a * PI / 180, d = 150 * .14; return { x: p.x + d * cos(r), y: p.y + d * sin(r), a: p.a }; }
 function mountWell(L0, docked) {
   const sw0 = $('#modeSwitch'); if (!sw0) return;
