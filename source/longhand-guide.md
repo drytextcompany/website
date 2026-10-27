@@ -117,7 +117,7 @@ website costs; nine overused words.
 - [x] The small words on a website: buttons, error messages, empty states (website copy) (28 October 2026)
 - [x] Writing a price increase message customers don't leave over (words) (24 October 2026)
 - [x] The menu is copy: writing a cafe or restaurant menu people order from (words) (29 October 2026)
-- [ ] A company profile for a tender or vendor registration, without the mission statement (words)
+- [x] A company profile for a tender or vendor registration, without the mission statement (words) (30 October 2026)
 - [ ] Writing an event invitation people actually turn up to: the launch, the seminar, the webinar (words)
 - [ ] The back of the pack: what to write on the box after the ingredients (words)
 - [ ] The WhatsApp Business away message and quick replies, written so they don't sound like a machine (words)
