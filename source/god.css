@@ -2,7 +2,8 @@
 html.is-god .pen-ring{display:none}
 
 /* the inkwell, inside the switch */
-html.is-god.g-on .mode[data-mode="god"] .mode-bead{background:transparent;box-shadow:none}
+html.is-god.g-on:not(.g-hold) .mode[data-mode="god"] .mode-bead{background:transparent;box-shadow:none}
+html.g-hold :is(.g-well,.g-wellpen){opacity:0}
 html.is-god .g-well,html.is-god .g-wellpen{position:absolute;top:3px;left:calc(3px + 2 * var(--seg));width:var(--seg);height:26px;overflow:visible;pointer-events:none}
 html.is-god .g-well{z-index:0}
 html.is-god .g-wellpen{z-index:2}

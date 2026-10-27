@@ -117,7 +117,7 @@
     if (window.TDTC_GOD) return Promise.resolve(window.TDTC_GOD);
     if (godLoading) return godLoading;
     godLoading = new Promise((resolve, reject) => {
-      const ver = '392962ee41';
+      const ver = '4aac33937d';
       const css = document.createElement('link');
       css.rel = 'stylesheet';
       css.href = '/assets/god.css?v=' + ver;
@@ -137,7 +137,7 @@
     toast, store, wait, A,
     origin: (() => { const b = modeSwitch && modeSwitch.querySelector('[data-mode="god"]'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()
   }, extra);
-  async function godEnter(arriving) {
+  async function godEnter(arriving, hold) {
     root.classList.add('is-god');
     let god;
     try { god = await loadGod(); }
@@ -150,7 +150,7 @@
       return;
     }
     if (wanted !== 'god') return;
-    await god.enter(godOpts({ animate: !arriving && !reduce, arriving: !!arriving }));
+    await god.enter(godOpts({ animate: !arriving && !reduce, arriving: !!arriving, hold }));
   }
   async function godExit() {
     const god = window.TDTC_GOD;
@@ -163,18 +163,28 @@
   // and the new mode is already on the page underneath: forward (Dry, Page, God) turns from the right,
   // back turns from the left, and the top bar stays put like the cover. The turning page is the
   // browser's own snapshot of the old one, so nothing on the real page moves while it turns.
-  const MODE_TOAST = { page: 'Back to the page as written.', dry: 'Dry mode on. The jokes are on the last page.' };
+  // Going to God, the hero's red edits are the pen's to make: they fade off the turning page
+  // before the fold gets to them, and the page underneath arrives without them.
+  const GOD_TAKES = '.hero .strike, .hero .ins, .hero .co svg';
+  const MODE_TOAST = { page: 'Red mode on. The page as written.', dry: 'Dry mode on. The jokes are on the last page.' };
   const MODE_ORDER = { dry: 0, page: 1, god: 2 };
   let fxJob = null;
   addEventListener('pointerdown', e => { if (fxJob && !(modeSwitch && modeSwitch.contains(e.target))) fxJob.skip(); }, { passive: true });
   addEventListener('keydown', e => { if (fxJob && e.key === 'Escape') fxJob.skip(); });
   async function modeFx(from, next, swap) {
-    if (reduce || !document.startViewTransition) { await swap(); return; }
+    if (reduce || !document.startViewTransition) { await swap(false); return; }
     const forward = MODE_ORDER[next] > MODE_ORDER[from];
     const W = document.documentElement.clientWidth, H = document.documentElement.clientHeight;
     const bar = document.querySelector('.top');
     const top = bar ? Math.max(0, bar.getBoundingClientRect().bottom) : 0;
-    const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+    const DPR = Math.min(window.devicePixelRatio || 1, 1.5), DUR = 1150;
+    const takes = [];
+    if (next === 'god') document.querySelectorAll(GOD_TAKES).forEach(el => {
+      const rs = el.getClientRects(), r = rs[0];
+      if (rs.length !== 1 || !r.width || r.bottom <= top || r.top >= H || r.right <= 0 || r.left >= W) return;
+      el.style.viewTransitionName = 'mode-ink-' + takes.length;
+      takes.push({ el, r });
+    });
     // the back of the turning sheet and the shadow it throws are drawn here, live, above the snapshot
     const cv = document.createElement('canvas');
     cv.setAttribute('aria-hidden', 'true');
@@ -184,8 +194,9 @@
     g.setTransform(DPR, 0, 0, DPR, 0, 0);
     root.classList.add('turning');
     let vt;
-    try { vt = document.startViewTransition(async () => { await swap(); document.body.append(cv); }); }
-    catch (e) { root.classList.remove('turning'); cv.remove(); await swap(); return; }
+    const untake = () => takes.forEach(t => t.el.style.removeProperty('view-transition-name'));
+    try { vt = document.startViewTransition(async () => { await swap(true); document.body.append(cv); }); }
+    catch (e) { root.classList.remove('turning'); cv.remove(); untake(); await swap(false); return; }
     const job = fxJob = { skip: () => { try { vt.skipTransition(); } catch (e) {} } };
     const { PI, sin, min, max, hypot } = Math;
     const dot = (a, b) => a.x * b.x + a.y * b.y;
@@ -205,14 +216,26 @@
     const sheet = [{ x: 0, y: top }, { x: W, y: top }, { x: W, y: H }, { x: 0, y: H }];
     const C = forward ? { x: W, y: H } : { x: 0, y: H };   // the corner being lifted
     const reach = W * 2.05 + 60, h = H - top;
-    const draw = u => {
+    const fold = u => {
       const t = easeInOut(u);
       // the corner is carried in a low arc over to the far side; the fold is halfway between
       const Q = { x: forward ? W - reach * t : reach * t, y: H - h * .62 * sin(PI * t) - 24 * sin(PI * t) * sin(PI * t) };
       const len = hypot(Q.x - C.x, Q.y - C.y);
+      return len < .5 ? null : { len, n: { x: (Q.x - C.x) / len, y: (Q.y - C.y) / len }, M: { x: (C.x + Q.x) / 2, y: (C.y + Q.y) / 2 } };
+    };
+    // how far into the turn the fold first lifts any corner of a box
+    const reaches = r => {
+      for (let i = 1; i <= 48; i++) {
+        const f = fold(i / 48);
+        if (f && [[r.left, r.top], [r.right, r.top], [r.left, r.bottom], [r.right, r.bottom]].some(([x, y]) => (x - f.M.x) * f.n.x + (y - f.M.y) * f.n.y < 0)) return i / 48;
+      }
+      return 1;
+    };
+    const draw = u => {
+      const f = fold(u);
       g.clearRect(0, 0, W, H);
-      if (len < .5) { root.style.setProperty('--turn-clip', 'none'); return; }
-      const n = { x: (Q.x - C.x) / len, y: (Q.y - C.y) / len }, M = { x: (C.x + Q.x) / 2, y: (C.y + Q.y) / 2 };
+      if (!f) { root.style.setProperty('--turn-clip', 'none'); return; }
+      const { len, n, M } = f;
       // the old page shows only where it is still lying flat (the top bar is its own layer, above it)
       const flat = clipHalf(sheet, M, n, 1);
       root.style.setProperty('--turn-clip', flat.length > 2 ? 'polygon(' + flat.map(q => q.x.toFixed(1) + 'px ' + q.y.toFixed(1) + 'px').join(',') + ')' : 'polygon(0 0,0 0,0 0)');
@@ -236,7 +259,9 @@
     };
     try {
       await vt.ready;
-      const DUR = 1150;
+      takes.forEach((t, i) => root.animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: max(140, min(420, reaches(t.r) * DUR * .8)), easing: 'ease-out', fill: 'both', pseudoElement: '::view-transition-old(mode-ink-' + i + ')'
+      }));
       // keeps the transition open for the length of the turn; the frames below follow its clock exactly
       const clock = root.animate([{ opacity: 1 }, { opacity: 1 }], { duration: DUR, pseudoElement: '::view-transition-old(root)' });
       const frame = () => {
@@ -252,6 +277,7 @@
       root.classList.remove('turning');
       root.style.removeProperty('--turn-clip');
       cv.remove();
+      untake();
       if (fxJob === job) fxJob = null;
     }
   }
@@ -277,9 +303,10 @@
       while (mode !== wanted) {
         const next = wanted, prev = mode;
         if (next === 'god') loadGod().catch(() => {});
-        let failed = false;
+        let failed = false, entered = null, land;
+        const landed = new Promise(r => { land = r; });
         // everything inside happens under full cover, all at once
-        await modeFx(prev, next, async () => {
+        try { await modeFx(prev, next, async turning => {
           if (prev === 'god') {
             const god = window.TDTC_GOD;
             if (god) { try { await god.exit(godOpts({ animate: false, toast: () => {} })); } catch (e) {} }
@@ -292,11 +319,14 @@
             root.classList.add('is-god');
             try { await Promise.race([loadGod(), wait(3000).then(() => { throw new Error('slow'); })]); }
             catch (e) { root.classList.remove('is-god'); mode = wanted = 'page'; reflectMode('page'); store.set('siteMode', 'page'); failed = true; }
+            // God sets the page up under the turn; the pen waits for the page to land
+            if (!failed && turning && wanted === 'god') entered = godEnter(false, landed);
           }
           if (mode !== 'god' && root.classList.contains('hero-wait') && !root.classList.contains('intro')) playHero();
-        });
+        }); }
+        finally { land(wanted === 'god'); }
         if (failed) toast('God mode did not load. The page stays as written.');
-        else if (mode === 'god' && wanted === 'god') await godEnter(false); // the pen comes up out of the inkwell
+        else if (mode === 'god' && wanted === 'god') await (entered || godEnter(false)); // the pen comes up out of the inkwell
         else if (mode === next && MODE_TOAST[next]) toast(MODE_TOAST[next]);
       }
     } finally { moving = false; }

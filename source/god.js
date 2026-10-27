@@ -1265,7 +1265,7 @@ function mount() {
       const H = s.hero = { hero, name, txt: $('.hero-txt', hero) || name.parentElement, strike: $('.strike', hero), ins: $('.ins', hero), co: $('.co', hero) };
       const stack = $('.row > .note-stack', hero);
       if (stack) H.note = stack.appendChild(godNote(COPY.hero, 'hero'));
-      if (R.classList.contains('hero-wait')) { hero.classList.add('g-taken'); if (H.strike) H.strike.classList.add('g-unstruck'); if (H.ins) H.ins.classList.add('g-pend'); }
+      if (R.classList.contains('hero-wait') || O.hold) { hero.classList.add('g-taken'); if (H.strike) H.strike.classList.add('g-unstruck'); if (H.ins) H.ins.classList.add('g-pend'); }
     }
     const does = $('#does');
     if (does && $$('.w', does).length > 1) s.gloss = makeGloss(does);
@@ -1386,7 +1386,7 @@ function teardown() {
   $$('.' + cls.join(',.')).forEach(e => e.classList.remove.apply(e.classList, cls));
   $$('.note, .ins').forEach(e => { e.style.clipPath = ''; e.style.animationDelay = ''; });
   $$('#does .w').forEach(w => { w.style.removeProperty('--g-wash'); w.style.removeProperty('--g-gink'); });
-  R.classList.remove('g-on', 'g-nib', 'g-reduce', 'g-exit', 'g-erase', 'g-armed');
+  R.classList.remove('g-on', 'g-nib', 'g-reduce', 'g-exit', 'g-erase', 'g-armed', 'g-hold');
   Object.assign(P, { el: null, sh: null, inkEl: null, out: false, dirty: false, state: 'well' });
   Object.assign(WL, { svg: null, wp: null, pen: null, cap: null, clip: null, inkg: null, rip: null, drop: null, dirty: false });
   S = null;
@@ -1406,7 +1406,11 @@ async function enter(opts) {
     const g = gen;
     if (O.reduce) { O.toast(COPY.onReduce); startDirector(); return; }
     if (O.animate && WL.svg) {
-      (async () => { try { await uncap(); if (g === gen) startDirector(); } catch (e) { if (e !== CANCEL) { errors++; if (g === gen) { handOut(); startDirector(); } } } })();
+      // set up under a page turn: the switch keeps its bead and the inkwell stays out of sight until the page has landed
+      if (O.hold) R.classList.add('g-hold');
+      (async () => { try {
+        if (O.hold) { const go = await O.hold; R.classList.remove('g-hold'); if (g !== gen || !go) return; }
+        await uncap(); if (g === gen) startDirector(); } catch (e) { if (e !== CANCEL) { errors++; if (g === gen) { handOut(); startDirector(); } } } })();
     } else { if (O.animate) O.toast(COPY.on); startDirector(); }
   } catch (e) { errors++; }
 }

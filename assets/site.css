@@ -45,7 +45,7 @@ html.intro .brand,html.intro main,html.intro .foot{opacity:0}
 .hire-link svg{position:absolute;left:-8px;top:-7px;width:calc(100% + 16px);height:calc(100% + 14px);overflow:visible;pointer-events:none}
 .hire-link path{fill:none;stroke:var(--red);stroke-width:2.2;stroke-linecap:round;vector-effect:non-scaling-stroke;transform-origin:center;transition:transform .3s}
 .hire-link:hover path{transform:rotate(-2deg) scale(1.03)}
-/* the three ways to read the site: Dry, Page (as written) and God. A bead slides to the one you pick. */
+/* the three ways to read the site: Dry, Red (as written) and God. A bead slides to the one you pick. */
 .mode{--seg:42px;position:relative;display:grid;grid-template-columns:repeat(3,var(--seg));flex:none;padding:3px;border-radius:99px;background:#EEECE6;box-shadow:inset 0 0 0 1px var(--rule)}
 .mode button{position:relative;z-index:1;height:26px;padding:0;border:0;background:none;border-radius:99px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--grey);cursor:pointer;transition:color .3s}
 .mode button[aria-checked="true"]{color:var(--paper)}
