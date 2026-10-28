@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing buttons, error messages and empty states | The Dry Text Co.</title>
+<meta name="description" content="Buttons, error messages and empty pages get written last, by whoever is building the site. They are read at the moment someone decides to stay or leave.">
+<meta name="theme-color" content="#FBFBF9">
+<link rel="alternate" type="application/rss+xml" title="Longhand | The Dry Text Co." href="/feed.xml">
+<link rel="canonical" href="https://www.thedrytextco.in/longhand/buttons-error-messages-empty-states">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.thedrytextco.in/longhand/buttons-error-messages-empty-states">
+<meta property="og:site_name" content="The Dry Text Co.">
+<meta property="og:title" content="Writing buttons, error messages and empty states | The Dry Text Co.">
+<meta property="og:description" content="Buttons, error messages and empty pages get written last, by whoever is building the site. They are read at the moment someone decides to stay or leave.">
+<meta property="og:image" content="https://www.thedrytextco.in/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GH7FLZX4QP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GH7FLZX4QP');
+</script>
+<!-- icons come from real files, added by build.py -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Kalam:wght@400;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+Gujarati:wght@400;500&display=swap">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="/favicon.png" sizes="96x96">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/site.css">
+<script>
+(function (d) {
+  var isHome = false;
+  var r = d.documentElement, mm = window.matchMedia, still = mm && mm('(prefers-reduced-motion: reduce)').matches, seen = false;
+  var mode = 'page';
+  try { mode = localStorage.getItem('siteMode') || (localStorage.getItem('dryMode') === '1' ? 'dry' : 'page'); } catch (e) {}
+  if (mode === 'dry') r.classList.add('is-dry');
+  else if (mode === 'god') r.classList.add('is-god');
+  try { seen = sessionStorage.getItem('introSeen') === '1'; } catch (e) {}
+  if (/[?&]nointro\b/.test(location.search)) seen = true;
+  if (!still) {
+    r.classList.add('ink', 'hero-wait');
+    if (isHome && !seen && !r.classList.contains('is-dry')) r.classList.add('intro');
+    setTimeout(function () { if (!window.__inkReady) r.classList.remove('ink', 'hero-wait', 'intro'); }, 4000);
+  }
+  if (mm && mm('(hover: hover) and (pointer: fine)').matches) r.classList.add('cur');
+})(document);
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.thedrytextco.in/#org","name":"The Dry Text Co.","alternateName":["Dry Text Co.","The Dry Text Company","Dry Text","DryText","thedrytextco"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.thedrytextco.in/"},{"@type":"ListItem","position":2,"name":"Longhand","item":"https://www.thedrytextco.in/longhand"},{"@type":"ListItem","position":3,"name":"The small words","item":"https://www.thedrytextco.in/longhand/buttons-error-messages-empty-states"}]},{"@type":"BlogPosting","headline":"The small words on a website: buttons, error messages, empty states","description":"Buttons, error messages and empty pages get written last, by whoever is building the site. They are read at the moment someone decides to stay or leave.","url":"https://www.thedrytextco.in/longhand/buttons-error-messages-empty-states","datePublished":"2026-10-28","dateModified":"2026-10-28","author":{"@type":"Person","name":"Granth Hirapara"},"publisher":{"@id":"https://www.thedrytextco.in/#org"},"image":"https://www.thedrytextco.in/og-image.png","inLanguage":"en-IN","isPartOf":{"@type":"Blog","@id":"https://www.thedrytextco.in/longhand","url":"https://www.thedrytextco.in/longhand","name":"Longhand"}}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="/" data-nav="home">The Dry Text Co.</a>
+    <div class="nav-wrap" id="navWrap">
+      <nav class="nav" aria-label="Main">
+        <a href="/work" data-nav="work">Work</a>
+        <a href="/services" data-nav="services">Services</a>
+        <a href="/self-published" data-nav="self-published">Self-published</a>
+        <a href="/about" data-nav="about">About</a>
+        <a href="/longhand" aria-current="page" data-nav="longhand">Longhand</a>
+      </nav>
+      <a class="hire-link" href="/contact" data-nav="contact"><svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M24 34C18 10 176 4 188 26C198 50 34 60 12 38C4 28 34 12 74 9"/></svg>Hire the pen</a>
+    </div>
+    <div class="mode" id="modeSwitch" role="radiogroup" aria-label="How the site reads" data-mode="page">
+      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="dry" title="Dry: for clients here for business, not banter.">Dry</button>
+      <button type="button" role="radio" aria-checked="true" tabindex="0" data-mode="page" title="Red: the red pen, as written.">Red</button>
+      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="god" title="God: the ink never dries.">God</button>
+      <span class="mode-bead" aria-hidden="true"></span>
+    </div>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navWrap">Menu</button>
+  </div>
+</header>
+<main id="main">
+<div class="page" data-page="longhand-buttons-error-messages-empty-states">
+<div class="book">
+  <header class="page-head row">
+    <div>
+      <p class="eyebrow">Longhand &middot; website copy</p>
+      <h1 class="h1" tabindex="-1" data-reveal>The small words on your website are doing the selling.</h1>
+      <p class="lede">The headline gets three meetings. The button under it gets whatever the developer typed at two in the morning. Here is how to write the words people read just before they act, or just before they give up.</p>
+      <p class="nt-meta"><span>Granth Hirapara</span><span>28 October 2026</span><span>6 minute read</span></p>
+    </div>
+    <p class="note">every website has a button that says submit. nobody has ever wanted to submit.</p>
+  </header>
+
+  <section class="sec" aria-labelledby="sw-1">
+    <div class="row"><div class="prose">
+      <p>Look at the last website your company approved. Someone read the homepage headline aloud in a meeting. Someone argued about the About page. Nobody, at any point, discussed the words on the buttons, the message that appears when a form goes wrong, or the page a customer sees when their cart is empty. Those got written by whoever was building the site, on the day they built it, in the words their software suggested.</p>
+      <p>They are also the words read at the exact moment a visitor decides something. A headline is read by someone browsing. A button is read by someone about to act.</p>
+
+      <h2 id="sw-1">Buttons say what happens next</h2>
+      <p>&ldquo;Submit.&rdquo; &ldquo;Click here.&rdquo; &ldquo;Learn more.&rdquo; &ldquo;Get started.&rdquo; Each of these is a button that tells the reader nothing about what it does. Submit what, to whom? Get started on what, and will it ask for my card?</p>
+      <p>A good button finishes the sentence &ldquo;I want to...&rdquo; in the reader's words. &ldquo;Book a cleaning.&rdquo; &ldquo;Get the price list.&rdquo; &ldquo;Send my details.&rdquo; &ldquo;Call the clinic.&rdquo; The test is simple: read the button alone, with the rest of the page covered. If someone could tell you what will happen when they press it, it works.</p>
+      <p>Our own contact form ends with a button that says &ldquo;Send on WhatsApp&rdquo;, and next to it, &ldquo;Send by email instead&rdquo;. That is two buttons telling you exactly where your message is going. It also tells the person who would rather not use WhatsApp that they don't have to, before they leave to find our email address.</p>
+      <ul>
+        <li><b>Start with a verb.</b> The reader is about to do something; tell them what.</li>
+        <li><b>Name the thing.</b> &ldquo;Download&rdquo; is half a button. &ldquo;Download the menu&rdquo; is a whole one.</li>
+        <li><b>Say the cost if there is one.</b> &ldquo;Pay &#8377;499&rdquo; is clearer than &ldquo;Proceed&rdquo;, and nobody feels tricked afterwards.</li>
+        <li><b>One main button per screen.</b> Three equal buttons is a quiz.</li>
+      </ul>
+
+      <h2>Error messages are written to the wrong person</h2>
+      <p>&ldquo;Invalid input.&rdquo; &ldquo;Error 500.&rdquo; &ldquo;Oops, something went wrong.&rdquo; The first two are written for the developer. The third is written for nobody, and its cheerful &ldquo;oops&rdquo; lands on a customer who has just lost the ten minutes they spent filling in a form.</p>
+      <p>A useful error message does three things: says what went wrong, in plain words, says how to fix it, and does not blame the reader. &ldquo;Invalid phone number&rdquo; becomes &ldquo;That number looks short. Indian mobile numbers have 10 digits.&rdquo; &ldquo;Payment failed&rdquo; becomes &ldquo;Your bank didn't approve this payment. No money has left your account. Try again, or pay by UPI.&rdquo;</p>
+      <p class="pull">An error message is read by someone who is already annoyed. Tell them what happened, what to do, and that the money is safe.</p>
+      <p>That last part matters more than it looks. A customer whose payment fails is not wondering about your server. They are wondering whether &#8377;2,300 just disappeared. Answer that first.</p>
+
+      <h2>The empty page is an invitation</h2>
+      <p>Every website and app has screens that are sometimes empty: the cart before anything is added, the order history of a new customer, the search that found nothing. Most of them say &ldquo;No items found&rdquo; and stop, which is the digital equivalent of a shopkeeper shrugging.</p>
+      <p>An empty state is the one moment you know exactly what the reader wants, because they just told you by arriving there. The empty cart can show this week's three most ordered things. The search that found nothing can say &ldquo;Nothing for &lsquo;steel almirah&rsquo;. Try &lsquo;cupboard&rsquo;, or WhatsApp us and we'll check the godown.&rdquo; The new customer's order page can say what their first order will look like, and where to start.</p>
+      <p>The page not found deserves the same care. Ours says &ldquo;This page didn't survive the edit,&rdquo; then offers two ways out: back to the homepage, or to the work. A joke is optional. The ways out are not.</p>
+
+      <h2>The words around a form</h2>
+      <p>Labels, hints and the line under the field are copy too. &ldquo;Name&rdquo; is fine. &ldquo;Enter your full name as per PAN card&rdquo; is better, if that is what you actually need, because it saves a rejected application a week later. Say why you want the phone number, and if you will call it. Say how long the form takes, if it is long. A reader who knows the form has six questions finishes it. A reader who doesn't scrolls, sees twenty fields and leaves.</p>
+      <p>The same goes for the message after the form is sent. &ldquo;Thank you for your submission&rdquo; is a receipt. &ldquo;Got it. We'll reply on WhatsApp by tomorrow evening&rdquo; is a promise, and the reader can stop wondering. Our piece on the <a href="/longhand/contact-page">Contact page</a> covers the rest of that page.</p>
+
+      <h2>Do this on your site this week</h2>
+      <p>Open your website on your phone and try to break it. Press every button and write down what each one says. Fill the form with a wrong phone number and read the error. Search for something you don't sell. Add nothing to the cart and open it. Then rewrite each of those small lines so it says what happens next, in the reader's words. It is an afternoon of work, and it is the copy closest to the money. If your headline still needs the same treatment, start with <a href="/longhand/homepage-headline">the one job it has</a>.</p>
+    </div></div>
+  </section>
+
+  <section class="sec" aria-labelledby="sw-cta">
+    <div class="row"><div><h2 class="h2" id="sw-cta">Every button on your site says submit?</h2><div class="ctas"><a class="btn" href="/contact">Hire the pen</a><a class="pen-link" href="/services/website-content">See what a page costs</a></div></div></div>
+  </section>
+<section class="sec nx" aria-labelledby="nx-h"><div class="row sec-head"><div><p class="eyebrow">Read next</p><h2 class="h2" id="nx-h">More Longhand.</h2></div></div><div class="row"><ul class="nx-list"><li><a href="/longhand/what-a-website-costs-in-india"><span class="nx-t">What a website should cost in India</span><span class="nx-b">The real price bands, what moves a quote, and the line every budget forgets: the words on the pages.</span></a></li><li><a href="/longhand/google-business-profile-description"><span class="nx-t">The paragraph on your Google listing, and how to write it</span><span class="nx-b">The paragraph on your Google listing, read by people about to call. What to put in it, and what to leave out.</span></a></li><li><a href="/longhand/price-increase-message"><span class="nx-t">Writing a price increase message customers don't leave over</span><span class="nx-b">Most price increase messages apologise for a paragraph and hide the number. Put the number first.</span></a></li><li><a href="/longhand/contact-page"><span class="nx-t">The Contact page: the last page before money, and the least written</span><span class="nx-b">The page where a visitor decides to spend money is usually a form and a map. What to write there instead.</span></a></li><li><a href="/longhand/writing-a-hoarding"><span class="nx-t">Writing a hoarding: seven words at sixty kilometres an hour</span><span class="nx-b">A hoarding gets one glance from someone driving at sixty. Seven words is plenty. Here is what to cut.</span></a></li><li><a href="/longhand/email-subject-lines"><span class="nx-t">Email subject lines that get opened without lying</span><span class="nx-b">Fake Re:, false Urgent, a quick question that isn't. How to get the open without the small lie.</span></a></li></ul></div></section></div>
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-tag only-wet">Don't go by the name, cuz we cheesy.</p>
+    <p class="foot-joke only-wet">Proofread seven times. Typos found: probably one.</p>
+    <nav class="foot-links" aria-label="Elsewhere">
+      <a href="/brand">Brand kit</a>
+      <a href="https://www.instagram.com/thedrytextco/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.linkedin.com/company/the-dry-text-co/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:info@thedrytextco.in">Email</a>
+      <a href="https://wa.me/917016227880" target="_blank" rel="noopener">WhatsApp</a>
+    </nav>
+    <p class="copy">&copy; <span id="yr">2026</span> The Dry Text Co., Ahmedabad</p>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="dock" id="dock" hidden>
+  <div class="dock-menu" id="dockMenu" hidden>
+    <button type="button" id="notesPdf">Download as PDF</button>
+    <a id="notesSend" href="https://wa.me/917016227880" target="_blank" rel="noopener">Send them to us</a>
+    <button type="button" id="notesClear">Clear all comments</button>
+    <p>Your comments stay in this browser. Nothing leaves it unless you send it.</p>
+  </div>
+  <button class="dock-btn" id="dockBtn" type="button" aria-expanded="false" aria-controls="dockMenu">&#9998; <span id="dockCount">0 comments</span></button>
+</div>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
