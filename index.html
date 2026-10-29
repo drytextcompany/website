@@ -39,8 +39,8 @@
   var r = d.documentElement, mm = window.matchMedia, still = mm && mm('(prefers-reduced-motion: reduce)').matches, seen = false;
   var mode = 'page';
   try { mode = localStorage.getItem('siteMode') || (localStorage.getItem('dryMode') === '1' ? 'dry' : 'page'); } catch (e) {}
+  // God mode is parked for now: anyone who left the site in it comes back to the page as written
   if (mode === 'dry') r.classList.add('is-dry');
-  else if (mode === 'god') r.classList.add('is-god');
   try { seen = sessionStorage.getItem('introSeen') === '1'; } catch (e) {}
   if (/[?&]nointro\b/.test(location.search)) seen = true;
   if (!still) {
@@ -72,12 +72,7 @@
       </nav>
       <a class="hire-link" href="/contact" data-nav="contact"><svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M24 34C18 10 176 4 188 26C198 50 34 60 12 38C4 28 34 12 74 9"/></svg>Hire the pen</a>
     </div>
-    <div class="mode" id="modeSwitch" role="radiogroup" aria-label="How the site reads" data-mode="page">
-      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="dry" title="Dry: for clients here for business, not banter.">Dry</button>
-      <button type="button" role="radio" aria-checked="true" tabindex="0" data-mode="page" title="Red: the red pen, as written.">Red</button>
-      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="god" title="God: the ink never dries.">God</button>
-      <span class="mode-bead" aria-hidden="true"></span>
-    </div>
+    <button class="dry-toggle" id="dryToggle" type="button" aria-pressed="false" aria-label="Dry mode" title="For clients here for business, not banter."><span class="sw" aria-hidden="true"></span><span class="lbl" aria-hidden="true">Dry<span class="lbl-x"> mode</span></span></button>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navWrap">Menu</button>
   </div>
 </header>

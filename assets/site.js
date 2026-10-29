@@ -135,7 +135,7 @@
   const godOpts = extra => Object.assign({
     reduce: matchMedia('(prefers-reduced-motion: reduce)').matches,
     toast, store, wait, A,
-    origin: (() => { const b = modeSwitch && modeSwitch.querySelector('[data-mode="god"]'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()
+    origin: (() => { const b = document.querySelector('#modeSwitch [data-mode="god"]'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()
   }, extra);
   async function godEnter(arriving, hold) {
     root.classList.add('is-god');
@@ -166,10 +166,10 @@
   // Going to God, the hero's red edits are the pen's to make: they fade off the turning page
   // before the fold gets to them, and the page underneath arrives without them.
   const GOD_TAKES = '.hero .strike, .hero .ins, .hero .co svg';
-  const MODE_TOAST = { page: 'Red mode on. The page as written.', dry: 'Dry mode on. The jokes are on the last page.' };
+  const MODE_TOAST = { page: 'Jokes are back. They missed you.', dry: 'Dry mode on. The jokes are on the last page.' };
   const MODE_ORDER = { dry: 0, page: 1, god: 2 };
   let fxJob = null;
-  addEventListener('pointerdown', e => { if (fxJob && !(modeSwitch && modeSwitch.contains(e.target))) fxJob.skip(); }, { passive: true });
+  addEventListener('pointerdown', e => { if (fxJob && !(dryBtn && dryBtn.contains(e.target))) fxJob.skip(); }, { passive: true });
   addEventListener('keydown', e => { if (fxJob && e.key === 'Escape') fxJob.skip(); });
   async function modeFx(from, next, swap) {
     if (reduce || !document.startViewTransition) { await swap(false); return; }
@@ -282,16 +282,15 @@
     }
   }
 
-  // The switch: Dry, Page, God. The last one picked wins, even mid-transition.
-  const modeSwitch = document.getElementById('modeSwitch');
-  const modeRadios = modeSwitch ? [...modeSwitch.querySelectorAll('[role="radio"]')] : [];
-  let mode = root.classList.contains('is-dry') ? 'dry' : root.classList.contains('is-god') ? 'god' : 'page';
+  // The Dry toggle. The last press wins, even mid-transition. God mode is parked: its files still
+  // build and its paths below still work, but nothing on the page offers it.
+  const dryBtn = document.getElementById('dryToggle');
+  let mode = root.classList.contains('is-dry') ? 'dry' : 'page';
   let wanted = mode, moving = false;
   function reflectMode(m) {
-    if (!modeSwitch) return;
-    modeSwitch.dataset.ready = '1';
-    modeSwitch.dataset.mode = m;
-    modeRadios.forEach(r => { const on = r.dataset.mode === m; r.setAttribute('aria-checked', on ? 'true' : 'false'); r.tabIndex = on ? 0 : -1; });
+    if (!dryBtn) return;
+    dryBtn.dataset.ready = '1';
+    dryBtn.setAttribute('aria-pressed', m === 'dry' ? 'true' : 'false');
   }
   async function goMode(m) {
     wanted = m;
@@ -332,24 +331,7 @@
     } finally { moving = false; }
   }
   reflectMode(mode);
-  modeRadios.forEach(r => {
-    r.addEventListener('click', () => goMode(r.dataset.mode));
-    if (r.dataset.mode === 'god') {
-      // start fetching the moment someone heads for it
-      const warm = () => { loadGod().catch(() => {}); };
-      r.addEventListener('pointerenter', warm, { once: true });
-      r.addEventListener('focus', warm, { once: true });
-    }
-  });
-  if (modeSwitch) modeSwitch.addEventListener('keydown', e => {
-    const keys = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
-    if (!(e.key in keys) && e.key !== 'Home' && e.key !== 'End') return;
-    e.preventDefault();
-    const i = modeRadios.findIndex(r => r.dataset.mode === wanted);
-    const n = e.key === 'Home' ? 0 : e.key === 'End' ? modeRadios.length - 1 : (i + keys[e.key] + modeRadios.length) % modeRadios.length;
-    modeRadios[n].focus();
-    goMode(modeRadios[n].dataset.mode);
-  });
+  if (dryBtn) dryBtn.addEventListener('click', () => goMode(wanted === 'dry' ? 'page' : 'dry'));
   // Arriving in God mode: wait for the opening and the first paint, then let the ink in
   if (mode === 'god') {
     loadGod().catch(() => {});
