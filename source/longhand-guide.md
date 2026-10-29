@@ -119,7 +119,7 @@ website costs; nine overused words.
 - [x] The menu is copy: writing a cafe or restaurant menu people order from (words) (29 October 2026)
 - [x] A company profile for a tender or vendor registration, without the mission statement (words) (30 October 2026)
 - [x] Writing an event invitation people actually turn up to: the launch, the seminar, the webinar (words) (31 October 2026)
-- [ ] The back of the pack: what to write on the box after the ingredients (words)
+- [x] The back of the pack: what to write on the box after the ingredients (words) (1 November 2026)
 - [ ] The WhatsApp Business away message and quick replies, written so they don't sound like a machine (words)
 - [ ] The line under your name on LinkedIn: what a founder's headline should say (ghostwriting)
 - [ ] Writing a Reel script: the first two seconds, and what to say in the rest (social)
