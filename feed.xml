@@ -6,7 +6,14 @@
   <atom:link href="https://www.thedrytextco.in/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Writing about writing, from a content agency in Ahmedabad. A new piece most mornings.</description>
   <language>en-IN</language>
-  <lastBuildDate>Thu, 29 Oct 2026 09:04:00 +0530</lastBuildDate>
+  <lastBuildDate>Fri, 30 Oct 2026 09:04:00 +0530</lastBuildDate>
+  <item>
+    <title>A company profile for a tender, without the mission statement</title>
+    <link>https://www.thedrytextco.in/longhand/company-profile-for-a-tender</link>
+    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/company-profile-for-a-tender</guid>
+    <description>A tender profile is read by a committee with a checklist. Write it for the checklist.</description>
+    <pubDate>Fri, 30 Oct 2026 09:04:00 +0530</pubDate>
+  </item>
   <item>
     <title>The menu is copy: writing a cafe or restaurant menu people order from</title>
     <link>https://www.thedrytextco.in/longhand/writing-a-menu</link>
@@ -174,13 +181,6 @@
     <guid isPermaLink="true">https://www.thedrytextco.in/longhand/how-to-give-feedback-on-a-draft</guid>
     <description>Most second drafts miss because the feedback described a feeling, not a fix. What to write in the margin instead.</description>
     <pubDate>Tue, 06 Oct 2026 09:04:00 +0530</pubDate>
-  </item>
-  <item>
-    <title>Copywriter or content writer: which one you actually need</title>
-    <link>https://www.thedrytextco.in/longhand/copywriter-or-content-writer</link>
-    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/copywriter-or-content-writer</guid>
-    <description>Used as if they were one job. What each one is for, and how to tell which your project needs.</description>
-    <pubDate>Mon, 05 Oct 2026 09:04:00 +0530</pubDate>
   </item>
 </channel>
 </rss>
