@@ -121,7 +121,7 @@ website costs; nine overused words.
 - [x] Writing an event invitation people actually turn up to: the launch, the seminar, the webinar (words) (31 October 2026)
 - [x] The back of the pack: what to write on the box after the ingredients (words) (1 November 2026)
 - [x] The WhatsApp Business away message and quick replies, written so they don't sound like a machine (words) (2 November 2026)
-- [ ] The line under your name on LinkedIn: what a founder's headline should say (ghostwriting)
+- [x] The line under your name on LinkedIn: what a founder's headline should say (ghostwriting) (5 November 2026)
 - [ ] Writing a Reel script: the first two seconds, and what to say in the rest (social)
 - [ ] Naming your service packages so customers can tell them apart (website copy)
 - [ ] Writing an apology to a customer when you got it wrong (words)
