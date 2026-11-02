@@ -6,7 +6,28 @@
   <atom:link href="https://www.thedrytextco.in/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Writing about writing, from a content agency in Ahmedabad. A new piece most mornings.</description>
   <language>en-IN</language>
-  <lastBuildDate>Fri, 30 Oct 2026 09:04:00 +0530</lastBuildDate>
+  <lastBuildDate>Mon, 02 Nov 2026 09:04:00 +0530</lastBuildDate>
+  <item>
+    <title>The WhatsApp away message, and quick replies that don't sound like a machine</title>
+    <link>https://www.thedrytextco.in/longhand/whatsapp-business-away-message</link>
+    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/whatsapp-business-away-message</guid>
+    <description>Written once, sent for years. How to write the away message, the greeting and the quick replies.</description>
+    <pubDate>Mon, 02 Nov 2026 09:04:00 +0530</pubDate>
+  </item>
+  <item>
+    <title>The back of the pack: what to write after the ingredients</title>
+    <link>https://www.thedrytextco.in/longhand/back-of-the-pack</link>
+    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/back-of-the-pack</guid>
+    <description>After the legal declarations, a small panel is left on the pack. What to write in it.</description>
+    <pubDate>Sun, 01 Nov 2026 09:04:00 +0530</pubDate>
+  </item>
+  <item>
+    <title>Writing an event invitation people actually turn up to</title>
+    <link>https://www.thedrytextco.in/longhand/event-invitation</link>
+    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/event-invitation</guid>
+    <description>Most invitations get a thumbs up and an empty chair. How to write one people turn up to.</description>
+    <pubDate>Sat, 31 Oct 2026 09:04:00 +0530</pubDate>
+  </item>
   <item>
     <title>A company profile for a tender, without the mission statement</title>
     <link>https://www.thedrytextco.in/longhand/company-profile-for-a-tender</link>
@@ -160,27 +181,6 @@
     <guid isPermaLink="true">https://www.thedrytextco.in/longhand/how-to-ask-for-a-testimonial</guid>
     <description>Most testimonials persuade nobody. The four questions to ask a customer instead, and when.</description>
     <pubDate>Fri, 09 Oct 2026 09:04:00 +0530</pubDate>
-  </item>
-  <item>
-    <title>The paragraph on your Google listing, and how to write it</title>
-    <link>https://www.thedrytextco.in/longhand/google-business-profile-description</link>
-    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/google-business-profile-description</guid>
-    <description>The paragraph on your Google listing, read by people about to call. What to put in it, and what to leave out.</description>
-    <pubDate>Thu, 08 Oct 2026 09:04:00 +0530</pubDate>
-  </item>
-  <item>
-    <title>How long an Instagram caption should be</title>
-    <link>https://www.thedrytextco.in/longhand/how-long-an-instagram-caption-should-be</link>
-    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/how-long-an-instagram-caption-should-be</guid>
-    <description>Instagram shows a line or two, then hides the rest. How long a caption should be, post by post.</description>
-    <pubDate>Wed, 07 Oct 2026 09:04:00 +0530</pubDate>
-  </item>
-  <item>
-    <title>How to give feedback on a draft, so round two is the last</title>
-    <link>https://www.thedrytextco.in/longhand/how-to-give-feedback-on-a-draft</link>
-    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/how-to-give-feedback-on-a-draft</guid>
-    <description>Most second drafts miss because the feedback described a feeling, not a fix. What to write in the margin instead.</description>
-    <pubDate>Tue, 06 Oct 2026 09:04:00 +0530</pubDate>
   </item>
 </channel>
 </rss>

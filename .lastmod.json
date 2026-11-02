@@ -16,56 +16,64 @@
   "hash": "f4f8fcdf1a159fe3c9198e0cedbfb261bfef996a"
  },
  "/longhand": {
-  "date": "2026-10-30",
-  "hash": "26ad80a53bcfe9cca77ffc263b18c8d3cd3135d9"
+  "date": "2026-11-02",
+  "hash": "d353b07f13e260ab77dfc59a8a1cf3fe07306af8"
  },
  "/longhand/27-cold-mails-and-what-wed-change": {
-  "date": "2026-10-29",
-  "hash": "e488b42bf8546184d95d841cab738c775a8614a5"
+  "date": "2026-11-02",
+  "hash": "a766aba7bb220918a62fb3eaffbf8eb89074655a"
+ },
+ "/longhand/back-of-the-pack": {
+  "date": "2026-11-02",
+  "hash": "1c6a102b1aee03fe3a84062cc25497416acd72a2"
  },
  "/longhand/brochures": {
   "date": "2026-10-30",
   "hash": "1b8f31b3b9300f0e54cd87ead1603cdc1509a294"
  },
  "/longhand/buttons-error-messages-empty-states": {
-  "date": "2026-10-29",
-  "hash": "b84f9e9ea546716b5e382288344501a78384e8a2"
+  "date": "2026-11-02",
+  "hash": "6bbecbb339435220831a7cf5ff35cf737779d0e3"
  },
  "/longhand/case-study-without-naming-the-client": {
-  "date": "2026-10-30",
-  "hash": "3b95541424df96e38dd7b16a0c8e091524a70d94"
+  "date": "2026-11-02",
+  "hash": "fe278bba7d8166fd433600da314530078352c2ea"
  },
  "/longhand/cold-mail-first-line": {
-  "date": "2026-10-29",
-  "hash": "7a306d9ff3bc3b51dd10f9890b45be256a7b1946"
+  "date": "2026-11-02",
+  "hash": "210a4ff729bc2547938378e84ff9211d11047ab0"
  },
  "/longhand/company-page-or-founder-profile": {
   "date": "2026-10-30",
   "hash": "725c6a153534ed90e12664b4dd6ea2ddecfcafa1"
  },
  "/longhand/company-profile-for-a-tender": {
-  "date": "2026-10-30",
-  "hash": "0d98761f7b6f968394bbcf63960c1f3afa4d8ceb"
+  "date": "2026-11-02",
+  "hash": "7366367f43b11ed22171d568e3efdfb642a51248"
  },
  "/longhand/contact-page": {
-  "date": "2026-10-30",
-  "hash": "faf549dc4ef059d03bb649c1ea5b182ed9e916ab"
+  "date": "2026-11-02",
+  "hash": "bc260415011680646dc8378aabf955cf5074200a"
  },
  "/longhand/copy-that-sounds-nervous": {
-  "date": "2026-10-29",
-  "hash": "d5cf3e5b4684bbfded29fd9982bd4de84fc100b8"
+  "date": "2026-11-02",
+  "hash": "ad4b0d53ccfa83c60fcd7e6396c1ce307d749af3"
  },
  "/longhand/copywriter-or-content-writer": {
-  "date": "2026-10-29",
-  "hash": "0b3b9fe347b4ebbf18f1e43f3902cad0a9c402d3"
+  "date": "2026-11-02",
+  "hash": "b3825f9668a13d23ed09de004bde2e466bb9c3d0"
  },
  "/longhand/do-you-need-a-tagline": {
   "date": "2026-10-29",
   "hash": "4fbc636f14c20c1e76ba5b281a1493e83ece9aa2"
  },
  "/longhand/email-subject-lines": {
-  "date": "2026-10-30",
-  "hash": "2f2c56ed73bfd00d876c7d0d3cc87907edbb664a"
+  "date": "2026-11-02",
+  "hash": "62f32a6f469872197014cf712c99c8b9817e941a"
+ },
+ "/longhand/event-invitation": {
+  "date": "2026-11-02",
+  "hash": "309edea57a0506bd7d3a2e235a14b9786cfc0812"
  },
  "/longhand/google-business-profile-description": {
   "date": "2026-10-30",
@@ -92,8 +100,8 @@
   "hash": "a5f2839e2b7ab6d74a79bc46fd9786f12da0b630"
  },
  "/longhand/how-to-ask-for-a-testimonial": {
-  "date": "2026-10-29",
-  "hash": "6094f780e1f3783d0f73216dcdb23fffad31f664"
+  "date": "2026-11-02",
+  "hash": "c7bad76f679a99fb006fab60ddeebfe9b23a35ab"
  },
  "/longhand/how-to-brief-a-writer": {
   "date": "2026-10-29",
@@ -108,8 +116,8 @@
   "hash": "1608415fe4fe0d88a71114b10b744442fa3f31ca"
  },
  "/longhand/how-to-write-a-job-post": {
-  "date": "2026-10-29",
-  "hash": "a461e02bc62e0d33d4a777f824546454aa6d061c"
+  "date": "2026-11-02",
+  "hash": "9c0fbe0559b81452dd4e5f2e73c18c15e19e1c9e"
  },
  "/longhand/how-to-write-a-product-description": {
   "date": "2026-10-29",
@@ -120,52 +128,56 @@
   "hash": "ead7a35ddb473849d011bac5a4be653e6028db19"
  },
  "/longhand/how-to-write-an-faq-page": {
-  "date": "2026-10-30",
-  "hash": "e089368f7d174ae6d0d8b840f576b14e22072862"
+  "date": "2026-11-02",
+  "hash": "9cac67480c900123c9ff22388b6326e69ebd851d"
  },
  "/longhand/nine-words-indian-brands-overuse": {
-  "date": "2026-10-29",
-  "hash": "cf94686879a0e402d78415143942169dd6638742"
+  "date": "2026-11-02",
+  "hash": "a0a3a9d9517cc119726e50509ddb7a7ca9682c23"
  },
  "/longhand/price-increase-message": {
-  "date": "2026-10-30",
-  "hash": "93e03353433d6b7af5eeb6988b74a78e86a821da"
+  "date": "2026-11-02",
+  "hash": "1f3bc607b6bd6b4b00509556021db494e229f677"
  },
  "/longhand/should-your-website-show-prices": {
   "date": "2026-10-29",
   "hash": "40bfdcfeee73f4c6d606fef57b9635848eac2e90"
  },
  "/longhand/what-a-linkedin-ghostwriter-does": {
-  "date": "2026-10-29",
-  "hash": "9f5e8545dc0335e4fb4ba286a1f5cddd1ad7b5aa"
+  "date": "2026-11-02",
+  "hash": "dcc5bfd65702146a461ebd0746df1eee3b2e6b35"
  },
  "/longhand/what-a-website-costs-in-india": {
   "date": "2026-10-29",
   "hash": "8c615f558547ec381e8ea53cf1eead39a413496f"
  },
  "/longhand/what-content-writing-costs-in-india": {
-  "date": "2026-10-29",
-  "hash": "f8d83b8667b74400e610f3f602fc126af2be74fc"
+  "date": "2026-11-02",
+  "hash": "ec72d6c474ed8a178339d2e409d03125ac7ac201"
  },
  "/longhand/what-is-brand-voice": {
   "date": "2026-10-29",
   "hash": "e4471270047cb2bef205f9b4e83e59c302c3f44c"
  },
  "/longhand/whatsapp-broadcast-messages": {
-  "date": "2026-10-29",
-  "hash": "019abe5455ef2ba23e8a914ee8077e3d3b227c6b"
+  "date": "2026-11-02",
+  "hash": "a50d8966502363f04dbb0e347e7672bacadc3b0b"
+ },
+ "/longhand/whatsapp-business-away-message": {
+  "date": "2026-11-02",
+  "hash": "cd68df84b9e159d75307efa7f6bd7fcac917989e"
  },
  "/longhand/writing-a-hoarding": {
   "date": "2026-10-29",
   "hash": "99410688e78b3ab4c11ac3b817f0fa448722dde6"
  },
  "/longhand/writing-a-menu": {
-  "date": "2026-10-30",
-  "hash": "acdbe7c61114a262fbbbff8459d3a07fe8032dca"
+  "date": "2026-11-02",
+  "hash": "1929a3bd87d130490951956ec125ddf29f040752"
  },
  "/longhand/writing-for-doctors-lawyers-and-cas": {
-  "date": "2026-10-30",
-  "hash": "002e86789717aa68a67ad4c9ce2149b4d52cb1ef"
+  "date": "2026-11-02",
+  "hash": "6f4825e40905515bf1ed15b06ec41c0d783c1d14"
  },
  "/self-published": {
   "date": "2026-10-29",
