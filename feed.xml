@@ -6,7 +6,14 @@
   <atom:link href="https://www.thedrytextco.in/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Writing about writing, from a content agency in Ahmedabad. A new piece most mornings.</description>
   <language>en-IN</language>
-  <lastBuildDate>Mon, 02 Nov 2026 09:04:00 +0530</lastBuildDate>
+  <lastBuildDate>Thu, 05 Nov 2026 09:04:00 +0530</lastBuildDate>
+  <item>
+    <title>The line under your name on LinkedIn: what a founder's headline should say</title>
+    <link>https://www.thedrytextco.in/longhand/linkedin-headline</link>
+    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/linkedin-headline</guid>
+    <description>The line under your name is read more than any post. What a founder's headline should say.</description>
+    <pubDate>Thu, 05 Nov 2026 09:04:00 +0530</pubDate>
+  </item>
   <item>
     <title>The WhatsApp away message, and quick replies that don't sound like a machine</title>
     <link>https://www.thedrytextco.in/longhand/whatsapp-business-away-message</link>
@@ -174,13 +181,6 @@
     <guid isPermaLink="true">https://www.thedrytextco.in/longhand/cold-mail-first-line</guid>
     <description>The first line shows in the inbox before anyone opens the mail. What it has to do, and what wastes it.</description>
     <pubDate>Sat, 10 Oct 2026 09:04:00 +0530</pubDate>
-  </item>
-  <item>
-    <title>How to ask a customer for a testimonial you can actually use</title>
-    <link>https://www.thedrytextco.in/longhand/how-to-ask-for-a-testimonial</link>
-    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/how-to-ask-for-a-testimonial</guid>
-    <description>Most testimonials persuade nobody. The four questions to ask a customer instead, and when.</description>
-    <pubDate>Fri, 09 Oct 2026 09:04:00 +0530</pubDate>
   </item>
 </channel>
 </rss>
