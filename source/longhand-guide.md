@@ -124,7 +124,7 @@ website costs; nine overused words.
 - [x] The line under your name on LinkedIn: what a founder's headline should say (ghostwriting) (5 November 2026)
 - [x] Writing a Reel script: the first two seconds, and what to say in the rest (social) (6 November 2026)
 - [x] Naming your service packages so customers can tell them apart (website copy) (7 November 2026)
-- [ ] Writing an apology to a customer when you got it wrong (words)
+- [x] Writing an apology to a customer when you got it wrong (words) (8 November 2026)
 - [ ] Following up on a quote after the silence, without sounding desperate (words)
 - [ ] Replying to Google reviews, the kind ones and the angry ones (words)
 - [ ] The service page: what to put on it when everyone offers the same service (website copy)
