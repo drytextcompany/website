@@ -6,7 +6,28 @@
   <atom:link href="https://www.thedrytextco.in/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Writing about writing, from a content agency in Ahmedabad. A new piece most mornings.</description>
   <language>en-IN</language>
-  <lastBuildDate>Thu, 05 Nov 2026 09:04:00 +0530</lastBuildDate>
+  <lastBuildDate>Sun, 08 Nov 2026 09:04:00 +0530</lastBuildDate>
+  <item>
+    <title>Writing an apology to a customer when you got it wrong</title>
+    <link>https://www.thedrytextco.in/longhand/apology-to-a-customer</link>
+    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/apology-to-a-customer</guid>
+    <description>Most business apologies regret the inconvenience and skip the mistake. How to write one that names it.</description>
+    <pubDate>Sun, 08 Nov 2026 09:04:00 +0530</pubDate>
+  </item>
+  <item>
+    <title>Naming your service packages so customers can tell them apart</title>
+    <link>https://www.thedrytextco.in/longhand/naming-service-packages</link>
+    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/naming-service-packages</guid>
+    <description>Silver, Gold and Platinum only tell a customer the price order. How to name packages that explain themselves.</description>
+    <pubDate>Sat, 07 Nov 2026 09:04:00 +0530</pubDate>
+  </item>
+  <item>
+    <title>Writing a Reel script: the first two seconds, and what to say in the rest</title>
+    <link>https://www.thedrytextco.in/longhand/reel-script</link>
+    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/reel-script</guid>
+    <description>Most Reels are scrolled past before the logo appears. How to write the first two seconds, and the rest.</description>
+    <pubDate>Fri, 06 Nov 2026 09:04:00 +0530</pubDate>
+  </item>
   <item>
     <title>The line under your name on LinkedIn: what a founder's headline should say</title>
     <link>https://www.thedrytextco.in/longhand/linkedin-headline</link>
@@ -160,27 +181,6 @@
     <guid isPermaLink="true">https://www.thedrytextco.in/longhand/how-to-write-an-faq-page</guid>
     <description>Most FAQ pages answer questions nobody asked. Where the real ones are, and how to answer them in one line.</description>
     <pubDate>Tue, 13 Oct 2026 09:04:00 +0530</pubDate>
-  </item>
-  <item>
-    <title>Hinglish in brand copy: when it works and when it's a costume</title>
-    <link>https://www.thedrytextco.in/longhand/hinglish-in-brand-copy</link>
-    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/hinglish-in-brand-copy</guid>
-    <description>Hinglish works when it is how your customer talks, and reads like a costume when it isn't. Three tests.</description>
-    <pubDate>Mon, 12 Oct 2026 09:04:00 +0530</pubDate>
-  </item>
-  <item>
-    <title>Do you need a tagline?</title>
-    <link>https://www.thedrytextco.in/longhand/do-you-need-a-tagline</link>
-    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/do-you-need-a-tagline</guid>
-    <description>The line people ask for first and need last. When a tagline earns its place, and what to write before it.</description>
-    <pubDate>Sun, 11 Oct 2026 09:04:00 +0530</pubDate>
-  </item>
-  <item>
-    <title>The cold mail first line: what to write before they delete</title>
-    <link>https://www.thedrytextco.in/longhand/cold-mail-first-line</link>
-    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/cold-mail-first-line</guid>
-    <description>The first line shows in the inbox before anyone opens the mail. What it has to do, and what wastes it.</description>
-    <pubDate>Sat, 10 Oct 2026 09:04:00 +0530</pubDate>
   </item>
 </channel>
 </rss>
