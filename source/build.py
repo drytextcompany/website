@@ -40,7 +40,7 @@ PAGES = {
     "work": dict(
         file="work.html", path="/work", crumb="Work",
         title="Our work | The Dry Text Co., content writers in Ahmedabad",
-        desc="LinkedIn posts, outreach mails, a newspaper concept and 27 cold mails: the words we have written for brands, and the ones we wrote to get in the door.",
+        desc="Websites, LinkedIn posts, outreach mails, a newspaper concept and 27 cold mails: what we have written and built for brands, and the mails we wrote to get in the door.",
     ),
     "services": dict(
         file="services.html", path="/services", crumb="Services",
