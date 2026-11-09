@@ -2,6 +2,7 @@
 /source
 /logo
 /README.md
+/docs
 /.gitignore
 
 # bookkeeping the build reads, not pages the site serves
