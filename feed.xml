@@ -6,7 +6,14 @@
   <atom:link href="https://www.thedrytextco.in/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Writing about writing, from a content agency in Ahmedabad. A new piece most mornings.</description>
   <language>en-IN</language>
-  <lastBuildDate>Sun, 08 Nov 2026 09:04:00 +0530</lastBuildDate>
+  <lastBuildDate>Wed, 11 Nov 2026 09:04:00 +0530</lastBuildDate>
+  <item>
+    <title>Following up on a quote after the silence, without sounding desperate</title>
+    <link>https://www.thedrytextco.in/longhand/following-up-on-a-quote</link>
+    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/following-up-on-a-quote</guid>
+    <description>The quote went out and the client went quiet. How to follow up with something they can actually reply to.</description>
+    <pubDate>Wed, 11 Nov 2026 09:04:00 +0530</pubDate>
+  </item>
   <item>
     <title>Writing an apology to a customer when you got it wrong</title>
     <link>https://www.thedrytextco.in/longhand/apology-to-a-customer</link>
@@ -174,13 +181,6 @@
     <guid isPermaLink="true">https://www.thedrytextco.in/longhand/how-to-write-a-product-description</guid>
     <description>Most product pages say premium quality and stop. How to answer the doubts a photo can't.</description>
     <pubDate>Fri, 16 Oct 2026 09:04:00 +0530</pubDate>
-  </item>
-  <item>
-    <title>Exclamation marks, and other ways copy sounds nervous</title>
-    <link>https://www.thedrytextco.in/longhand/copy-that-sounds-nervous</link>
-    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/copy-that-sounds-nervous</guid>
-    <description>Exclamation marks, apologies and hedges make a business sound unsure. How to spot them, and a ten-minute fix.</description>
-    <pubDate>Thu, 15 Oct 2026 09:04:00 +0530</pubDate>
   </item>
 </channel>
 </rss>
