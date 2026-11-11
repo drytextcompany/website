@@ -129,7 +129,7 @@ website costs; nine overused words.
 - [x] Replying to Google reviews, the kind ones and the angry ones (words) (3 November 2026)
 - [x] The service page: what to put on it when everyone offers the same service (website copy) (4 November 2026)
 - [x] The cover note on a quotation: the lines above the price (words) (13 November 2026)
-- [ ] A founder's LinkedIn post when there is nothing to announce (ghostwriting)
+- [x] A founder's LinkedIn post when there is nothing to announce (ghostwriting) (15 November 2026)
 - [ ] Payment reminders that get the invoice paid without souring the client (words)
 - [ ] Writing a press release a local reporter will actually use (words)
 - [ ] The sale post: announcing a discount without "hurry, limited period" (social)
