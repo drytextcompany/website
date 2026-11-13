@@ -6,7 +6,14 @@
   <atom:link href="https://www.thedrytextco.in/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Writing about writing, from a content agency in Ahmedabad. A new piece most mornings.</description>
   <language>en-IN</language>
-  <lastBuildDate>Wed, 11 Nov 2026 09:04:00 +0530</lastBuildDate>
+  <lastBuildDate>Fri, 13 Nov 2026 09:04:00 +0530</lastBuildDate>
+  <item>
+    <title>The cover note on a quotation: the lines above the price</title>
+    <link>https://www.thedrytextco.in/longhand/quotation-cover-note</link>
+    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/quotation-cover-note</guid>
+    <description>Most quotes open with "we are pleased to submit". What to write above the price so the number makes sense.</description>
+    <pubDate>Fri, 13 Nov 2026 09:04:00 +0530</pubDate>
+  </item>
   <item>
     <title>Following up on a quote after the silence, without sounding desperate</title>
     <link>https://www.thedrytextco.in/longhand/following-up-on-a-quote</link>
@@ -174,13 +181,6 @@
     <guid isPermaLink="true">https://www.thedrytextco.in/longhand/how-many-revisions</guid>
     <description>Two rounds of revisions means nothing until someone says what a round is. How to agree on one.</description>
     <pubDate>Sat, 17 Oct 2026 09:04:00 +0530</pubDate>
-  </item>
-  <item>
-    <title>Writing a product description for an Indian D2C brand</title>
-    <link>https://www.thedrytextco.in/longhand/how-to-write-a-product-description</link>
-    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/how-to-write-a-product-description</guid>
-    <description>Most product pages say premium quality and stop. How to answer the doubts a photo can't.</description>
-    <pubDate>Fri, 16 Oct 2026 09:04:00 +0530</pubDate>
   </item>
 </channel>
 </rss>
