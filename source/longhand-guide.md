@@ -131,7 +131,7 @@ website costs; nine overused words.
 - [x] The cover note on a quotation: the lines above the price (words) (13 November 2026)
 - [x] A founder's LinkedIn post when there is nothing to announce (ghostwriting) (15 November 2026)
 - [x] Payment reminders that get the invoice paid without souring the client (words) (16 November 2026)
-- [ ] Writing a press release a local reporter will actually use (words)
+- [x] Writing a press release a local reporter will actually use (words) (17 November 2026)
 - [ ] The sale post: announcing a discount without "hurry, limited period" (social)
 - [ ] The WhatsApp catalogue: product names and the two lines under each (website copy)
 - [ ] The founder bio for a speaker introduction, a panel or a press note (words)
