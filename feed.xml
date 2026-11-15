@@ -6,7 +6,21 @@
   <atom:link href="https://www.thedrytextco.in/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Writing about writing, from a content agency in Ahmedabad. A new piece most mornings.</description>
   <language>en-IN</language>
-  <lastBuildDate>Fri, 13 Nov 2026 09:04:00 +0530</lastBuildDate>
+  <lastBuildDate>Mon, 16 Nov 2026 09:04:00 +0530</lastBuildDate>
+  <item>
+    <title>Payment reminders that get the invoice paid without souring the client</title>
+    <link>https://www.thedrytextco.in/longhand/payment-reminder</link>
+    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/payment-reminder</guid>
+    <description>Most payment reminders grovel or threaten. How to write one that gets the invoice paid and keeps the client.</description>
+    <pubDate>Mon, 16 Nov 2026 09:04:00 +0530</pubDate>
+  </item>
+  <item>
+    <title>A founder's LinkedIn post when there is nothing to announce</title>
+    <link>https://www.thedrytextco.in/longhand/linkedin-post-nothing-to-announce</link>
+    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/linkedin-post-nothing-to-announce</guid>
+    <description>No launch, no award, no hire. Where a founder finds a post in a normal week, and how to write it.</description>
+    <pubDate>Sun, 15 Nov 2026 09:04:00 +0530</pubDate>
+  </item>
   <item>
     <title>The cover note on a quotation: the lines above the price</title>
     <link>https://www.thedrytextco.in/longhand/quotation-cover-note</link>
@@ -167,20 +181,6 @@
     <guid isPermaLink="true">https://www.thedrytextco.in/longhand/writing-a-hoarding</guid>
     <description>A hoarding gets one glance from someone driving at sixty. Seven words is plenty. Here is what to cut.</description>
     <pubDate>Mon, 19 Oct 2026 09:04:00 +0530</pubDate>
-  </item>
-  <item>
-    <title>Email subject lines that get opened without lying</title>
-    <link>https://www.thedrytextco.in/longhand/email-subject-lines</link>
-    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/email-subject-lines</guid>
-    <description>Fake Re:, false Urgent, a quick question that isn't. How to get the open without the small lie.</description>
-    <pubDate>Sun, 18 Oct 2026 09:04:00 +0530</pubDate>
-  </item>
-  <item>
-    <title>How many revisions a writer should include, and what counts as one</title>
-    <link>https://www.thedrytextco.in/longhand/how-many-revisions</link>
-    <guid isPermaLink="true">https://www.thedrytextco.in/longhand/how-many-revisions</guid>
-    <description>Two rounds of revisions means nothing until someone says what a round is. How to agree on one.</description>
-    <pubDate>Sat, 17 Oct 2026 09:04:00 +0530</pubDate>
   </item>
 </channel>
 </rss>
