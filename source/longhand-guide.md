@@ -133,7 +133,7 @@ website costs; nine overused words.
 - [x] Payment reminders that get the invoice paid without souring the client (words) (16 November 2026)
 - [x] Writing a press release a local reporter will actually use (words) (17 November 2026)
 - [x] The sale post: announcing a discount without "hurry, limited period" (social) (19 November 2026)
-- [ ] The WhatsApp catalogue: product names and the two lines under each (website copy)
+- [x] The WhatsApp catalogue: product names and the two lines under each (website copy) (23 November 2026)
 - [ ] The founder bio for a speaker introduction, a panel or a press note (words)
 - [ ] The Instagram bio: 150 characters that say what you sell and where (social)
 - [ ] Asking a happy client for a referral without making it awkward (words)
